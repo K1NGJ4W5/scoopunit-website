@@ -36,7 +36,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
-    "quickbooks-v3": "^2.0.4"
+    "node-quickbooks": "^2.0.22"
   },
   "devDependencies": {
     "nodemon": "^3.0.1",

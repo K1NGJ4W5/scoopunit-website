@@ -47,6 +47,109 @@
     --transition-slow: 0.5s ease-out;
 }
 
+/* Login Portal Styles */
+.apple-section-centered {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) var(--spacing-sm);
+}
+
+.apple-login-container {
+    max-width: 480px;
+    width: 100%;
+}
+
+.apple-card-login {
+    background: var(--apple-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-medium);
+    margin: var(--spacing-lg) 0;
+}
+
+.apple-form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.apple-form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--apple-black);
+    margin-bottom: var(--spacing-xs);
+}
+
+.apple-form-input {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 2px solid var(--apple-gray-light);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-family: var(--apple-font);
+    transition: border-color var(--transition-fast);
+    box-sizing: border-box;
+}
+
+.apple-form-input:focus {
+    outline: none;
+    border-color: var(--apple-blue);
+}
+
+.apple-btn-full {
+    width: 100%;
+    margin: var(--spacing-md) 0;
+}
+
+.apple-form-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.apple-link {
+    color: var(--apple-blue);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color var(--transition-fast);
+}
+
+.apple-link:hover {
+    color: var(--apple-blue-dark);
+    text-decoration: underline;
+}
+
+.apple-nav-active {
+    color: var(--apple-blue) !important;
+    font-weight: 500;
+}
+
+.apple-feature {
+    text-align: center;
+    padding: var(--spacing-md);
+}
+
+.apple-feature-icon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.apple-feature-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--apple-black);
+    margin-bottom: var(--spacing-xs);
+}
+
+.apple-feature-description {
+    font-size: 14px;
+    color: var(--apple-gray-dark);
+    line-height: 1.5;
+}
+
 /* Reset and Base Styles */
 * {
     box-sizing: border-box;

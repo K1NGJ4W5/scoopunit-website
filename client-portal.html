@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal - Scoop Unit</title>
+    <meta name="description" content="Access your Scoop Unit client portal to manage your dog waste removal service, view schedules, and handle billing.">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link rel="stylesheet" href="apple-inspired-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Apple-Inspired Navigation -->
+    <nav class="apple-nav">
+        <div class="apple-nav-container">
+            <a href="index.html" class="apple-nav-logo">
+                <img src="images/scoopunitlogo.jpg" alt="Scoop Unit Logo" loading="lazy">
+                Scoop Unit
+            </a>
+            
+            <ul class="apple-nav-menu">
+                <li class="apple-nav-item"><a href="services.html" class="apple-nav-link">Services</a></li>
+                <li class="apple-nav-item"><a href="service-areas.html" class="apple-nav-link">Areas</a></li>
+                <li class="apple-nav-item"><a href="about.html" class="apple-nav-link">About</a></li>
+                <li class="apple-nav-item"><a href="faq.html" class="apple-nav-link">FAQ</a></li>
+                <li class="apple-nav-item"><a href="#contact" class="apple-nav-link">Contact</a></li>
+                <li class="apple-nav-item"><a href="client-portal.html" class="apple-nav-link apple-nav-active">Client Portal</a></li>
+                <li class="apple-nav-item"><a href="employee-portal.html" class="apple-nav-link">Employee Portal</a></li>
+            </ul>
+            
+            <a href="index.html#estimate" class="apple-btn apple-btn-primary">Get Quote</a>
+        </div>
+    </nav>
+
+    <!-- Client Portal Login Section -->
+    <section class="apple-section apple-section-centered">
+        <div class="apple-container">
+            <div class="apple-login-container">
+                <div class="apple-section-header apple-text-center">
+                    <h1 class="apple-section-title">Client Portal</h1>
+                    <p class="apple-section-subtitle">Access your account to manage your service, view schedules, and handle billing</p>
+                </div>
+
+                <!-- Login Form -->
+                <div class="apple-card apple-card-login">
+                    <form id="clientLoginForm" class="apple-form">
+                        <div class="apple-form-group">
+                            <label for="email" class="apple-form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="apple-form-input" required>
+                        </div>
+                        
+                        <div class="apple-form-group">
+                            <label for="password" class="apple-form-label">Password</label>
+                            <input type="password" id="password" name="password" class="apple-form-input" required>
+                        </div>
+                        
+                        <button type="submit" class="apple-btn apple-btn-primary apple-btn-full">Sign In</button>
+                        
+                        <div class="apple-form-links">
+                            <a href="#forgot-password" class="apple-link">Forgot Password?</a>
+                            <a href="#register" class="apple-link">Need an Account? Sign Up</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Features Preview -->
+                <div class="apple-grid apple-grid-3 apple-mt-xl">
+                    <div class="apple-feature">
+                        <div class="apple-feature-icon">📅</div>
+                        <h3 class="apple-feature-title">View Schedule</h3>
+                        <p class="apple-feature-description">See upcoming service dates and track completion status</p>
+                    </div>
+                    
+                    <div class="apple-feature">
+                        <div class="apple-feature-icon">💳</div>
+                        <h3 class="apple-feature-title">Manage Billing</h3>
+                        <p class="apple-feature-description">Update payment methods and view billing history</p>
+                    </div>
+                    
+                    <div class="apple-feature">
+                        <div class="apple-feature-icon">📞</div>
+                        <h3 class="apple-feature-title">Service Support</h3>
+                        <p class="apple-feature-description">Request schedule changes or contact your service tech</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const API_BASE_URL = 'https://backend-4fvyi3zqn-jaws11.vercel.app/api';
+        
+        document.getElementById('clientLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const credentials = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(credentials)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.token) {
+                    localStorage.setItem('client_token', data.token);
+                    localStorage.setItem('user_type', 'client');
+                    window.location.href = 'client-dashboard.html';
+                } else {
+                    alert(data.error || 'Login failed. Please check your credentials.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Connection error. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Portal - Scoop Unit</title>
+    <meta name="description" content="Access your Scoop Unit employee portal to manage routes, view schedules, and track job completion.">
+    
+    <link rel="stylesheet" href="modern-styles.css">
+    <link rel="stylesheet" href="apple-inspired-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Apple-Inspired Navigation -->
+    <nav class="apple-nav">
+        <div class="apple-nav-container">
+            <a href="index.html" class="apple-nav-logo">
+                <img src="images/scoopunitlogo.jpg" alt="Scoop Unit Logo" loading="lazy">
+                Scoop Unit
+            </a>
+            
+            <ul class="apple-nav-menu">
+                <li class="apple-nav-item"><a href="services.html" class="apple-nav-link">Services</a></li>
+                <li class="apple-nav-item"><a href="service-areas.html" class="apple-nav-link">Areas</a></li>
+                <li class="apple-nav-item"><a href="about.html" class="apple-nav-link">About</a></li>
+                <li class="apple-nav-item"><a href="faq.html" class="apple-nav-link">FAQ</a></li>
+                <li class="apple-nav-item"><a href="#contact" class="apple-nav-link">Contact</a></li>
+                <li class="apple-nav-item"><a href="client-portal.html" class="apple-nav-link">Client Portal</a></li>
+                <li class="apple-nav-item"><a href="employee-portal.html" class="apple-nav-link apple-nav-active">Employee Portal</a></li>
+            </ul>
+            
+            <a href="index.html#estimate" class="apple-btn apple-btn-primary">Get Quote</a>
+        </div>
+    </nav>
+
+    <!-- Employee Portal Login Section -->
+    <section class="apple-section apple-section-centered">
+        <div class="apple-container">
+            <div class="apple-login-container">
+                <div class="apple-section-header apple-text-center">
+                    <h1 class="apple-section-title">Employee Portal</h1>
+                    <p class="apple-section-subtitle">Access your work dashboard to manage routes, schedules, and job tracking</p>
+                </div>
+
+                <!-- Login Form -->
+                <div class="apple-card apple-card-login">
+                    <form id="employeeLoginForm" class="apple-form">
+                        <div class="apple-form-group">
+                            <label for="employee_id" class="apple-form-label">Employee ID</label>
+                            <input type="text" id="employee_id" name="employee_id" class="apple-form-input" required>
+                        </div>
+                        
+                        <div class="apple-form-group">
+                            <label for="password" class="apple-form-label">Password</label>
+                            <input type="password" id="password" name="password" class="apple-form-input" required>
+                        </div>
+                        
+                        <button type="submit" class="apple-btn apple-btn-primary apple-btn-full">Clock In</button>
+                        
+                        <div class="apple-form-links">
+                            <a href="#forgot-password" class="apple-link">Forgot Password?</a>
+                            <a href="mailto:hr@scoopunit.com" class="apple-link">Need Help? Contact HR</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Employee Features Preview -->
+                <div class="apple-grid apple-grid-3 apple-mt-xl">
+                    <div class="apple-feature">
+                        <div class="apple-feature-icon">🗺️</div>
+                        <h3 class="apple-feature-title">Route Management</h3>
+                        <p class="apple-feature-description">View optimized daily routes and customer locations</p>
+                    </div>
+                    
+                    <div class="apple-feature">
+                        <div class="apple-feature-icon">📱</div>
+                        <h3 class="apple-feature-title">Mobile App</h3>
+                        <p class="apple-feature-description">Track completion, upload photos, and GPS location</p>
+                    </div>
+                    
+                    <div class="apple-feature">
+                        <div class="apple-feature-icon">💰</div>
+                        <h3 class="apple-feature-title">Payroll & Hours</h3>
+                        <p class="apple-feature-description">View timesheet, completed jobs, and earnings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const API_BASE_URL = 'https://backend-4fvyi3zqn-jaws11.vercel.app/api';
+        
+        document.getElementById('employeeLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const credentials = {
+                employee_id: formData.get('employee_id'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/auth/employee-login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(credentials)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.token) {
+                    localStorage.setItem('employee_token', data.token);
+                    localStorage.setItem('user_type', 'employee');
+                    localStorage.setItem('employee_id', credentials.employee_id);
+                    window.location.href = 'employee-dashboard.html';
+                } else {
+                    alert(data.error || 'Login failed. Please check your Employee ID and password.');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Connection error. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>
