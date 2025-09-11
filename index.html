@@ -88,18 +88,36 @@
                 <span class="logo-text">Scoop Unit</span>
             </a>
             
-            <ul class="apple-nav-menu">
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="apple-nav-menu" id="nav-menu">
                 <li class="apple-nav-item"><a href="services.html" class="apple-nav-link">Services</a></li>
                 <li class="apple-nav-item"><a href="service-areas.html" class="apple-nav-link">Areas</a></li>
                 <li class="apple-nav-item"><a href="about.html" class="apple-nav-link">About</a></li>
                 <li class="apple-nav-item"><a href="faq.html" class="apple-nav-link">FAQ</a></li>
                 <li class="apple-nav-item"><a href="#contact" class="apple-nav-link">Contact</a></li>
-                <li class="apple-nav-item"><a href="client-portal.html" class="apple-nav-link">Login</a></li>
+                <li class="apple-nav-item"><a href="client-portal.html" class="apple-nav-link">Client Login</a></li>
+                <li class="apple-nav-item mobile-cta-item">
+                    <a href="#estimate" class="apple-btn apple-btn-primary mobile-cta-btn">Get FREE Quote</a>
+                </li>
             </ul>
             
-            <a href="#estimate" class="apple-btn apple-btn-primary">Get Quote</a>
+            <a href="#estimate" class="apple-btn apple-btn-primary desktop-cta">Get Quote</a>
         </div>
     </nav>
+
+    <!-- Mobile Sticky CTA Bar -->
+    <div class="mobile-sticky-cta" id="mobile-sticky-cta">
+        <a href="#estimate" class="mobile-sticky-btn">
+            <span class="mobile-sticky-text">Get FREE Quote</span>
+            <span class="mobile-sticky-icon">→</span>
+        </a>
+    </div>
 
     <!-- Apple-Inspired Hero Section -->
     <section class="apple-hero">
@@ -131,8 +149,8 @@
             
             <!-- Primary CTA -->
             <div class="apple-hero-cta">
-                <a href="#estimate" class="apple-btn apple-btn-primary apple-btn-large">FREE 1 Min Quote</a>
-                <p class="apple-caption apple-mt-sm">No commitment • Instant pricing • 7 cities served</p>
+                <a href="#estimate" class="apple-btn apple-btn-primary apple-btn-large mobile-hero-cta">Get Your FREE Quote Now</a>
+                <p class="apple-caption apple-mt-sm mobile-caption">No commitment • Instant pricing • 7 cities served</p>
             </div>
         </div>
     </section>
@@ -734,7 +752,55 @@
         // Mobile menu toggle
         document.getElementById('nav-toggle').addEventListener('click', function() {
             const navMenu = document.getElementById('nav-menu');
+            const toggleButton = document.getElementById('nav-toggle');
+            
             navMenu.classList.toggle('active');
+            toggleButton.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.apple-nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const navMenu = document.getElementById('nav-menu');
+                const toggleButton = document.getElementById('nav-toggle');
+                
+                navMenu.classList.remove('active');
+                toggleButton.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Mobile sticky CTA visibility control
+        let lastScrollTop = 0;
+        const stickyCTA = document.getElementById('mobile-sticky-cta');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const heroSection = document.querySelector('.apple-hero');
+            const heroHeight = heroSection ? heroSection.offsetHeight : 800;
+            
+            // Show sticky CTA after scrolling past hero on mobile
+            if (window.innerWidth <= 768) {
+                if (scrollTop > heroHeight && scrollTop > lastScrollTop) {
+                    // Scrolling down past hero
+                    stickyCTA.classList.add('visible');
+                } else if (scrollTop < 100) {
+                    // Near top of page
+                    stickyCTA.classList.remove('visible');
+                }
+            } else {
+                // Hide on desktop
+                stickyCTA.classList.remove('visible');
+            }
+            
+            lastScrollTop = scrollTop;
         });
 
         // Smooth scrolling for anchor links
