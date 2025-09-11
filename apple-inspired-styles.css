@@ -207,6 +207,22 @@
     opacity: 0.9;
 }
 
+.showcase-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.overlay-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4px;
+}
+
 /* Military & First Responder Section */
 .apple-military-section {
     display: grid;
@@ -266,6 +282,55 @@
         gap: var(--spacing-lg);
         text-align: center;
     }
+}
+
+/* Logo and Branding Enhancements */
+.apple-nav-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    text-decoration: none;
+    color: var(--apple-black);
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.apple-nav-logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+}
+
+.logo-text {
+    font-weight: 700;
+    color: var(--apple-black);
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.footer-logo img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+}
+
+.footer-logo .logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--apple-black);
+}
+
+/* Image optimization for better loading */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Reset and Base Styles */
