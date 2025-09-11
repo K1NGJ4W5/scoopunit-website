@@ -1,0 +1,25 @@
+{
+  "name": "scoopunit-website",
+  "version": "2.0.0",
+  "description": "Apple-inspired dog waste removal website with conversion optimization",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static site - no build step required'",
+    "start": "python -m http.server 8000"
+  },
+  "keywords": [
+    "dog-waste-removal",
+    "pooper-scooper",
+    "florida-panhandle",
+    "apple-design",
+    "conversion-optimization"
+  ],
+  "author": "Scoop Unit",
+  "license": "MIT",
+  "homepage": "https://scoopunit.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/K1NGJ4W5/scoopunit-website.git"
+  }
+}
