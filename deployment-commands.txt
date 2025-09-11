@@ -1,0 +1,14 @@
+# Vercel Deployment Commands
+# Run these commands if using CLI approach:
+
+# 1. Login to Vercel (this will open browser)
+npx vercel login
+
+# 2. Deploy to production
+npx vercel --prod
+
+# 3. Add custom domain (after deployment)
+npx vercel domains add scoopunit.com
+npx vercel domains add www.scoopunit.com
+
+# Alternative: Use GitHub integration at vercel.com/dashboard

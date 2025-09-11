@@ -1,0 +1,47 @@
+# Robots.txt for Scoop Unit - Professional Dog Waste Removal
+# Allow all search engines to crawl the site for maximum SEO visibility
+
+User-agent: *
+Allow: /
+
+# Important pages for search engines
+Allow: /index.html
+Allow: /services.html
+Allow: /service-areas.html
+Allow: /features.html
+Allow: /about.html
+Allow: /faq.html
+Allow: /blog.html
+Allow: /sitemap.html
+
+# City-specific landing pages for local SEO
+Allow: /crestview.html
+Allow: /destin.html
+Allow: /pensacola.html
+Allow: /niceville.html
+Allow: /fort-walton-beach.html
+Allow: /navarre.html
+Allow: /gulf-breeze.html
+
+# Service-specific landing pages for long-tail SEO
+Allow: /weekly-dog-poop-removal.html
+Allow: /bi-weekly-pooper-scooper.html
+Allow: /one-time-cleanup.html
+Allow: /commercial-hoa-service.html
+
+# CSS and JS files for proper rendering
+Allow: /styles.css
+Allow: /script.js
+
+# Images for rich snippets
+Allow: /images/
+
+# Disallow admin or sensitive areas (none for this site)
+# Disallow: /admin/
+# Disallow: /backend/
+
+# Sitemap location for search engines
+Sitemap: https://scoopunit.com/sitemap.xml
+
+# Crawl-delay for respectful crawling (optional)
+Crawl-delay: 1
