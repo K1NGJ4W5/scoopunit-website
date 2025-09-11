@@ -1,0 +1,21 @@
+VERCEL DEPLOYMENT COMMANDS - Run these after login:
+
+1. Deploy to production:
+   vercel --prod
+
+2. When prompted, answer:
+   - Link to existing project? N (No)
+   - Project name: scoopunit-website
+   - Directory: ./ (or just press Enter)
+   - Override settings? N (No)
+
+3. Add custom domain:
+   vercel domains add scoopunit.com
+
+4. Add www domain:
+   vercel domains add www.scoopunit.com
+
+5. Test the result:
+   https://scoopunit.com (should show green lock)
+
+Expected result: Your Apple-inspired website live with proper SSL!
