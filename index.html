@@ -73,14 +73,14 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=20241201" as="style">
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201" as="image">
-    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201" as="image">
+    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v2" as="style">
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v2" as="image">
+    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v2" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201">
-    <link rel="stylesheet" href="modern-images.css?v=20241201">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v2">
+    <link rel="stylesheet" href="modern-images.css?v=20241201-v2">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -88,8 +88,40 @@
     <nav class="apple-nav">
         <div class="apple-nav-container">
             <a href="index.html" class="apple-nav-logo">
-                <img src="images/scoop-unit-header-logo.jpg?v=20241201" alt="Scoop Unit - Professional Dog Waste Removal" loading="eager">
+                <img src="images/scoop-unit-header-logo.jpg?v=20241201-v2" alt="Scoop Unit - Professional Dog Waste Removal" loading="eager" id="header-logo">
             </a>
+            
+            <!-- IMMEDIATE LOGO PROTECTION -->
+            <script>
+                (function() {
+                    const logo = document.getElementById('header-logo');
+                    if (logo) {
+                        // Lock the logo styles immediately
+                        logo.style.cssText = 'height: 42px !important; width: auto !important; opacity: 1 !important; display: block !important; visibility: visible !important; position: relative !important; z-index: 99999 !important;';
+                        
+                        // Prevent any future style changes
+                        const observer = new MutationObserver(function() {
+                            logo.style.cssText = 'height: 42px !important; width: auto !important; opacity: 1 !important; display: block !important; visibility: visible !important; position: relative !important; z-index: 99999 !important;';
+                        });
+                        observer.observe(logo, { attributes: true, attributeFilter: ['style'] });
+                        
+                        // Also prevent wrapping
+                        const parentObserver = new MutationObserver(function(mutations) {
+                            mutations.forEach(function(mutation) {
+                                if (mutation.type === 'childList') {
+                                    // If logo gets wrapped, unwrap it
+                                    const wrapper = logo.closest('.aspect-ratio-container');
+                                    if (wrapper && wrapper !== logo.parentNode.closest('.apple-nav-logo')) {
+                                        wrapper.parentNode.insertBefore(logo, wrapper);
+                                        wrapper.remove();
+                                    }
+                                }
+                            });
+                        });
+                        parentObserver.observe(logo.parentNode, { childList: true, subtree: true });
+                    }
+                })();
+            </script>
             
             <!-- Mobile menu toggle -->
             <button class="mobile-menu-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
@@ -1087,7 +1119,7 @@
     </script>
     
     <!-- Optimized scripts loading -->
-    <script src="performance-optimization.js?v=20241201" defer></script>
-    <script src="apple-interactions.js?v=20241201" defer></script>
+    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v2" defer></script> -->
+    <script src="apple-interactions.js?v=20241201-v2" defer></script>
 </body>
 </html>
