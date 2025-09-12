@@ -713,6 +713,8 @@ body {
     object-fit: contain;
     transition: transform var(--transition-fast);
     will-change: transform;
+    opacity: 1 !important;
+    display: block !important;
 }
 
 .apple-nav-logo:hover img {

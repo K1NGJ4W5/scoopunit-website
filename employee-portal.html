@@ -6,7 +6,6 @@
     <title>Employee Portal - Scoop Unit</title>
     <meta name="description" content="Access your Scoop Unit employee portal to manage routes, view schedules, and track job completion.">
     
-    <link rel="stylesheet" href="modern-styles.css">
     <link rel="stylesheet" href="apple-inspired-styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -122,6 +121,23 @@
                 alert('Connection error. Please try again.');
             }
         });
+        
+        // CRITICAL: Force header logo visibility
+        function forceLogoVisibility() {
+            const logos = document.querySelectorAll('.apple-nav-logo img, .apple-nav img, nav img');
+            logos.forEach(logo => {
+                logo.style.opacity = '1';
+                logo.style.visibility = 'visible';
+                logo.style.display = 'block';
+                logo.removeAttribute('loading');
+                logo.style.height = '42px';
+                logo.style.width = 'auto';
+            });
+        }
+        
+        forceLogoVisibility();
+        document.addEventListener('DOMContentLoaded', forceLogoVisibility);
+        window.addEventListener('load', forceLogoVisibility);
     </script>
 </body>
 </html>

@@ -10,8 +10,20 @@ img {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Header Logo Override - CRITICAL FIX */
+.apple-nav-logo img,
+.apple-nav img,
+nav img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  max-width: none !important;
+  height: 42px !important;
+  width: auto !important;
+}
+
 /* Lazy Loading Styles */
-img[loading="lazy"] {
+img[loading="lazy"]:not(.apple-nav-logo img):not(.apple-nav img):not(nav img) {
   opacity: 0;
 }
 
