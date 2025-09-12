@@ -685,6 +685,8 @@ body {
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: all var(--transition-smooth);
+    overflow: visible !important;
+    min-height: 64px;
 }
 
 .apple-nav-container {
@@ -696,25 +698,36 @@ body {
     justify-content: space-between;
     height: 64px;
     position: relative;
+    overflow: visible !important;
+    min-height: 64px;
 }
 
 .apple-nav-logo {
-    display: flex;
+    display: flex !important;
     align-items: center;
     text-decoration: none;
     color: var(--apple-black);
     font-weight: 600;
     font-size: 18px;
+    overflow: visible !important;
+    position: relative;
+    z-index: 10000;
 }
 
 .apple-nav-logo img {
-    height: 42px;
-    width: auto;
+    height: 42px !important;
+    width: auto !important;
     object-fit: contain;
     transition: transform var(--transition-fast);
     will-change: transform;
     opacity: 1 !important;
     display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 10001 !important;
+    overflow: visible !important;
+    min-width: 100px;
+    max-width: none !important;
 }
 
 .apple-nav-logo:hover img {
