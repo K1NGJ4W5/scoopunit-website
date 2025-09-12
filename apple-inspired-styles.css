@@ -83,11 +83,11 @@
 
 .hero-yard-content h1 {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 4rem;
+    font-size: clamp(1.8rem, 5vw, 4.2rem);
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    max-width: 900px;
+    max-width: min(900px, 90vw);
     margin-left: auto;
     margin-right: auto;
     color: white;
@@ -98,15 +98,16 @@
         2px 2px 0 #000,
         0 0 8px rgba(0, 0, 0, 0.8);
     letter-spacing: -0.02em;
+    transition: font-size 0.3s ease, text-shadow 0.3s ease;
 }
 
 .hero-yard-content p {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1.3rem;
+    font-size: clamp(0.95rem, 2.5vw, 1.35rem);
     font-weight: 400;
     line-height: 1.4;
     margin-bottom: 2rem;
-    max-width: 600px;
+    max-width: min(600px, 85vw);
     margin-left: auto;
     margin-right: auto;
     text-shadow: 
@@ -115,18 +116,32 @@
         -1px 1px 0 #000,
         1px 1px 0 #000,
         0 0 4px rgba(0, 0, 0, 0.7);
+    transition: font-size 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* Responsive Design for Hero Yard */
-@media (max-width: 1024px) {
+/* Responsive Design for Hero Yard - Optimized with smooth scaling */
+@media (min-width: 1200px) {
+    .hero-yard-content {
+        padding: 80px 20px 0 20px;
+    }
+    
     .hero-yard-content h1 {
-        font-size: 3.5rem;
-        max-width: 800px;
+        letter-spacing: -0.025em;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .hero-yard-content {
+        padding: 60px 20px 0 20px;
+        max-width: 750px;
+    }
+    
+    .hero-yard-content h1 {
+        line-height: 1.05;
     }
     
     .hero-yard-content p {
-        font-size: 1.2rem;
-        max-width: 550px;
+        line-height: 1.45;
     }
 }
 
@@ -138,37 +153,37 @@
     }
     
     .hero-yard-content {
-        padding: 40px 20px 0 20px;
-        max-width: 700px;
+        padding: 50px 20px 0 20px;
+        max-width: 95vw;
     }
     
     .hero-yard-content h1 {
-        font-size: 2.8rem;
-        max-width: 650px;
+        line-height: 1.1;
         margin-bottom: 1.2rem;
+        letter-spacing: -0.015em;
     }
     
     .hero-yard-content p {
-        font-size: 1.1rem;
-        max-width: 500px;
+        line-height: 1.4;
+        margin-bottom: 1.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .hero-yard {
         height: 55vh;
-        min-height: 400px;
+        min-height: 380px;
     }
     
     .hero-yard-content {
-        padding: 30px 15px 0 15px;
-        max-width: 100%;
+        padding: 40px 16px 0 16px;
+        max-width: 100vw;
     }
     
     .hero-yard-content h1 {
-        font-size: 2.2rem;
-        max-width: 100%;
+        line-height: 1.15;
         margin-bottom: 1rem;
+        letter-spacing: -0.01em;
         text-shadow: 
             -1px -1px 0 #000,
             1px -1px 0 #000,
@@ -178,19 +193,43 @@
     }
     
     .hero-yard-content p {
-        font-size: 1rem;
-        max-width: 400px;
+        line-height: 1.35;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .hero-yard-content {
+        padding: 35px 12px 0 12px;
+    }
+    
+    .hero-yard-content h1 {
+        line-height: 1.2;
+        letter-spacing: 0;
+    }
+    
+    .hero-yard-content p {
+        line-height: 1.3;
     }
 }
 
 @media (max-width: 320px) {
+    .hero-yard {
+        min-height: 360px;
+    }
+    
+    .hero-yard-content {
+        padding: 30px 10px 0 10px;
+    }
+    
     .hero-yard-content h1 {
-        font-size: 1.8rem;
+        line-height: 1.25;
+        margin-bottom: 0.8rem;
     }
     
     .hero-yard-content p {
-        font-size: 0.95rem;
-        max-width: 300px;
+        line-height: 1.3;
+        margin-bottom: 1.2rem;
     }
 }
 
