@@ -111,12 +111,13 @@
     max-width: min(600px, 85vw);
     margin-left: auto;
     margin-right: auto;
+    color: white;
     text-shadow: 
-        -1px -1px 0 #000,
-        1px -1px 0 #000,
-        -1px 1px 0 #000,
-        1px 1px 0 #000,
-        0 0 4px rgba(0, 0, 0, 0.7);
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        0 0 6px rgba(0, 0, 0, 0.8);
     transition: font-size 0.3s ease, text-shadow 0.3s ease;
 }
 
