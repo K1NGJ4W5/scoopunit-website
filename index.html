@@ -833,6 +833,23 @@
         // Run when page is fully loaded
         window.addEventListener('load', forceLogoVisibility);
         
+        // NUCLEAR: Run every 100ms for first 10 seconds to catch any style changes
+        let logoFixCount = 0;
+        const logoFixInterval = setInterval(() => {
+            forceLogoVisibility();
+            logoFixCount++;
+            if (logoFixCount >= 100) { // Stop after 10 seconds
+                clearInterval(logoFixInterval);
+            }
+        }, 100);
+        
+        // Also run on any DOM mutations
+        const observer = new MutationObserver(() => {
+            forceLogoVisibility();
+        });
+        observer.observe(document.head, { childList: true, subtree: true });
+        observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
+        
         // Mobile menu toggle
         document.getElementById('nav-toggle').addEventListener('click', function() {
             const navMenu = document.getElementById('nav-menu');

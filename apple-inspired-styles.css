@@ -714,6 +714,48 @@ body {
     z-index: 10000;
 }
 
+/* NUCLEAR APPROACH - FORCE LOGO VISIBILITY */
+.apple-nav-logo img,
+.apple-nav img,
+nav img,
+header img,
+img[src*="scoop-unit-header-logo"],
+img[alt*="Scoop Unit"] {
+    height: 42px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 99999 !important;
+    overflow: visible !important;
+    min-width: 100px !important;
+    max-width: none !important;
+    transform: none !important;
+    filter: none !important;
+    clip: none !important;
+    clip-path: none !important;
+    mask: none !important;
+    transition: none !important;
+    animation: none !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-indent: 0 !important;
+    text-align: left !important;
+    vertical-align: middle !important;
+    float: none !important;
+    clear: none !important;
+}
+
+/* Backup specific selector */
 .apple-nav-logo img {
     height: 42px !important;
     width: auto !important;
