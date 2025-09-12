@@ -22,10 +22,10 @@ nav img {
   width: auto !important;
 }
 
-/* Lazy Loading Styles */
-img[loading="lazy"]:not(.apple-nav-logo img):not(.apple-nav img):not(nav img) {
+/* Lazy Loading Styles - DISABLED TO PREVENT LOGO INTERFERENCE */
+/* img[loading="lazy"]:not(.apple-nav-logo img):not(.apple-nav img):not(nav img) {
   opacity: 0;
-}
+} */
 
 img[loading="lazy"].loaded {
   opacity: 1;

@@ -135,9 +135,11 @@ class LayoutStabilizer {
 
     stabilizeImages() {
         // Add aspect ratio containers for images to prevent layout shifts
-        const images = document.querySelectorAll('img');
+        // EXCLUDE navigation logos to prevent header issues
+        const images = document.querySelectorAll('img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not([src*="header-logo"]):not([alt*="Scoop Unit"])');
         images.forEach(img => {
-            if (!img.closest('.aspect-ratio-container')) {
+            // Double-check it's not a navigation logo
+            if (!img.closest('.apple-nav') && !img.closest('nav') && !img.closest('header') && !img.closest('.aspect-ratio-container')) {
                 this.wrapWithAspectRatio(img);
             }
         });
