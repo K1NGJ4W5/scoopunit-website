@@ -60,6 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 64px;
 }
 
 .hero-overlay {
@@ -146,10 +147,15 @@
 }
 
 @media (max-width: 768px) {
+    .apple-nav-container {
+        height: 60px;
+    }
+    
     .hero-yard {
         height: 60vh;
         min-height: 400px;
         background-attachment: scroll;
+        margin-top: 60px;
     }
     
     .hero-yard-content {
@@ -170,9 +176,14 @@
 }
 
 @media (max-width: 480px) {
+    .apple-nav-container {
+        height: 56px;
+    }
+    
     .hero-yard {
         height: 55vh;
         min-height: 380px;
+        margin-top: 56px;
     }
     
     .hero-yard-content {
@@ -214,8 +225,13 @@
 }
 
 @media (max-width: 320px) {
+    .apple-nav-container {
+        height: 52px;
+    }
+    
     .hero-yard {
         min-height: 360px;
+        margin-top: 52px;
     }
     
     .hero-yard-content {
