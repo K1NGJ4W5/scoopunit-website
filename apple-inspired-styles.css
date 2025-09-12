@@ -728,9 +728,14 @@ body {
 }
 
 .apple-nav-logo img {
-    height: 32px;
+    height: 40px;
     width: auto;
-    margin-right: var(--spacing-xs);
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+.apple-nav-logo:hover img {
+    transform: scale(1.05);
 }
 
 .apple-nav-menu {
