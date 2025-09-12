@@ -541,28 +541,7 @@
     }
 }
 
-/* Logo and Branding Enhancements */
-.apple-nav-logo {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    text-decoration: none;
-    color: var(--apple-black);
-    font-weight: 600;
-    font-size: 20px;
-}
-
-.apple-nav-logo img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-.logo-text {
-    font-weight: 700;
-    color: var(--apple-black);
-}
+/* Optimized Logo Styles - Removed Duplicate */
 
 .footer-logo {
     display: flex;
@@ -716,6 +695,7 @@ body {
     align-items: center;
     justify-content: space-between;
     height: 64px;
+    position: relative;
 }
 
 .apple-nav-logo {
@@ -728,14 +708,15 @@ body {
 }
 
 .apple-nav-logo img {
-    height: 40px;
+    height: 42px;
     width: auto;
     object-fit: contain;
-    transition: transform 0.2s ease;
+    transition: transform var(--transition-fast);
+    will-change: transform;
 }
 
 .apple-nav-logo:hover img {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .apple-nav-menu {
@@ -744,6 +725,10 @@ body {
     margin: 0;
     padding: 0;
     gap: var(--spacing-lg);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
 }
 
 .apple-nav-item {

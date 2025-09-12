@@ -70,12 +70,12 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="modern-styles.css" as="style">
-    <link rel="preload" href="images/scoopunitlogo.jpg" as="image">
+    <link rel="preload" href="apple-inspired-styles.css" as="style">
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg" as="image">
+    <link rel="preload" href="images/hero-yard-background.jpg" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="modern-styles.css">
     <link rel="stylesheet" href="apple-inspired-styles.css">
     <link rel="stylesheet" href="modern-images.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -965,29 +965,20 @@
             });
         });
 
-        // Form submission tracking
-        document.getElementById('estimateForm').addEventListener('submit', function(e) {
+        // Optimized form submission
+        document.getElementById('estimateForm')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Get form data
             const formData = new FormData(this);
-            const serviceType = formData.get('serviceType');
-            const location = formData.get('location');
-            const dogs = formData.get('dogs');
             
-            // Track with analytics if available
+            // Analytics tracking
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'estimate_request', {
                     'event_category': 'Lead Generation',
-                    'event_label': serviceType + ' - ' + location,
-                    'custom_parameter_1': serviceType,
-                    'custom_parameter_2': location,
-                    'custom_parameter_3': dogs,
+                    'event_label': `${formData.get('serviceType')} - ${formData.get('location')}`,
                     'value': 1
                 });
             }
             
-            // Show success message (replace with actual form processing)
             alert('Thank you! We\'ll contact you within 24 hours with your free estimate.');
             this.reset();
         });
@@ -1025,9 +1016,8 @@
         });
     </script>
     
-    <!-- Load performance optimization and schema markup -->
+    <!-- Optimized scripts loading -->
     <script src="performance-optimization.js" defer></script>
-    <script src="schema-markup.js" defer></script>
     <script src="apple-interactions.js" defer></script>
 </body>
 </html>
