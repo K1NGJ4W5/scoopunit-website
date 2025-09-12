@@ -47,6 +47,90 @@
     --transition-slow: 0.5s ease-out;
 }
 
+/* Hero Yard Background Section */
+.hero-yard {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    background-image: url('images/hero-yard-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-yard-content {
+    text-align: center;
+    color: white;
+    max-width: 600px;
+    padding: 0 20px;
+}
+
+.hero-yard-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-yard-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive Design for Hero Yard */
+@media (max-width: 768px) {
+    .hero-yard {
+        height: 60vh;
+        min-height: 400px;
+        background-attachment: scroll;
+    }
+    
+    .hero-yard-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-yard-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-yard {
+        height: 50vh;
+        min-height: 350px;
+    }
+    
+    .hero-yard-content h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Modern image formats support */
+.hero-yard.webp {
+    background-image: url('images/hero-yard-background.webp');
+}
+
+.hero-yard.avif {
+    background-image: url('images/hero-yard-background.avif');
+}
+
 /* Login Portal Styles */
 .apple-section-centered {
     min-height: calc(100vh - 80px);
