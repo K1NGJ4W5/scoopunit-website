@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery | Scoop Unit Professional Services</title>
+    <meta name="description" content="View our professional dog waste removal service gallery - see our team in action, service guarantees, and happy customers across Florida Panhandle.">
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Service Gallery | Scoop Unit Professional Dog Waste Removal">
+    <meta property="og:description" content="Professional service photos showcasing Scoop Unit's reliable dog waste removal across Florida Panhandle communities.">
+    <meta property="og:image" content="https://scoopunit.com/images/service-showcase.png">
+    <meta property="og:url" content="https://scoopunit.com/gallery.html">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="apple-inspired-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Image Gallery Styles */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+        
+        .gallery-item {
+            background: var(--apple-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+            transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-heavy);
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform var(--transition-smooth);
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        
+        .gallery-info {
+            padding: var(--spacing-md);
+        }
+        
+        .gallery-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--apple-black);
+        }
+        
+        .gallery-description {
+            font-size: 14px;
+            color: var(--apple-gray-dark);
+            line-height: 1.4;
+        }
+        
+        /* Modal Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+        
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .lightbox-close:hover {
+            opacity: 0.7;
+        }
+        
+        /* Category Filters */
+        .gallery-filters {
+            text-align: center;
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .filter-btn {
+            background: var(--apple-gray-light);
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            margin: 0 var(--spacing-xs);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-family: var(--apple-font);
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--apple-blue);
+            color: white;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+            
+            .gallery-container {
+                padding: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="apple-nav">
+        <div class="apple-nav-container">
+            <a href="index.html" class="apple-nav-logo">
+                <img src="images/scoop-unit-badge-logo.png" alt="Scoop Unit Logo" loading="lazy">
+                <span class="logo-text">Scoop Unit</span>
+            </a>
+            
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="apple-nav-menu" id="nav-menu">
+                <li class="apple-nav-item"><a href="index.html" class="apple-nav-link">Home</a></li>
+                <li class="apple-nav-item"><a href="services.html" class="apple-nav-link">Services</a></li>
+                <li class="apple-nav-item"><a href="service-areas.html" class="apple-nav-link">Areas</a></li>
+                <li class="apple-nav-item"><a href="about.html" class="apple-nav-link">About</a></li>
+                <li class="apple-nav-item"><a href="gallery.html" class="apple-nav-link">Gallery</a></li>
+                <li class="apple-nav-item"><a href="client-portal.html" class="apple-nav-link">Client Login</a></li>
+                <li class="apple-nav-item mobile-cta-item">
+                    <a href="index.html#estimate" class="apple-btn apple-btn-primary mobile-cta-btn">Get FREE Quote</a>
+                </li>
+            </ul>
+            
+            <a href="index.html#estimate" class="apple-btn apple-btn-primary desktop-cta">Get Quote</a>
+        </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <section class="apple-section">
+        <div class="apple-container">
+            <div class="apple-section-header">
+                <h1 class="apple-section-title">Service Gallery</h1>
+                <p class="apple-section-subtitle">See our professional team in action and the quality of our dog waste removal services</p>
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All Images</button>
+                <button class="filter-btn" data-filter="service">Service Photos</button>
+                <button class="filter-btn" data-filter="team">Team & Equipment</button>
+                <button class="filter-btn" data-filter="branding">Branding</button>
+                <button class="filter-btn" data-filter="guarantees">Service Guarantees</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="gallery-container">
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Hero/Service Images -->
+            <div class="gallery-item" data-category="service">
+                <img src="images/hero-frontpage.png" alt="Professional Scoop Unit team member with service dog" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Professional Service Team</h3>
+                    <p class="gallery-description">Our trained professionals with service dog, showcasing our commitment to quality and safety.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item" data-category="service">
+                <img src="images/service-showcase.png" alt="Scoop Unit professional service technician cleaning residential backyard" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Service in Action</h3>
+                    <p class="gallery-description">Professional service technician demonstrating our thorough yard cleanup process.</p>
+                </div>
+            </div>
+            
+            <!-- Branding Images -->
+            <div class="gallery-item" data-category="branding">
+                <img src="images/scoopunitlogo.jpg" alt="Scoop Unit Professional Logo" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Scoop Unit Logo</h3>
+                    <p class="gallery-description">Our professional brand identity representing quality dog waste removal services.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item" data-category="branding">
+                <img src="images/scoop-unit-badge-logo.png" alt="Scoop Unit Badge Logo" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Professional Badge</h3>
+                    <p class="gallery-description">Our service badge logo used across all professional materials and uniforms.</p>
+                </div>
+            </div>
+            
+            <!-- Service Guarantees -->
+            <div class="gallery-item" data-category="guarantees">
+                <img src="images/guarantee-badges.png" alt="Scoop Unit Professional service guarantees" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Service Guarantees</h3>
+                    <p class="gallery-description">Our professional guarantees: Safe for pets and kids, odor elimination, and 100% customer satisfaction.</p>
+                </div>
+            </div>
+            
+            <!-- Military & Community Support -->
+            <div class="gallery-item" data-category="team">
+                <img src="images/military-discount.png" alt="Military and First Responder Support" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Military & First Responder Support</h3>
+                    <p class="gallery-description">Honoring those who serve with special pricing and dedicated support for military families and first responders.</p>
+                </div>
+            </div>
+            
+            <!-- Additional Service Images -->
+            <div class="gallery-item" data-category="service">
+                <img src="images/spray-services.png" alt="Professional spray treatment services" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Professional Spray Services</h3>
+                    <p class="gallery-description">Advanced treatment and sanitization services for complete yard health and safety.</p>
+                </div>
+            </div>
+            
+            <!-- Generic Service Images -->
+            <div class="gallery-item" data-category="service">
+                <img src="images/R.jpg" alt="Dog waste removal equipment and tools" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Professional Equipment</h3>
+                    <p class="gallery-description">Professional-grade tools and equipment ensuring thorough and sanitary waste removal.</p>
+                </div>
+            </div>
+            
+            <div class="gallery-item" data-category="team">
+                <img src="images/OIP.webp" alt="Team member with professional equipment" class="gallery-image" loading="lazy">
+                <div class="gallery-info">
+                    <h3 class="gallery-title">Team & Equipment</h3>
+                    <p class="gallery-description">Our professional team members equipped with industry-standard tools and safety equipment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="apple-section" style="background: var(--apple-gray-light);">
+        <div class="apple-container apple-text-center">
+            <h2 class="apple-section-title">Ready for Professional Service?</h2>
+            <p class="apple-section-subtitle">Experience the Scoop Unit difference with reliable, professional dog waste removal</p>
+            <a href="index.html#estimate" class="apple-btn apple-btn-primary apple-btn-large">Get Your FREE Quote</a>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="images/scoop-unit-badge-logo.png" alt="Scoop Unit Professional Badge Logo" loading="lazy">
+                        <span class="logo-text">Scoop Unit</span>
+                    </div>
+                    <p>Professional dog waste removal services across the Florida Panhandle.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Scoop Unit. All rights reserved. | Professional dog waste removal services in Florida Panhandle</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            const navMenu = document.getElementById('nav-menu');
+            const toggleButton = document.getElementById('nav-toggle');
+            
+            navMenu.classList.toggle('active');
+            toggleButton.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Gallery filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const galleryImages = document.querySelectorAll('.gallery-image');
+
+        galleryImages.forEach(img => {
+            img.addEventListener('click', function() {
+                lightbox.classList.add('active');
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

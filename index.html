@@ -77,6 +77,7 @@
     
     <link rel="stylesheet" href="modern-styles.css">
     <link rel="stylesheet" href="apple-inspired-styles.css">
+    <link rel="stylesheet" href="modern-images.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -142,9 +143,19 @@
                 </div>
             </div>
             
-            <!-- Hero Image Placeholder -->
-            <div class="apple-hero-image">
-                <img src="images/hero-frontpage.png" alt="Professional Scoop Unit team member with service dog" loading="lazy">
+            <!-- Hero Image with Modern Formats -->
+            <div class="apple-hero-image hero-image-container">
+                <picture>
+                    <source srcset="images/optimized/hero-frontpage-1200w.avif 1200w, images/optimized/hero-frontpage-800w.avif 800w, images/optimized/hero-frontpage-400w.avif 400w" type="image/avif" sizes="(max-width: 768px) 100vw, 80vw">
+                    <source srcset="images/optimized/hero-frontpage-1200w.webp 1200w, images/optimized/hero-frontpage-800w.webp 800w, images/optimized/hero-frontpage-400w.webp 400w" type="image/webp" sizes="(max-width: 768px) 100vw, 80vw">
+                    <img src="images/hero-frontpage.png" 
+                         srcset="images/hero-frontpage.png 1454w"
+                         sizes="(max-width: 768px) 100vw, 80vw"
+                         alt="Professional Scoop Unit team member with service dog" 
+                         class="hero-image" 
+                         loading="eager"
+                         decoding="async">
+                </picture>
             </div>
             
             <!-- Primary CTA -->
@@ -272,18 +283,58 @@
         </div>
     </section>
 
-    <!-- Service Showcase -->
+    <!-- Service Showcase Slider -->
     <section class="apple-section apple-section-compact">
         <div class="apple-container">
-            <div class="apple-service-showcase">
-                <img src="images/service-showcase.png" alt="Scoop Unit professional service technician cleaning residential backyard" loading="lazy">
-                <div class="apple-showcase-overlay">
-                    <div class="showcase-brand">
-                        <img src="images/scoop-unit-badge-logo.png" alt="Scoop Unit Badge Logo" class="overlay-logo">
-                        <h3>Professional Service in Action</h3>
+            <div class="apple-section-header">
+                <h2 class="apple-section-title">Professional Service in Action</h2>
+                <p class="apple-section-subtitle">See our trained technicians and professional equipment in action</p>
+            </div>
+            
+            <div class="css-image-slider" id="serviceSlider">
+                <div class="slider-container">
+                    <div class="slider-slide">
+                        <picture>
+                            <source srcset="images/optimized/service-showcase-800w.webp" type="image/webp">
+                            <img src="images/service-showcase.png" alt="Professional service technician cleaning residential backyard" loading="lazy">
+                        </picture>
+                        <div class="slider-caption">
+                            <h3>Professional Service</h3>
+                            <p>Our trained technicians ensure thorough, safe cleanup of your yard</p>
+                        </div>
                     </div>
-                    <p>Our trained Scoop Unit technicians use professional equipment to ensure thorough, safe cleanup of your yard.</p>
+                    
+                    <div class="slider-slide">
+                        <picture>
+                            <source srcset="images/optimized/Scoop Services-800w.webp" type="image/webp">
+                            <img src="images/Scoop Services.png" alt="Complete scoop services and yard maintenance" loading="lazy">
+                        </picture>
+                        <div class="slider-caption">
+                            <h3>Complete Scoop Services</h3>
+                            <p>Comprehensive yard cleanup and maintenance services</p>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-slide">
+                        <picture>
+                            <source srcset="images/optimized/spray services-800w.webp" type="image/webp">
+                            <img src="images/spray services.png" alt="Professional spray treatment and sanitization" loading="lazy">
+                        </picture>
+                        <div class="slider-caption">
+                            <h3>Spray Treatment Services</h3>
+                            <p>Advanced sanitization and odor elimination treatments</p>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="slider-nav">
+                    <button class="nav-dot active" data-slide="0"></button>
+                    <button class="nav-dot" data-slide="1"></button>
+                    <button class="nav-dot" data-slide="2"></button>
+                </div>
+                
+                <button class="slider-arrow prev" aria-label="Previous slide">‹</button>
+                <button class="slider-arrow next" aria-label="Next slide">›</button>
             </div>
         </div>
     </section>
@@ -802,6 +853,120 @@
             
             lastScrollTop = scrollTop;
         });
+        
+        // Image Slider Functionality
+        function initImageSlider() {
+            const sliders = document.querySelectorAll('.css-image-slider');
+            
+            sliders.forEach(slider => {
+                const container = slider.querySelector('.slider-container');
+                const slides = slider.querySelectorAll('.slider-slide');
+                const dots = slider.querySelectorAll('.nav-dot');
+                const prevBtn = slider.querySelector('.prev');
+                const nextBtn = slider.querySelector('.next');
+                
+                let currentSlide = 0;
+                let isTransitioning = false;
+                
+                function showSlide(index) {
+                    if (isTransitioning) return;
+                    
+                    isTransitioning = true;
+                    currentSlide = index;
+                    
+                    // Update container position
+                    container.style.transform = `translateX(-${index * 100}%)`;
+                    
+                    // Update dots
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                    
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 500);
+                }
+                
+                function nextSlide() {
+                    const next = currentSlide >= slides.length - 1 ? 0 : currentSlide + 1;
+                    showSlide(next);
+                }
+                
+                function prevSlide() {
+                    const prev = currentSlide <= 0 ? slides.length - 1 : currentSlide - 1;
+                    showSlide(prev);
+                }
+                
+                // Event listeners
+                if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+                if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+                
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => showSlide(index));
+                });
+                
+                // Auto-advance slides every 6 seconds
+                setInterval(nextSlide, 6000);
+                
+                // Keyboard navigation
+                slider.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') prevSlide();
+                    if (e.key === 'ArrowRight') nextSlide();
+                });
+                
+                // Touch/swipe support
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                slider.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                slider.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                });
+                
+                function handleSwipe() {
+                    const swipeThreshold = 50;
+                    const swipeDistance = touchStartX - touchEndX;
+                    
+                    if (Math.abs(swipeDistance) > swipeThreshold) {
+                        if (swipeDistance > 0) {
+                            nextSlide(); // Swipe left - next slide
+                        } else {
+                            prevSlide(); // Swipe right - previous slide
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize slider when DOM is loaded
+        initImageSlider();
+        
+        // Lazy loading enhancement
+        function enhanceLazyLoading() {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.classList.add('loaded');
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px'
+                });
+                
+                images.forEach(img => imageObserver.observe(img));
+            }
+        }
+        
+        enhanceLazyLoading();
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -5,8 +5,11 @@
   "main": "index.html",
   "scripts": {
     "dev": "python -m http.server 8000",
-    "build": "mkdir -p public && cp -r *.html *.css *.js *.json *.txt images public/",
-    "start": "python -m http.server 8000"
+    "build": "npm run optimize-images && mkdir -p public && cp -r *.html *.css *.js *.json *.txt images public/",
+    "start": "python -m http.server 8000",
+    "optimize-images": "node scripts/image-optimizer.js",
+    "compress": "node scripts/image-optimizer.js && echo 'Images optimized successfully!'",
+    "serve": "npx http-server . -p 3000"
   },
   "keywords": [
     "dog-waste-removal",
@@ -21,5 +24,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/K1NGJ4W5/scoopunit-website.git"
+  },
+  "devDependencies": {
+    "sharp": "^0.32.6",
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "sharp": "^0.32.6"
   }
 }
