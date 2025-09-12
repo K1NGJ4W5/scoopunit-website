@@ -26,9 +26,9 @@
     --spacing-xs: 8px;
     --spacing-sm: 16px;
     --spacing-md: 24px;
-    --spacing-lg: 48px;
-    --spacing-xl: 64px;
-    --spacing-xxl: 96px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    --spacing-xxl: 64px;
     
     /* Border Radius */
     --radius-sm: 8px;
@@ -157,14 +157,14 @@
 
 .apple-guarantee-badges {
     text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
 }
 
 .apple-guarantee-badges img {
     width: 100%;
     height: auto;
-    max-width: 500px;
+    max-width: 100%;
     border-radius: var(--radius-md);
 }
 
@@ -552,11 +552,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--apple-white) 0%, var(--apple-gray-light) 100%);
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+        url('images/hero-lawn-background.jpg') center/cover no-repeat;
     padding: var(--spacing-xxl) var(--spacing-sm);
     text-align: center;
     position: relative;
     overflow: hidden;
+    color: white;
 }
 
 .apple-hero::before {
@@ -576,10 +579,30 @@ body {
     position: relative;
 }
 
+.apple-hero .apple-headline {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.apple-hero .apple-subheadline {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.apple-hero .apple-hero-description {
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.apple-hero .apple-trust-item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .apple-hero-image {
-    margin: var(--spacing-lg) 0;
-    opacity: 0;
-    animation: fadeInUp 1s ease-out 0.5s forwards;
+    display: none; /* Hidden since we're using background image */
 }
 
 .apple-hero-image img {
