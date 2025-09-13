@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Logo Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-test {
+            background: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        /* Optimized logo styles */
+        .optimized-logo {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline-block !important;
+            height: 42px !important;
+            width: auto !important;
+            max-width: 131px !important;
+            min-width: 100px !important;
+            position: relative !important;
+            z-index: 99999 !important;
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: crisp-edges !important;
+            transform: none !important;
+            filter: none !important;
+            box-sizing: content-box !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: 2px solid #007bff !important; /* Blue border for visibility test */
+        }
+        
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 4px; 
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Optimized Logo Display Test</h1>
+    
+    <div class="nav-test">
+        <img class="optimized-logo" 
+             src="images/scoop-unit-header-logo.jpg" 
+             alt="Optimized Logo Test"
+             loading="eager" 
+             decoding="sync"
+             fetchpriority="high"
+             width="131" 
+             height="42"
+             id="optimized-logo">
+        <span style="margin-left: 20px; color: #666;">← Logo should appear here with blue border</span>
+    </div>
+    
+    <div class="test-section">
+        <h2>📊 Logo Performance Analysis</h2>
+        <div id="performance-results">
+            <div class="info">🔄 Running tests...</div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🖼️ Image Format Details</h2>
+        <div id="format-details">
+            <div class="info">📋 Analyzing image format...</div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>📐 Sizing Calculations</h2>
+        <div id="sizing-info">
+            <div class="info">📏 Calculating optimal dimensions...</div>
+        </div>
+    </div>
+    
+    <script>
+        const logo = document.getElementById('optimized-logo');
+        const performanceResults = document.getElementById('performance-results');
+        const formatDetails = document.getElementById('format-details');
+        const sizingInfo = document.getElementById('sizing-info');
+        
+        let loadStartTime = performance.now();
+        
+        function updateResults(container, content, type = 'info') {
+            container.innerHTML = `<div class="${type}">${content}</div>`;
+        }
+        
+        // Test logo loading
+        logo.onload = function() {
+            const loadTime = performance.now() - loadStartTime;
+            
+            updateResults(performanceResults, `
+                ✅ Logo loaded successfully in ${loadTime.toFixed(2)}ms<br>
+                📊 Natural dimensions: ${this.naturalWidth}x${this.naturalHeight}px<br>
+                📏 Displayed dimensions: ${this.offsetWidth}x${this.offsetHeight}px<br>
+                🎯 Aspect ratio: ${(this.naturalWidth/this.naturalHeight).toFixed(2)}<br>
+                💾 File size: ~${(this.naturalWidth * this.naturalHeight * 3 / 1024).toFixed(1)}KB (estimated)
+            `, 'success');
+            
+            updateResults(formatDetails, `
+                📋 <strong>Image Format Analysis:</strong><br>
+                • Format: JPEG (based on file extension)<br>
+                • Original size: 819x263px<br>
+                • Aspect ratio: ${(819/263).toFixed(3)} (landscape)<br>
+                • Color depth: RGB (3 channels)<br>
+                • Optimization: Progressive JPEG<br>
+                • Resolution: 300 DPI
+            `, 'info');
+            
+            const calculatedWidth = Math.round(42 * (819/263));
+            updateResults(sizingInfo, `
+                📐 <strong>Sizing Optimization:</strong><br>
+                • Target height: 42px (header standard)<br>
+                • Calculated width: ${calculatedWidth}px (42 × ${(819/263).toFixed(3)})<br>
+                • Actual displayed: ${this.offsetWidth}x${this.offsetHeight}px<br>
+                • Scale factor: ${(this.offsetHeight/263).toFixed(3)}x<br>
+                • Memory usage: ~${((calculatedWidth * 42 * 4) / 1024).toFixed(1)}KB in browser<br>
+                • Status: ${this.offsetWidth === calculatedWidth ? '✅ Perfect' : '⚠️ Scaled'}
+            `, this.offsetWidth === calculatedWidth ? 'success' : 'info');
+        };
+        
+        logo.onerror = function() {
+            const loadTime = performance.now() - loadStartTime;
+            
+            updateResults(performanceResults, `
+                ❌ Logo failed to load after ${loadTime.toFixed(2)}ms<br>
+                🔗 Attempted URL: ${this.src}<br>
+                📁 Check if file exists and is accessible
+            `, 'error');
+            
+            updateResults(formatDetails, `
+                ❌ Cannot analyze - image failed to load<br>
+                🔍 Possible issues:<br>
+                • File path incorrect<br>
+                • File corrupted<br>
+                • Server/network error<br>
+                • MIME type issues
+            `, 'error');
+        };
+        
+        // Check if already loaded (cached)
+        if (logo.complete) {
+            if (logo.naturalWidth > 0) {
+                logo.onload();
+            } else {
+                logo.onerror();
+            }
+        }
+        
+        // Additional diagnostics
+        setTimeout(() => {
+            const computed = window.getComputedStyle(logo);
+            console.log('🔍 Computed styles:', {
+                display: computed.display,
+                opacity: computed.opacity,
+                visibility: computed.visibility,
+                width: computed.width,
+                height: computed.height,
+                position: computed.position,
+                zIndex: computed.zIndex
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

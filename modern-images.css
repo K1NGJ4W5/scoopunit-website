@@ -10,19 +10,44 @@ img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not(#header-logo) 
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Header Logo Override - CRITICAL FIX */
+/* Header Logo Override - OPTIMIZED FOR DISPLAY */
 .apple-nav-logo img,
 .apple-nav img,
 nav img,
 #header-logo {
+  /* Force visibility */
   opacity: 1 !important;
   visibility: visible !important;
-  display: block !important;
-  max-width: none !important;
+  display: inline-block !important;
+  
+  /* Optimized sizing for 819x263 original */
   height: 42px !important;
   width: auto !important;
+  max-width: 131px !important; /* Calculated: 42 * (819/263) ≈ 131px */
+  min-width: 100px !important;
+  
+  /* Positioning and stacking */
   position: relative !important;
   z-index: 99999 !important;
+  
+  /* Image rendering optimization */
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+  
+  /* Prevent any transforms or effects */
+  transform: none !important;
+  filter: none !important;
+  clip: auto !important;
+  
+  /* Ensure proper box model */
+  box-sizing: content-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  
+  /* Force hardware acceleration for smooth rendering */
+  will-change: auto !important;
+  backface-visibility: visible !important;
 }
 
 /* Lazy Loading Styles - DISABLED TO PREVENT LOGO INTERFERENCE */
