@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Logo Debugging Report</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            line-height: 1.6; 
+            background: #f8f9fa; 
+            color: #333;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { 
+            background: linear-gradient(135deg, #007bff, #0056b3); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            margin-bottom: 30px;
+            border-radius: 12px;
+        }
+        .debug-section { 
+            background: white; 
+            margin: 20px 0; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 5px solid #007bff;
+        }
+        .test-logo-area {
+            background: #f8f9fa;
+            border: 2px dashed #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .actual-logo {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline-block !important;
+            height: 42px !important;
+            width: auto !important;
+            max-width: 131px !important;
+            position: relative !important;
+            z-index: 999999 !important;
+            border: 3px solid #28a745;
+        }
+        .status { padding: 10px 15px; margin: 10px 0; border-radius: 6px; font-weight: 500; }
+        .pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .code { 
+            background: #f8f9fa; 
+            border: 1px solid #e9ecef; 
+            border-radius: 4px; 
+            padding: 15px; 
+            font-family: 'Courier New', monospace; 
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .metric { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+        .metric-value { font-size: 2em; font-weight: bold; color: #007bff; }
+        .metric-label { color: #666; font-size: 0.9em; }
+        h2 { color: #007bff; margin-bottom: 15px; display: flex; align-items: center; }
+        h2 .icon { margin-right: 10px; font-size: 1.2em; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; font-weight: 600; }
+        .progress-bar { 
+            width: 100%; 
+            height: 20px; 
+            background: #e9ecef; 
+            border-radius: 10px; 
+            overflow: hidden; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, #28a745, #20c997); 
+            transition: width 0.3s ease; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Comprehensive Logo Debugging Report</h1>
+            <p>Complete analysis of all possible causes for logo disappearing issues</p>
+            <div id="overall-status" class="status info" style="margin-top: 20px;">
+                🔄 Initializing comprehensive diagnostics...
+            </div>
+        </div>
+
+        <!-- LIVE LOGO TEST -->
+        <div class="debug-section">
+            <h2><span class="icon">🎯</span>Live Logo Test</h2>
+            <div class="test-logo-area">
+                <p><strong>Current logo display (should show with green border):</strong></p>
+                <img src="images/scoop-unit-header-logo.jpg?v=20241201-v6" 
+                     alt="Test Logo" 
+                     class="actual-logo"
+                     id="test-logo"
+                     loading="eager" 
+                     decoding="sync"
+                     fetchpriority="high"
+                     width="131" 
+                     height="42">
+                <div id="logo-status" class="status info">🔄 Testing logo...</div>
+            </div>
+        </div>
+
+        <!-- FILE SYSTEM ANALYSIS -->
+        <div class="debug-section">
+            <h2><span class="icon">📁</span>File System Analysis</h2>
+            <div id="file-analysis">
+                <div class="status info">🔄 Checking file accessibility...</div>
+            </div>
+        </div>
+
+        <!-- CSS CASCADE ANALYSIS -->
+        <div class="debug-section">
+            <h2><span class="icon">🎨</span>CSS Cascade Analysis</h2>
+            <div id="css-analysis">
+                <div class="status info">🔄 Analyzing CSS cascade...</div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT INTERFERENCE -->
+        <div class="debug-section">
+            <h2><span class="icon">⚡</span>JavaScript Interference Check</h2>
+            <div id="js-analysis">
+                <div class="status info">🔄 Scanning for JavaScript issues...</div>
+            </div>
+        </div>
+
+        <!-- BROWSER COMPATIBILITY -->
+        <div class="debug-section">
+            <h2><span class="icon">🌐</span>Browser Compatibility</h2>
+            <div id="browser-analysis">
+                <div class="status info">🔄 Checking browser compatibility...</div>
+            </div>
+        </div>
+
+        <!-- NETWORK & LOADING -->
+        <div class="debug-section">
+            <h2><span class="icon">🌍</span>Network & Loading Analysis</h2>
+            <div id="network-analysis">
+                <div class="status info">🔄 Analyzing network conditions...</div>
+            </div>
+        </div>
+
+        <!-- PERFORMANCE METRICS -->
+        <div class="debug-section">
+            <h2><span class="icon">📊</span>Performance Metrics</h2>
+            <div class="grid" id="performance-metrics">
+                <!-- Metrics will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- DETAILED DIAGNOSTICS -->
+        <div class="debug-section">
+            <h2><span class="icon">🔬</span>Detailed CSS Properties</h2>
+            <div id="detailed-css">
+                <div class="status info">🔄 Reading computed styles...</div>
+            </div>
+        </div>
+
+        <!-- RECOMMENDATIONS -->
+        <div class="debug-section">
+            <h2><span class="icon">💡</span>Recommendations & Next Steps</h2>
+            <div id="recommendations">
+                <div class="status info">🔄 Generating recommendations...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class LogoDebugger {
+            constructor() {
+                this.logo = document.getElementById('test-logo');
+                this.issues = [];
+                this.passes = [];
+                this.warnings = [];
+                this.startTime = performance.now();
+                this.init();
+            }
+
+            init() {
+                this.testLogo();
+                this.analyzeFileSystem();
+                this.analyzeCSSCascade();
+                this.analyzeJavaScript();
+                this.analyzeBrowser();
+                this.analyzeNetwork();
+                this.generatePerformanceMetrics();
+                this.analyzeDetailedCSS();
+                this.generateRecommendations();
+                this.updateOverallStatus();
+            }
+
+            addResult(containerId, content, type = 'info') {
+                const container = document.getElementById(containerId);
+                const div = document.createElement('div');
+                div.className = `status ${type}`;
+                div.innerHTML = content;
+                container.appendChild(div);
+            }
+
+            testLogo() {
+                const statusDiv = document.getElementById('logo-status');
+                
+                if (!this.logo) {
+                    this.addIssue('Logo element not found in DOM');
+                    statusDiv.innerHTML = '<div class="status fail">❌ Logo element not found</div>';
+                    return;
+                }
+
+                this.logo.onload = () => {
+                    this.addPass('Logo image loaded successfully');
+                    statusDiv.innerHTML = `
+                        <div class="status pass">✅ Logo loaded successfully</div>
+                        <div class="status info">📏 Natural size: ${this.logo.naturalWidth}x${this.logo.naturalHeight}px</div>
+                        <div class="status info">📏 Displayed size: ${this.logo.offsetWidth}x${this.logo.offsetHeight}px</div>
+                    `;
+                };
+
+                this.logo.onerror = () => {
+                    this.addIssue('Logo image failed to load');
+                    statusDiv.innerHTML = '<div class="status fail">❌ Logo image failed to load</div>';
+                };
+
+                // Check if already loaded
+                if (this.logo.complete) {
+                    if (this.logo.naturalWidth > 0) {
+                        this.logo.onload();
+                    } else {
+                        this.logo.onerror();
+                    }
+                }
+
+                // Check visibility
+                const rect = this.logo.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) {
+                    this.addIssue('Logo has zero dimensions');
+                } else {
+                    this.addPass('Logo has proper dimensions');
+                }
+            }
+
+            analyzeFileSystem() {
+                const container = document.getElementById('file-analysis');
+                container.innerHTML = '';
+
+                // Test file accessibility
+                fetch('images/scoop-unit-header-logo.jpg')
+                    .then(response => {
+                        if (response.ok) {
+                            this.addPass('Logo file is accessible via HTTP');
+                            this.addResult('file-analysis', `
+                                ✅ <strong>File Accessibility:</strong> OK<br>
+                                📊 Status: ${response.status} ${response.statusText}<br>
+                                📦 Content-Type: ${response.headers.get('content-type')}<br>
+                                📏 Content-Length: ${response.headers.get('content-length')} bytes<br>
+                                🔗 URL: ${response.url}
+                            `, 'pass');
+                        } else {
+                            this.addIssue(`File not accessible: ${response.status} ${response.statusText}`);
+                            this.addResult('file-analysis', `
+                                ❌ <strong>File Access Failed:</strong><br>
+                                📊 Status: ${response.status} ${response.statusText}<br>
+                                🔗 URL: ${response.url}
+                            `, 'fail');
+                        }
+                    })
+                    .catch(error => {
+                        this.addIssue(`Network error accessing file: ${error.message}`);
+                        this.addResult('file-analysis', `
+                            ❌ <strong>Network Error:</strong> ${error.message}
+                        `, 'fail');
+                    });
+
+                // Check cache busting
+                if (this.logo.src.includes('?v=')) {
+                    this.addPass('Cache busting parameter present');
+                } else {
+                    this.addWarning('No cache busting parameter found');
+                }
+            }
+
+            analyzeCSSCascade() {
+                const container = document.getElementById('css-analysis');
+                container.innerHTML = '';
+
+                if (!this.logo) return;
+
+                const computed = window.getComputedStyle(this.logo);
+                const criticalProps = {
+                    'display': computed.display,
+                    'visibility': computed.visibility,
+                    'opacity': computed.opacity,
+                    'position': computed.position,
+                    'zIndex': computed.zIndex,
+                    'width': computed.width,
+                    'height': computed.height,
+                    'maxWidth': computed.maxWidth,
+                    'transform': computed.transform,
+                    'clip': computed.clip,
+                    'clipPath': computed.clipPath,
+                    'overflow': computed.overflow
+                };
+
+                let cssIssues = [];
+                let cssTable = '<table><tr><th>Property</th><th>Value</th><th>Status</th></tr>';
+
+                Object.entries(criticalProps).forEach(([prop, value]) => {
+                    let status = '✅';
+                    let rowClass = '';
+
+                    if (prop === 'display' && value === 'none') {
+                        cssIssues.push('display: none');
+                        status = '❌ HIDDEN';
+                        rowClass = 'style="background: #f8d7da;"';
+                    } else if (prop === 'visibility' && value === 'hidden') {
+                        cssIssues.push('visibility: hidden');
+                        status = '❌ HIDDEN';
+                        rowClass = 'style="background: #f8d7da;"';
+                    } else if (prop === 'opacity' && parseFloat(value) === 0) {
+                        cssIssues.push('opacity: 0');
+                        status = '❌ TRANSPARENT';
+                        rowClass = 'style="background: #f8d7da;"';
+                    } else if ((prop === 'width' || prop === 'height') && parseFloat(value) === 0) {
+                        cssIssues.push(`${prop}: 0`);
+                        status = '❌ NO SIZE';
+                        rowClass = 'style="background: #f8d7da;"';
+                    }
+
+                    cssTable += `<tr ${rowClass}><td><code>${prop}</code></td><td><code>${value}</code></td><td>${status}</td></tr>`;
+                });
+
+                cssTable += '</table>';
+
+                if (cssIssues.length === 0) {
+                    this.addPass('No CSS hiding mechanisms detected');
+                    this.addResult('css-analysis', '✅ <strong>CSS Analysis:</strong> No issues found', 'pass');
+                } else {
+                    cssIssues.forEach(issue => this.addIssue(`CSS Issue: ${issue}`));
+                    this.addResult('css-analysis', `❌ <strong>CSS Issues Found:</strong> ${cssIssues.join(', ')}`, 'fail');
+                }
+
+                this.addResult('css-analysis', cssTable, 'info');
+            }
+
+            analyzeJavaScript() {
+                const container = document.getElementById('js-analysis');
+                container.innerHTML = '';
+
+                // Check for scripts that might affect images
+                const scripts = document.querySelectorAll('script[src]');
+                const scriptList = Array.from(scripts).map(s => s.src).join('<br>');
+                
+                this.addResult('js-analysis', `
+                    📋 <strong>Loaded Scripts:</strong><br>
+                    ${scriptList || 'No external scripts found'}
+                `, 'info');
+
+                // Check for MutationObserver or other monitoring
+                if (window.MutationObserver) {
+                    this.addResult('js-analysis', '✅ MutationObserver available for monitoring', 'pass');
+                } else {
+                    this.addResult('js-analysis', '⚠️ MutationObserver not available', 'warning');
+                }
+
+                // Check for jQuery or other libraries that might interfere
+                if (window.jQuery) {
+                    this.addResult('js-analysis', '📚 jQuery detected - potential for interference', 'warning');
+                }
+
+                // Check console errors
+                const originalConsoleError = console.error;
+                let jsErrors = [];
+                console.error = function(...args) {
+                    jsErrors.push(args.join(' '));
+                    originalConsoleError.apply(console, args);
+                };
+
+                setTimeout(() => {
+                    if (jsErrors.length > 0) {
+                        this.addResult('js-analysis', `❌ <strong>JavaScript Errors:</strong><br>${jsErrors.join('<br>')}`, 'fail');
+                    } else {
+                        this.addResult('js-analysis', '✅ No JavaScript errors detected', 'pass');
+                    }
+                }, 1000);
+            }
+
+            analyzeBrowser() {
+                const container = document.getElementById('browser-analysis');
+                container.innerHTML = '';
+
+                const browser = this.detectBrowser();
+                const features = this.checkBrowserFeatures();
+
+                this.addResult('browser-analysis', `
+                    🌐 <strong>Browser:</strong> ${browser}<br>
+                    📱 <strong>User Agent:</strong> ${navigator.userAgent}<br>
+                    📏 <strong>Viewport:</strong> ${window.innerWidth}x${window.innerHeight}px<br>
+                    🔄 <strong>Device Pixel Ratio:</strong> ${window.devicePixelRatio}
+                `, 'info');
+
+                this.addResult('browser-analysis', `
+                    📋 <strong>Feature Support:</strong><br>
+                    ${features.map(f => `${f.supported ? '✅' : '❌'} ${f.name}`).join('<br>')}
+                `, features.every(f => f.supported) ? 'pass' : 'warning');
+            }
+
+            analyzeNetwork() {
+                const container = document.getElementById('network-analysis');
+                container.innerHTML = '';
+
+                // Check connection
+                if ('connection' in navigator) {
+                    const conn = navigator.connection;
+                    this.addResult('network-analysis', `
+                        📶 <strong>Connection Info:</strong><br>
+                        Type: ${conn.effectiveType || 'unknown'}<br>
+                        Downlink: ${conn.downlink || 'unknown'} Mbps<br>
+                        RTT: ${conn.rtt || 'unknown'} ms
+                    `, 'info');
+                }
+
+                // Test loading performance
+                const loadStart = performance.now();
+                const testImg = new Image();
+                testImg.onload = () => {
+                    const loadTime = performance.now() - loadStart;
+                    if (loadTime < 100) {
+                        this.addResult('network-analysis', `✅ Fast loading: ${loadTime.toFixed(2)}ms`, 'pass');
+                    } else if (loadTime < 1000) {
+                        this.addResult('network-analysis', `⚠️ Moderate loading: ${loadTime.toFixed(2)}ms`, 'warning');
+                    } else {
+                        this.addResult('network-analysis', `❌ Slow loading: ${loadTime.toFixed(2)}ms`, 'fail');
+                    }
+                };
+                testImg.src = 'images/scoop-unit-header-logo.jpg?' + Date.now();
+            }
+
+            generatePerformanceMetrics() {
+                const container = document.getElementById('performance-metrics');
+                const totalTime = performance.now() - this.startTime;
+
+                const metrics = [
+                    { label: 'Issues Found', value: this.issues.length, color: this.issues.length > 0 ? '#dc3545' : '#28a745' },
+                    { label: 'Tests Passed', value: this.passes.length, color: '#28a745' },
+                    { label: 'Warnings', value: this.warnings.length, color: '#ffc107' },
+                    { label: 'Analysis Time', value: `${totalTime.toFixed(0)}ms`, color: '#007bff' }
+                ];
+
+                container.innerHTML = metrics.map(m => `
+                    <div class="metric">
+                        <div class="metric-value" style="color: ${m.color}">${m.value}</div>
+                        <div class="metric-label">${m.label}</div>
+                    </div>
+                `).join('');
+            }
+
+            analyzeDetailedCSS() {
+                const container = document.getElementById('detailed-css');
+                container.innerHTML = '';
+
+                if (!this.logo) return;
+
+                const computed = window.getComputedStyle(this.logo);
+                const allProps = {};
+                
+                for (let i = 0; i < computed.length; i++) {
+                    const prop = computed[i];
+                    allProps[prop] = computed.getPropertyValue(prop);
+                }
+
+                const relevantProps = Object.entries(allProps)
+                    .filter(([prop]) => 
+                        prop.includes('display') || 
+                        prop.includes('visibility') || 
+                        prop.includes('opacity') || 
+                        prop.includes('position') || 
+                        prop.includes('z-index') ||
+                        prop.includes('width') || 
+                        prop.includes('height') ||
+                        prop.includes('transform') ||
+                        prop.includes('clip') ||
+                        prop.includes('overflow')
+                    );
+
+                let propsTable = '<table><tr><th>Property</th><th>Value</th></tr>';
+                relevantProps.forEach(([prop, value]) => {
+                    propsTable += `<tr><td><code>${prop}</code></td><td><code>${value}</code></td></tr>`;
+                });
+                propsTable += '</table>';
+
+                this.addResult('detailed-css', propsTable, 'info');
+            }
+
+            generateRecommendations() {
+                const container = document.getElementById('recommendations');
+                container.innerHTML = '';
+
+                const recommendations = [];
+
+                if (this.issues.length === 0) {
+                    recommendations.push({
+                        type: 'success',
+                        title: '🎉 All Systems Normal',
+                        content: 'No critical issues detected. Logo should be displaying correctly.'
+                    });
+                } else {
+                    recommendations.push({
+                        type: 'fail',
+                        title: '🚨 Issues Detected',
+                        content: `Found ${this.issues.length} issue(s) that may be causing logo problems:<br>• ${this.issues.join('<br>• ')}`
+                    });
+                }
+
+                if (this.warnings.length > 0) {
+                    recommendations.push({
+                        type: 'warning',
+                        title: '⚠️ Warnings',
+                        content: `${this.warnings.length} warning(s) detected:<br>• ${this.warnings.join('<br>• ')}`
+                    });
+                }
+
+                // Always include general recommendations
+                recommendations.push({
+                    type: 'info',
+                    title: '💡 General Recommendations',
+                    content: `
+                        • Ensure cache-busting parameters are updated regularly<br>
+                        • Monitor console for JavaScript errors<br>
+                        • Test across different browsers and devices<br>
+                        • Use browser dev tools to inspect element styles<br>
+                        • Consider implementing image lazy loading with fallbacks<br>
+                        • Optimize image size and format for better performance
+                    `
+                });
+
+                recommendations.forEach(rec => {
+                    this.addResult('recommendations', `
+                        <strong>${rec.title}</strong><br>
+                        ${rec.content}
+                    `, rec.type);
+                });
+            }
+
+            updateOverallStatus() {
+                const statusDiv = document.getElementById('overall-status');
+                const totalIssues = this.issues.length;
+                const totalChecks = this.issues.length + this.passes.length + this.warnings.length;
+                
+                if (totalIssues === 0) {
+                    statusDiv.innerHTML = '✅ All diagnostics passed - Logo should be displaying correctly';
+                    statusDiv.className = 'status pass';
+                } else if (totalIssues <= 2) {
+                    statusDiv.innerHTML = `⚠️ ${totalIssues} minor issue(s) detected - Logo may have intermittent problems`;
+                    statusDiv.className = 'status warning';
+                } else {
+                    statusDiv.innerHTML = `❌ ${totalIssues} critical issue(s) detected - Logo display problems likely`;
+                    statusDiv.className = 'status fail';
+                }
+            }
+
+            detectBrowser() {
+                const ua = navigator.userAgent;
+                if (ua.includes('Chrome')) return 'Chrome';
+                if (ua.includes('Firefox')) return 'Firefox';
+                if (ua.includes('Safari')) return 'Safari';
+                if (ua.includes('Edge')) return 'Edge';
+                return 'Unknown';
+            }
+
+            checkBrowserFeatures() {
+                return [
+                    { name: 'CSS Grid', supported: 'grid' in document.documentElement.style },
+                    { name: 'CSS Flexbox', supported: 'flex' in document.documentElement.style },
+                    { name: 'Intersection Observer', supported: 'IntersectionObserver' in window },
+                    { name: 'Fetch API', supported: 'fetch' in window },
+                    { name: 'CSS Custom Properties', supported: CSS.supports('color', 'var(--test)') },
+                    { name: 'WebP Support', supported: this.checkWebPSupport() }
+                ];
+            }
+
+            checkWebPSupport() {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1;
+                canvas.height = 1;
+                return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+            }
+
+            addIssue(issue) {
+                this.issues.push(issue);
+            }
+
+            addPass(pass) {
+                this.passes.push(pass);
+            }
+
+            addWarning(warning) {
+                this.warnings.push(warning);
+            }
+        }
+
+        // Initialize debugger when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new LogoDebugger();
+        });
+    </script>
+</body>
+</html>
