@@ -73,11 +73,11 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v15" as="style">
-    <link rel="preload" href="modern-images.css?v=20241201-v15" as="style">
+    <link rel="preload" href="apple-inspired-styles.css?v=20241201-SIMPLE" as="style">
+    <link rel="preload" href="modern-images.css?v=20241201-SIMPLE" as="style">
     
     <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v15" 
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-SIMPLE" 
           as="image" 
           fetchpriority="high" 
           crossorigin="anonymous"
@@ -97,15 +97,15 @@
           type="image/png">
     
     <!-- Background image with lowest priority -->
-    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v15" 
+    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-SIMPLE" 
           as="image" 
           fetchpriority="low"
           media="(min-width: 768px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v15">
-    <link rel="stylesheet" href="modern-images.css?v=20241201-v15">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-SIMPLE">
+    <link rel="stylesheet" href="modern-images.css?v=20241201-SIMPLE">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CRITICAL: CSS-first logo protection to prevent race conditions -->
@@ -140,22 +140,15 @@
         }
     </style>
     
-    <!-- RACE CONDITION FIX: Minimal head script - main logic moved to bottom -->
-    <script>
-        // Minimal logo configuration - available immediately
-        window.LOGO_CONFIG = {
-            primary: 'images/scoop-unit-header-logo.jpg?v=20241201-v15',
-            fallbacks: [
-                'images/scoopunitlogo.jpg',
-                'images/scoop-unit-badge-logo.png'
-            ],
-            textFallback: 'Scoop Unit 🐾'
-        };
-        
-        // Simple status check - available immediately
-        window.logoReady = false;
-        console.log('📋 Logo config loaded in head');
-    </script>
+    <!-- NUCLEAR OPTION: NO JAVASCRIPT INTERFERENCE -->
+    <style>
+        /* FORCE LOGO VISIBLE - NOTHING CAN OVERRIDE THIS */
+        #header-logo {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Apple-Inspired Navigation -->
@@ -163,7 +156,7 @@
         <div class="apple-nav-container">
             <div class="apple-nav-logo">
                 <a href="index.html" class="logo-link">
-                    <img src="images/scoop-unit-header-logo.jpg?v=20241201-v15" 
+                    <img src="images/scoop-unit-header-logo.jpg?v=20241201-SIMPLE" 
                          alt="Scoop Unit - Professional Dog Waste Removal" 
                          loading="eager" 
                          decoding="sync"
@@ -1165,7 +1158,7 @@
                     
                     // 3. Ensure proper source
                     if (!logo.src || logo.src.includes('invalid') || logo.src.includes('undefined')) {
-                        logo.src = 'images/scoop-unit-header-logo.jpg?v=20241201-v15';
+                        logo.src = 'images/scoop-unit-header-logo.jpg?v=20241201-SIMPLE';
                     }
                     
                     // 4. Force reflow
@@ -1499,366 +1492,11 @@
         });
     </script>
     
-    <!-- RACE CONDITION FIX: Logo management runs AFTER CSS is fully loaded -->
-    <script>
-        // COMPREHENSIVE LOGO MANAGEMENT SYSTEM
-        // Runs after DOM and CSS are fully loaded to prevent race conditions
-        (function() {
-            'use strict';
-            
-            // Wait for everything to be ready
-            function waitForReady(callback) {
-                if (document.readyState === 'complete') {
-                    callback();
-                } else {
-                    window.addEventListener('load', callback);
-                }
-            }
-            
-            waitForReady(function() {
-                console.log('🚀 Starting race-condition-free logo management');
-                
-                // Enhanced configuration
-                const config = {
-                    ...window.LOGO_CONFIG,
-                    maxRetries: 3,
-                    retryDelay: 500,
-                    timeout: 8000,
-                    preloadCache: new Map()
-                };
-                
-                const logo = document.getElementById('header-logo');
-                const textFallback = document.getElementById('text-logo-fallback');
-                
-                if (!logo || !textFallback) {
-                    console.error('❌ Logo elements not found');
-                    return;
-                }
-                
-                console.log('🔄 Managing logo with race-condition protection');
-                
-                // Track when logo loading starts for fallback timeout logic
-                if (!logo.dataset.loadStartTime) {
-                    logo.dataset.loadStartTime = Date.now().toString();
-                }
-                
-                // Ensure logo-protection class is applied and reinforce styles
-                logo.classList.add('logo-protection');
-                
-                // Force logo visibility with enhanced properties
-                logo.style.cssText = `
-                    opacity: 1 !important; 
-                    visibility: visible !important; 
-                    display: inline-block !important; 
-                    position: relative !important; 
-                    z-index: 999999 !important;
-                    width: auto !important;
-                    height: 42px !important;
-                    max-width: 131px !important;
-                    min-width: 100px !important;
-                    image-rendering: -webkit-optimize-contrast !important;
-                    image-rendering: crisp-edges !important;
-                    transition: opacity 0.2s ease !important;
-                `;
-                
-                let currentFallbackIndex = 0;
-                
-                // Enhanced error handling with cascading fallbacks
-                function handleError() {
-                    console.log(`❌ Logo failed (attempt ${currentFallbackIndex + 1})`);
-                    
-                    if (currentFallbackIndex < config.fallbacks.length) {
-                        const fallbackSrc = config.fallbacks[currentFallbackIndex];
-                        console.log(`🔄 Trying fallback: ${fallbackSrc}`);
-                        
-                        logo.src = fallbackSrc;
-                        currentFallbackIndex++;
-                    } else {
-                        console.log('❌ All image fallbacks exhausted, checking if text fallback needed');
-                        activateTextFallback();
-                    }
-                }
-                
-                function handleSuccess() {
-                    console.log('✅ Logo loaded successfully');
-                    logo.parentElement.style.display = 'inline-block';
-                    textFallback.style.display = 'none';
-                    currentFallbackIndex = 0; // Reset for future errors
-                    
-                    // Store successful load
-                    try {
-                        localStorage.setItem('logo_last_success', Date.now().toString());
-                        localStorage.setItem('logo_successful_src', logo.src);
-                    } catch (e) {
-                        // Ignore localStorage errors
-                    }
-                }
-                
-                function activateTextFallback() {
-                    // ENHANCED: More robust fallback activation with multiple safety checks
-                    // KILL SWITCH: Uncomment next line to completely disable this function
-                    // return console.log('🛑 Text fallback disabled via kill switch');
-                    
-                    if (!logo || !textFallback) {
-                        console.error('❌ Cannot activate text fallback - elements not found');
-                        return;
-                    }
-
-                    // Check if image has genuinely failed after completion
-                    const imageHasFailed = (
-                        logo.complete && 
-                        (logo.naturalWidth === 0 || logo.naturalHeight === 0) &&
-                        logo.src && 
-                        !logo.src.includes('data:') // Don't treat data URLs as failed
-                    );
-
-                    // Additional safety: Check if logo has been loading for a reasonable time
-                    const logoLoadStartTime = logo.dataset.loadStartTime || 0;
-                    const hasBeenLoadingLongEnough = (Date.now() - logoLoadStartTime) > 5000; // 5 seconds
-
-                    if (imageHasFailed && hasBeenLoadingLongEnough) {
-                        console.log('📝 Text fallback activated - image completely failed after thorough check');
-                        console.log(`Image details: src="${logo.src}", complete=${logo.complete}, naturalWidth=${logo.naturalWidth}, naturalHeight=${logo.naturalHeight}`);
-                        
-                        // Only hide logo if we're absolutely sure it failed
-                        if (logo.parentElement && logo.parentElement.classList.contains('logo-link')) {
-                            logo.parentElement.style.display = 'none';
-                        }
-                        
-                        if (textFallback && textFallback.querySelector('.text-logo-fallback')) {
-                            textFallback.style.display = 'inline-block';
-                            textFallback.querySelector('.text-logo-fallback').textContent = 'Scoop Unit 🐾';
-                        }
-                    } else {
-                        console.log('📝 Text fallback NOT activated - image is working, loading, or checks failed');
-                        console.log(`Image check details: failed=${imageHasFailed}, loadTime=${hasBeenLoadingLongEnough}, src="${logo.src}"`);
-                        
-                        // SAFETY: Always ensure logo container stays visible unless absolutely certain of failure
-                        if (logo.parentElement) {
-                            logo.parentElement.style.display = 'inline-block';
-                        }
-                        if (textFallback) {
-                            textFallback.style.display = 'none';
-                        }
-                    }
-                }
-                
-                // Set up error handlers
-                logo.addEventListener('error', handleError, { passive: true });
-                logo.addEventListener('load', handleSuccess, { passive: true });
-                
-                // ADVANCED LOGO WATCHDOG SYSTEM
-                window.logoWatchdog = {
-                    isActive: false,
-                    monitorInterval: null,
-                    mutationObserver: null,
-                    intersectionObserver: null,
-                    restoreCount: 0,
-                    lastVisibleTime: Date.now(),
-                    
-                    start() {
-                        if (this.isActive) {
-                            console.log('🐕 Logo watchdog already active');
-                            return;
-                        }
-                        
-                        this.isActive = true;
-                        console.log('🐕 Starting comprehensive logo watchdog system');
-                        
-                        // 1. Continuous monitoring every 2 seconds (no time limit)
-                        this.monitorInterval = setInterval(() => {
-                            this.checkAndRestore();
-                        }, 2000);
-                        
-                        // 2. DOM mutation observer to catch external changes
-                        this.mutationObserver = new MutationObserver((mutations) => {
-                            mutations.forEach((mutation) => {
-                                if (mutation.type === 'attributes' && 
-                                    (mutation.target === logo || mutation.target.contains(logo))) {
-                                    console.log('🔍 DOM mutation detected on logo, checking...');
-                                    setTimeout(() => this.checkAndRestore(), 100);
-                                }
-                            });
-                        });
-                        
-                        this.mutationObserver.observe(document.body, {
-                            attributes: true,
-                            childList: true,
-                            subtree: true,
-                            attributeFilter: ['style', 'class', 'src', 'display']
-                        });
-                        
-                        // 3. Intersection observer to detect visibility changes
-                        this.intersectionObserver = new IntersectionObserver((entries) => {
-                            entries.forEach((entry) => {
-                                if (entry.target === logo) {
-                                    if (entry.isIntersecting && entry.intersectionRatio > 0) {
-                                        this.lastVisibleTime = Date.now();
-                                    } else {
-                                        console.warn('⚠️ Logo no longer visible in viewport');
-                                        setTimeout(() => this.checkAndRestore(), 500);
-                                    }
-                                }
-                            });
-                        }, {
-                            threshold: [0, 0.1, 0.5, 1.0]
-                        });
-                        
-                        this.intersectionObserver.observe(logo);
-                        
-                        // 4. Event listeners for common interference
-                        ['resize', 'scroll', 'orientationchange'].forEach(event => {
-                            window.addEventListener(event, () => {
-                                setTimeout(() => this.checkAndRestore(), 300);
-                            });
-                        });
-                        
-                        console.log('✅ Logo watchdog system fully activated');
-                    },
-                    
-                    checkAndRestore() {
-                        if (!logo) return;
-                        
-                        const computedStyle = getComputedStyle(logo);
-                        const isHidden = (
-                            logo.offsetWidth === 0 || 
-                            logo.offsetHeight === 0 ||
-                            computedStyle.display === 'none' ||
-                            computedStyle.visibility === 'hidden' ||
-                            computedStyle.opacity === '0' ||
-                            !logo.classList.contains('logo-protection') ||
-                            logo.style.display === 'none'
-                        );
-                        
-                        if (isHidden) {
-                            this.restoreCount++;
-                            console.warn(`🚨 Logo disappeared! Restoring... (attempt #${this.restoreCount})`);
-                            this.restoreLogo();
-                            
-                            // Log detailed diagnostic info
-                            console.log('📊 Logo diagnostic:', {
-                                offsetWidth: logo.offsetWidth,
-                                offsetHeight: logo.offsetHeight,
-                                display: computedStyle.display,
-                                visibility: computedStyle.visibility,
-                                opacity: computedStyle.opacity,
-                                hasProtectionClass: logo.classList.contains('logo-protection'),
-                                inlineDisplay: logo.style.display,
-                                src: logo.src
-                            });
-                        }
-                    },
-                    
-                    restoreLogo() {
-                        // Emergency logo restoration protocol
-                        console.log('🔧 Executing emergency logo restoration');
-                        
-                        // 1. Force protection class
-                        logo.classList.add('logo-protection');
-                        
-                        // 2. Nuclear option: complete style override
-                        logo.style.cssText = `
-                            opacity: 1 !important; 
-                            visibility: visible !important; 
-                            display: inline-block !important; 
-                            position: relative !important; 
-                            z-index: 999999 !important;
-                            width: auto !important;
-                            height: 42px !important;
-                            max-width: 131px !important;
-                            min-width: 100px !important;
-                            transform: none !important;
-                            filter: none !important;
-                            clip: auto !important;
-                            clip-path: none !important;
-                            mask: none !important;
-                            overflow: visible !important;
-                            margin: 0 !important;
-                            padding: 0 !important;
-                            border: none !important;
-                            outline: none !important;
-                            box-shadow: none !important;
-                            image-rendering: -webkit-optimize-contrast !important;
-                            image-rendering: crisp-edges !important;
-                            pointer-events: auto !important;
-                            user-select: none !important;
-                        `;
-                        
-                        // 3. Ensure proper source
-                        if (!logo.src || logo.src.includes('invalid') || logo.src.includes('undefined')) {
-                            logo.src = config.primary;
-                        }
-                        
-                        // 4. Force reflow
-                        logo.offsetHeight;
-                        
-                        // 5. Verify restoration
-                        setTimeout(() => {
-                            if (logo.offsetWidth > 0 && logo.offsetHeight > 0) {
-                                console.log('✅ Logo successfully restored');
-                            } else {
-                                console.error('❌ Logo restoration failed, trying text fallback');
-                                this.showTextFallback();
-                            }
-                        }, 100);
-                    },
-                    
-                    showTextFallback() {
-                        if (textFallback) {
-                            textFallback.style.display = 'inline-block';
-                            console.log('📝 Text fallback activated');
-                        }
-                    },
-                    
-                    getStatus() {
-                        return {
-                            isActive: this.isActive,
-                            restoreCount: this.restoreCount,
-                            lastVisibleTime: new Date(this.lastVisibleTime).toLocaleTimeString(),
-                            logoVisible: logo ? (logo.offsetWidth > 0 && logo.offsetHeight > 0) : false
-                        };
-                    }
-                };
-                
-                // Start the watchdog system
-                window.logoWatchdog.start();
-                
-                // GLOBAL WATCHDOG CONTROL FUNCTIONS
-                window.startLogoWatchdog = function() {
-                    if (window.logoWatchdog) {
-                        window.logoWatchdog.start();
-                        console.log('🐕 Logo watchdog started manually');
-                        return window.logoWatchdog.getStatus();
-                    }
-                };
-                
-                window.getWatchdogStatus = function() {
-                    if (window.logoWatchdog) {
-                        const status = window.logoWatchdog.getStatus();
-                        console.log('📊 Watchdog Status:', status);
-                        return status;
-                    }
-                    return { error: 'Watchdog not available' };
-                };
-                
-                window.forceLogoRestore = function() {
-                    if (window.logoWatchdog) {
-                        window.logoWatchdog.restoreLogo();
-                        console.log('🔧 Manual logo restoration triggered');
-                        return { restored: true };
-                    }
-                };
-                
-                // Mark logo system as ready
-                window.logoReady = true;
-                console.log('✅ Race-condition-free logo management system initialized');
-            });
-            
-        })();
-    </script>
+    <!-- NUCLEAR OPTION: DISABLE ALL LOGO JAVASCRIPT -->
+    <!-- All logo management disabled - pure CSS only -->
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v15" defer></script> -->
-    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v15" defer></script> -->
+    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-SIMPLE" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-SIMPLE" defer></script> -->
 </body>
 </html>
