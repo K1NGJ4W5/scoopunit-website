@@ -717,7 +717,7 @@ p {
     background-color: var(--background-secondary);
 }
 
-.aspect-ratio-container img {
+.aspect-ratio-container img:not(#header-logo) {
     position: absolute;
     top: 0;
     left: 0;
