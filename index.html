@@ -73,14 +73,14 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v2" as="style">
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v2" as="image">
-    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v2" as="image">
+    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v3" as="style">
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v3" as="image">
+    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v3" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v2">
-    <link rel="stylesheet" href="modern-images.css?v=20241201-v2">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v3">
+    <link rel="stylesheet" href="modern-images.css?v=20241201-v3">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -88,40 +88,9 @@
     <nav class="apple-nav">
         <div class="apple-nav-container">
             <a href="index.html" class="apple-nav-logo">
-                <img src="images/scoop-unit-header-logo.jpg?v=20241201-v2" alt="Scoop Unit - Professional Dog Waste Removal" loading="eager" id="header-logo">
+                <img src="images/scoop-unit-header-logo.jpg?v=20241201-v3" alt="Scoop Unit - Professional Dog Waste Removal" loading="eager" id="header-logo">
             </a>
             
-            <!-- IMMEDIATE LOGO PROTECTION -->
-            <script>
-                (function() {
-                    const logo = document.getElementById('header-logo');
-                    if (logo) {
-                        // Lock the logo styles immediately
-                        logo.style.cssText = 'height: 42px !important; width: auto !important; opacity: 1 !important; display: block !important; visibility: visible !important; position: relative !important; z-index: 99999 !important;';
-                        
-                        // Prevent any future style changes
-                        const observer = new MutationObserver(function() {
-                            logo.style.cssText = 'height: 42px !important; width: auto !important; opacity: 1 !important; display: block !important; visibility: visible !important; position: relative !important; z-index: 99999 !important;';
-                        });
-                        observer.observe(logo, { attributes: true, attributeFilter: ['style'] });
-                        
-                        // Also prevent wrapping
-                        const parentObserver = new MutationObserver(function(mutations) {
-                            mutations.forEach(function(mutation) {
-                                if (mutation.type === 'childList') {
-                                    // If logo gets wrapped, unwrap it
-                                    const wrapper = logo.closest('.aspect-ratio-container');
-                                    if (wrapper && wrapper !== logo.parentNode.closest('.apple-nav-logo')) {
-                                        wrapper.parentNode.insertBefore(logo, wrapper);
-                                        wrapper.remove();
-                                    }
-                                }
-                            });
-                        });
-                        parentObserver.observe(logo.parentNode, { childList: true, subtree: true });
-                    }
-                })();
-            </script>
             
             <!-- Mobile menu toggle -->
             <button class="mobile-menu-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
@@ -818,72 +787,21 @@
 
     <!-- Mobile Menu JavaScript -->
     <script>
-        // CRITICAL: Force header logo visibility - OVERFLOW FIX
-        function forceLogoVisibility() {
-            const logos = document.querySelectorAll('.apple-nav-logo img, .apple-nav img, nav img');
-            const nav = document.querySelector('.apple-nav');
-            const navContainer = document.querySelector('.apple-nav-container');
-            const logoContainer = document.querySelector('.apple-nav-logo');
-            
-            // Fix navigation overflow issues
-            if (nav) {
-                nav.style.overflow = 'visible';
-                nav.style.minHeight = '64px';
+        // SIMPLE LOGO FIX - Just set it visible and leave it alone
+        function fixLogo() {
+            const logo = document.getElementById('header-logo');
+            if (logo) {
+                logo.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: 42px !important; width: auto !important;';
+                console.log('Logo fixed');
             }
-            if (navContainer) {
-                navContainer.style.overflow = 'visible';
-                navContainer.style.minHeight = '64px';
-            }
-            if (logoContainer) {
-                logoContainer.style.overflow = 'visible';
-                logoContainer.style.position = 'relative';
-                logoContainer.style.zIndex = '10000';
-            }
-            
-            // Fix logo images
-            logos.forEach(logo => {
-                logo.style.opacity = '1';
-                logo.style.visibility = 'visible';
-                logo.style.display = 'block';
-                logo.style.position = 'relative';
-                logo.style.zIndex = '10001';
-                logo.style.overflow = 'visible';
-                logo.removeAttribute('loading');
-                logo.style.height = '42px';
-                logo.style.width = 'auto';
-                logo.style.minWidth = '100px';
-                logo.style.maxWidth = 'none';
-                
-                // Debug: Log if logo is being found
-                console.log('Logo found and styled:', logo.src || logo.getAttribute('src'));
-            });
         }
         
         // Run immediately
-        forceLogoVisibility();
+        fixLogo();
         
-        // Run when DOM is ready
-        document.addEventListener('DOMContentLoaded', forceLogoVisibility);
-        
-        // Run when page is fully loaded
-        window.addEventListener('load', forceLogoVisibility);
-        
-        // NUCLEAR: Run every 100ms for first 10 seconds to catch any style changes
-        let logoFixCount = 0;
-        const logoFixInterval = setInterval(() => {
-            forceLogoVisibility();
-            logoFixCount++;
-            if (logoFixCount >= 100) { // Stop after 10 seconds
-                clearInterval(logoFixInterval);
-            }
-        }, 100);
-        
-        // Also run on any DOM mutations
-        const observer = new MutationObserver(() => {
-            forceLogoVisibility();
-        });
-        observer.observe(document.head, { childList: true, subtree: true });
-        observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'style'] });
+        // Run when ready
+        document.addEventListener('DOMContentLoaded', fixLogo);
+        window.addEventListener('load', fixLogo);
         
         // Mobile menu toggle
         document.getElementById('nav-toggle').addEventListener('click', function() {
@@ -1119,7 +1037,7 @@
     </script>
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v2" defer></script> -->
-    <script src="apple-interactions.js?v=20241201-v2" defer></script>
+    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v3" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v3" defer></script> -->
 </body>
 </html>
