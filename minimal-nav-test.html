@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Nav Test</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        .nav-container {
+            background: #f0f0f0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .logo {
+            height: 42px;
+            width: auto;
+            opacity: 1;
+            visibility: visible;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-container">
+        <img class="logo" src="images/scoop-unit-header-logo.jpg" alt="Minimal Test Logo">
+        <span style="margin-left: 20px;">Navigation items would go here</span>
+    </nav>
+    
+    <div style="padding: 20px;">
+        <h1>Minimal Navigation Test</h1>
+        <p>This tests the logo in the most basic navigation structure.</p>
+        <p id="status">Loading...</p>
+    </div>
+    
+    <script>
+        const logo = document.querySelector('.logo');
+        
+        function updateStatus(message, color = 'black') {
+            document.getElementById('status').innerHTML = message;
+            document.getElementById('status').style.color = color;
+        }
+        
+        logo.onload = function() {
+            updateStatus('✅ Logo loaded successfully! Natural size: ' + this.naturalWidth + 'x' + this.naturalHeight, 'green');
+        };
+        
+        logo.onerror = function() {
+            updateStatus('❌ Logo failed to load from: ' + this.src, 'red');
+        };
+        
+        // Check if already loaded (cached)
+        if (logo.complete) {
+            if (logo.naturalWidth > 0) {
+                logo.onload();
+            } else {
+                logo.onerror();
+            }
+        }
+    </script>
+</body>
+</html>

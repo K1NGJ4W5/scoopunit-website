@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Logo Test</title>
+    <style>
+        #test-logo {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            height: 42px !important;
+            width: auto !important;
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Logo Test</h1>
+    <p>If you can see a red border but no image, the image file is the problem.</p>
+    <p>If you can't see anything, CSS is the problem.</p>
+    
+    <img id="test-logo" src="images/scoop-unit-header-logo.jpg" alt="Logo Test">
+    
+    <script>
+        const img = document.getElementById('test-logo');
+        
+        img.onload = function() {
+            console.log('✅ Image loaded successfully');
+            document.body.innerHTML += '<p style="color: green;">✅ Image loaded successfully</p>';
+        };
+        
+        img.onerror = function() {
+            console.log('❌ Image failed to load');
+            document.body.innerHTML += '<p style="color: red;">❌ Image failed to load: ' + this.src + '</p>';
+        };
+        
+        setTimeout(() => {
+            console.log('Image element:', img);
+            console.log('Natural dimensions:', img.naturalWidth, 'x', img.naturalHeight);
+            console.log('Current src:', img.src);
+        }, 1000);
+    </script>
+</body>
+</html>
