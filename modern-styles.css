@@ -710,7 +710,8 @@ p {
     }
 }
 
-/* Performance Optimization Styles */
+/* Performance Optimization Styles - DISABLED TO PREVENT LOGO ISSUES */
+/*
 .aspect-ratio-container {
     position: relative;
     overflow: hidden;
@@ -731,6 +732,7 @@ p {
 .aspect-ratio-container img.loaded {
     opacity: 1;
 }
+*/
 
 /* WebP support fallbacks */
 .webp-support .hero-image {

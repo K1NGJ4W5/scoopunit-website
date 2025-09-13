@@ -73,11 +73,11 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=FINAL-FIX" as="style">
-    <link rel="preload" href="modern-images.css?v=FINAL-FIX" as="style">
+    <link rel="preload" href="apple-inspired-styles.css?v=NUCLEAR-CSS-FIX" as="style">
+    <link rel="preload" href="modern-images.css?v=NUCLEAR-CSS-FIX" as="style">
     
     <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=FINAL-FIX" 
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=NUCLEAR-CSS-FIX" 
           as="image" 
           fetchpriority="high" 
           crossorigin="anonymous"
@@ -97,15 +97,15 @@
           type="image/png">
     
     <!-- Background image with lowest priority -->
-    <link rel="preload" href="images/hero-yard-background.jpg?v=FINAL-FIX" 
+    <link rel="preload" href="images/hero-yard-background.jpg?v=NUCLEAR-CSS-FIX" 
           as="image" 
           fetchpriority="low"
           media="(min-width: 768px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=FINAL-FIX">
-    <link rel="stylesheet" href="modern-images.css?v=FINAL-FIX">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=NUCLEAR-CSS-FIX">
+    <link rel="stylesheet" href="modern-images.css?v=NUCLEAR-CSS-FIX">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CRITICAL: CSS-first logo protection to prevent race conditions -->
@@ -161,7 +161,7 @@
         <div class="apple-nav-container">
             <div class="apple-nav-logo">
                 <a href="index.html" class="logo-link">
-                    <img src="images/scoop-unit-header-logo.jpg?v=FINAL-FIX" 
+                    <img src="images/scoop-unit-header-logo.jpg?v=NUCLEAR-CSS-FIX" 
                          alt="Scoop Unit - Professional Dog Waste Removal" 
                          loading="eager" 
                          decoding="sync"
@@ -1163,7 +1163,7 @@
                     
                     // 3. Ensure proper source
                     if (!logo.src || logo.src.includes('invalid') || logo.src.includes('undefined')) {
-                        logo.src = 'images/scoop-unit-header-logo.jpg?v=FINAL-FIX';
+                        logo.src = 'images/scoop-unit-header-logo.jpg?v=NUCLEAR-CSS-FIX';
                     }
                     
                     // 4. Force reflow
@@ -1501,7 +1501,7 @@
     <!-- All logo management disabled - pure CSS only -->
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=FINAL-FIX" defer></script> -->
-    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=FINAL-FIX" defer></script> -->
+    <!-- DISABLED: <script src="performance-optimization.js?v=NUCLEAR-CSS-FIX" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=NUCLEAR-CSS-FIX" defer></script> -->
 </body>
 </html>

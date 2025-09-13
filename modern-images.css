@@ -7,7 +7,8 @@
 img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not(#header-logo) {
   max-width: 100%;
   height: auto;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  /* REMOVED TRANSITION TO PREVENT LOGO HIDING */
+  /* transition: opacity 0.3s ease, transform 0.3s ease; */
 }
 
 /* Header Logo Override - COMPREHENSIVE FIX */
