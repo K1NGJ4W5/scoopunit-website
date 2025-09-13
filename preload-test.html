@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Preloading Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .test-section { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .status { padding: 10px 15px; margin: 10px 0; border-radius: 4px; font-weight: 500; }
+        .pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .code { background: #f8f9fa; border: 1px solid #e9ecef; padding: 15px; border-radius: 4px; font-family: monospace; overflow-x: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .metric { text-align: center; padding: 15px; background: #f8f9fa; border-radius: 6px; }
+        .metric-value { font-size: 1.5em; font-weight: bold; color: #007bff; }
+        .control-panel { background: #e9ecef; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .danger { background: #dc3545; } .danger:hover { background: #c82333; }
+        .success { background: #28a745; } .success:hover { background: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Logo Preloading System Test</h1>
+            <p>Comprehensive testing of image preloading and error handling</p>
+        </div>
+        
+        <div class="control-panel">
+            <h3>🎛️ Control Panel</h3>
+            <button onclick="runAllTests()" class="success">Run All Tests</button>
+            <button onclick="testPreloading()">Test Preloading</button>
+            <button onclick="testFallbacks()">Test Fallbacks</button>
+            <button onclick="simulateError()" class="danger">Simulate Error</button>
+            <button onclick="clearCache()">Clear Cache</button>
+            <button onclick="getDetailedStatus()">Get Status</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>📊 Real-time Status</h2>
+            <div class="grid" id="metrics">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div id="live-status"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔄 Preload Testing</h2>
+            <div id="preload-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🛡️ Error Handling Testing</h2>
+            <div id="error-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>💾 Cache Analysis</h2>
+            <div id="cache-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🚀 Performance Metrics</h2>
+            <div id="performance-results"></div>
+        </div>
+    </div>
+    
+    <script>
+        class PreloadTester {
+            constructor() {
+                this.testResults = new Map();
+                this.startTime = performance.now();
+            }
+            
+            addResult(containerId, message, type = 'info') {
+                const container = document.getElementById(containerId);
+                const div = document.createElement('div');
+                div.className = `status ${type}`;
+                div.innerHTML = message;
+                container.appendChild(div);
+            }
+            
+            updateMetrics() {
+                const metricsDiv = document.getElementById('metrics');
+                const status = window.checkLogoStatus ? window.checkLogoStatus() : {};
+                
+                const metrics = [
+                    { label: 'Preloaded', value: status.preloaded ? '✅ Yes' : '❌ No', color: status.preloaded ? '#28a745' : '#dc3545' },
+                    { label: 'Cached Images', value: status.cached || 0, color: '#007bff' },
+                    { label: 'Load Attempts', value: status.attempts || 0, color: '#6f42c1' },
+                    { label: 'Test Time', value: `${((performance.now() - this.startTime) / 1000).toFixed(1)}s`, color: '#fd7e14' }
+                ];
+                
+                metricsDiv.innerHTML = metrics.map(m => `
+                    <div class="metric">
+                        <div class="metric-value" style="color: ${m.color}">${m.value}</div>
+                        <div>${m.label}</div>
+                    </div>
+                `).join('');
+            }
+            
+            testPreloading() {
+                this.addResult('preload-results', '🔄 Testing preload system...', 'info');
+                
+                if (typeof window.checkLogoStatus !== 'function') {
+                    this.addResult('preload-results', '❌ Preloader not available - checkLogoStatus function not found', 'fail');
+                    return;
+                }
+                
+                const status = window.checkLogoStatus();
+                
+                if (status.preloaded) {
+                    this.addResult('preload-results', `✅ Primary logo preloaded successfully`, 'pass');
+                } else {
+                    this.addResult('preload-results', `❌ Primary logo not preloaded`, 'fail');
+                }
+                
+                if (status.cached > 0) {
+                    this.addResult('preload-results', `✅ ${status.cached} images cached`, 'pass');
+                    this.addResult('preload-results', `📋 Cached: ${status.cacheKeys?.join(', ') || 'Unknown'}`, 'info');
+                } else {
+                    this.addResult('preload-results', '⚠️ No images in cache', 'warning');
+                }
+                
+                // Test cache functionality
+                if (typeof window.getLogoCache === 'function') {
+                    const cacheData = window.getLogoCache();
+                    this.addResult('preload-results', `💾 Cache details: ${JSON.stringify(cacheData, null, 2)}`, 'info');
+                }
+            }
+            
+            testFallbacks() {
+                this.addResult('error-results', '🔄 Testing fallback system...', 'info');
+                
+                // Test if fallbacks are preloaded
+                const fallbacks = ['images/scoopunitlogo.jpg', 'images/scoop-unit-badge-logo.png'];
+                
+                fallbacks.forEach((fallback, index) => {
+                    const img = new Image();
+                    const startTime = performance.now();
+                    
+                    img.onload = () => {
+                        const loadTime = performance.now() - startTime;
+                        if (loadTime < 10) {
+                            this.addResult('error-results', `✅ Fallback ${index + 1} (${fallback}) likely cached - loaded in ${loadTime.toFixed(2)}ms`, 'pass');
+                        } else {
+                            this.addResult('error-results', `⚠️ Fallback ${index + 1} (${fallback}) loaded in ${loadTime.toFixed(2)}ms - may not be cached`, 'warning');
+                        }
+                    };
+                    
+                    img.onerror = () => {
+                        this.addResult('error-results', `❌ Fallback ${index + 1} (${fallback}) failed to load`, 'fail');
+                    };
+                    
+                    img.src = fallback;
+                });
+            }
+            
+            simulateError() {
+                this.addResult('error-results', '🔄 Simulating logo error...', 'info');
+                
+                const logo = document.getElementById('header-logo');
+                if (logo) {
+                    // Force an error by setting invalid source
+                    logo.src = 'invalid-logo-path.jpg';
+                    this.addResult('error-results', '⚡ Logo source set to invalid path - check console for error handling', 'info');
+                } else {
+                    this.addResult('error-results', '❌ Logo element not found on page', 'fail');
+                }
+            }
+            
+            clearCache() {
+                if (typeof window.forceReloadLogo === 'function') {
+                    window.forceReloadLogo();
+                    this.addResult('cache-results', '🗑️ Cache cleared and logo reloaded', 'info');
+                } else {
+                    this.addResult('cache-results', '❌ Cache clear function not available', 'fail');
+                }
+            }
+            
+            getDetailedStatus() {
+                const liveStatus = document.getElementById('live-status');
+                
+                if (typeof window.checkLogoStatus === 'function') {
+                    const status = window.checkLogoStatus();
+                    liveStatus.innerHTML = `
+                        <div class="code">
+                            <strong>Detailed Status:</strong><br>
+                            ${JSON.stringify(status, null, 2)}
+                        </div>
+                    `;
+                } else {
+                    liveStatus.innerHTML = '<div class="status fail">❌ Status function not available</div>';
+                }
+            }
+            
+            analyzePerformance() {
+                this.addResult('performance-results', '📊 Analyzing performance...', 'info');
+                
+                // Test load times
+                const testImage = new Image();
+                const perfStart = performance.now();
+                
+                testImage.onload = () => {
+                    const loadTime = performance.now() - perfStart;
+                    
+                    if (loadTime < 50) {
+                        this.addResult('performance-results', `🚀 Excellent load time: ${loadTime.toFixed(2)}ms`, 'pass');
+                    } else if (loadTime < 200) {
+                        this.addResult('performance-results', `✅ Good load time: ${loadTime.toFixed(2)}ms`, 'pass');
+                    } else if (loadTime < 500) {
+                        this.addResult('performance-results', `⚠️ Moderate load time: ${loadTime.toFixed(2)}ms`, 'warning');
+                    } else {
+                        this.addResult('performance-results', `❌ Slow load time: ${loadTime.toFixed(2)}ms`, 'fail');
+                    }
+                };
+                
+                testImage.onerror = () => {
+                    this.addResult('performance-results', '❌ Performance test image failed to load', 'fail');
+                };
+                
+                testImage.src = 'images/scoop-unit-header-logo.jpg?' + Date.now();
+                
+                // Memory usage (if available)
+                if (performance.memory) {
+                    this.addResult('performance-results', `💾 Memory: ${(performance.memory.usedJSHeapSize / 1024 / 1024).toFixed(2)} MB used`, 'info');
+                }
+            }
+        }
+        
+        // Global test instance
+        let tester = new PreloadTester();
+        
+        // Global functions
+        function runAllTests() {
+            // Clear previous results
+            ['preload-results', 'error-results', 'cache-results', 'performance-results'].forEach(id => {
+                document.getElementById(id).innerHTML = '';
+            });
+            
+            tester = new PreloadTester();
+            
+            tester.testPreloading();
+            setTimeout(() => tester.testFallbacks(), 500);
+            setTimeout(() => tester.analyzePerformance(), 1000);
+            setTimeout(() => tester.getDetailedStatus(), 1500);
+        }
+        
+        function testPreloading() { tester.testPreloading(); }
+        function testFallbacks() { tester.testFallbacks(); }
+        function simulateError() { tester.simulateError(); }
+        function clearCache() { tester.clearCache(); }
+        function getDetailedStatus() { tester.getDetailedStatus(); }
+        
+        // Auto-update metrics
+        setInterval(() => tester.updateMetrics(), 2000);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            tester.updateMetrics();
+            tester.getDetailedStatus();
+        });
+    </script>
+</body>
+</html>

@@ -73,19 +73,39 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v8" as="style">
-    <!-- CRITICAL: Preload logo with highest priority -->
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v8" as="image" fetchpriority="high" crossorigin="anonymous">
-    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v8" as="image" fetchpriority="low">
+    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v9" as="style">
+    <link rel="preload" href="modern-images.css?v=20241201-v9" as="style">
     
-    <!-- Prefetch backup logo assets -->
-    <link rel="prefetch" href="images/scoopunitlogo.jpg" as="image">
-    <link rel="prefetch" href="images/scoop-unit-badge-logo.png" as="image">
+    <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v9" 
+          as="image" 
+          fetchpriority="high" 
+          crossorigin="anonymous"
+          media="(min-width: 1px)"
+          type="image/jpeg">
+    
+    <!-- Preload fallback logos with medium priority -->
+    <link rel="preload" href="images/scoopunitlogo.jpg" 
+          as="image" 
+          fetchpriority="low" 
+          crossorigin="anonymous"
+          type="image/jpeg">
+    <link rel="preload" href="images/scoop-unit-badge-logo.png" 
+          as="image" 
+          fetchpriority="low" 
+          crossorigin="anonymous"
+          type="image/png">
+    
+    <!-- Background image with lowest priority -->
+    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v9" 
+          as="image" 
+          fetchpriority="low"
+          media="(min-width: 768px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v8">
-    <link rel="stylesheet" href="modern-images.css?v=20241201-v8">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v9">
+    <link rel="stylesheet" href="modern-images.css?v=20241201-v9">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CRITICAL: Logo preloading and error handling system -->
@@ -95,7 +115,7 @@
             'use strict';
             
             const LOGO_CONFIG = {
-                primary: 'images/scoop-unit-header-logo.jpg?v=20241201-v8',
+                primary: 'images/scoop-unit-header-logo.jpg?v=20241201-v9',
                 fallbacks: [
                     'images/scoopunitlogo.jpg',
                     'images/scoop-unit-badge-logo.png'
@@ -103,7 +123,8 @@
                 textFallback: 'Scoop Unit 🐾',
                 maxRetries: 3,
                 retryDelay: 500,
-                timeout: 5000
+                timeout: 8000, // Increased timeout
+                preloadCache: new Map() // Add cache for preloaded images
             };
             
             class LogoPreloader {
@@ -114,17 +135,44 @@
                 }
                 
                 preloadLogo() {
-                    console.log('🔄 Starting logo preload...');
+                    console.log('🔄 Starting enhanced logo preload...');
+                    
+                    // Check if already cached
+                    if (LOGO_CONFIG.preloadCache.has(LOGO_CONFIG.primary)) {
+                        console.log('✅ Logo found in cache');
+                        this.successfulLoad = true;
+                        this.storeSuccessfulLoad();
+                        return;
+                    }
+                    
                     this.loadImageWithRetry(LOGO_CONFIG.primary, 0)
-                        .then(() => {
+                        .then((img) => {
                             this.successfulLoad = true;
-                            console.log('✅ Logo preloaded successfully');
+                            LOGO_CONFIG.preloadCache.set(LOGO_CONFIG.primary, img);
+                            console.log('✅ Logo preloaded and cached successfully');
                             this.storeSuccessfulLoad();
+                            this.preloadFallbacks(); // Preload fallbacks too
                         })
                         .catch(() => {
                             console.warn('⚠️ Primary logo failed, trying fallbacks...');
                             this.tryFallbacks();
                         });
+                }
+                
+                preloadFallbacks() {
+                    // Preload fallback images in background
+                    LOGO_CONFIG.fallbacks.forEach((fallbackSrc, index) => {
+                        setTimeout(() => {
+                            this.loadImageWithRetry(fallbackSrc, 0)
+                                .then((img) => {
+                                    LOGO_CONFIG.preloadCache.set(fallbackSrc, img);
+                                    console.log(`✅ Fallback ${index + 1} preloaded: ${fallbackSrc}`);
+                                })
+                                .catch(() => {
+                                    console.warn(`⚠️ Fallback ${index + 1} failed to preload: ${fallbackSrc}`);
+                                });
+                        }, index * 200); // Stagger the requests
+                    });
                 }
                 
                 loadImageWithRetry(src, attempt) {
@@ -225,13 +273,36 @@
             // Initialize preloader immediately
             window.logoPreloader = new LogoPreloader();
             
-            // Expose global function for monitoring
+            // Make config globally accessible
+            window.LOGO_CONFIG = LOGO_CONFIG;
+            
+            // Expose enhanced global functions for monitoring
             window.checkLogoStatus = function() {
                 return {
                     preloaded: window.logoPreloader.successfulLoad,
                     attempts: window.logoPreloader.loadAttempts.size,
+                    cached: LOGO_CONFIG.preloadCache.size,
+                    cacheKeys: Array.from(LOGO_CONFIG.preloadCache.keys()),
                     timestamp: Date.now()
                 };
+            };
+            
+            window.forceReloadLogo = function() {
+                console.log('🔄 Force reloading logo...');
+                const logo = document.getElementById('header-logo');
+                if (logo) {
+                    // Clear cache and reload
+                    LOGO_CONFIG.preloadCache.clear();
+                    logo.src = logo.src.split('?')[0] + '?t=' + Date.now();
+                }
+            };
+            
+            window.getLogoCache = function() {
+                return Array.from(LOGO_CONFIG.preloadCache.entries()).map(([src, img]) => ({
+                    src,
+                    loaded: img.complete && img.naturalWidth > 0,
+                    size: `${img.naturalWidth}x${img.naturalHeight}`
+                }));
             };
             
         })();
@@ -243,7 +314,7 @@
         <div class="apple-nav-container">
             <div class="apple-nav-logo">
                 <a href="index.html" class="logo-link">
-                    <img src="images/scoop-unit-header-logo.jpg?v=20241201-v8" 
+                    <img src="images/scoop-unit-header-logo.jpg?v=20241201-v9" 
                          alt="Scoop Unit - Professional Dog Waste Removal" 
                          loading="eager" 
                          decoding="sync"
@@ -953,39 +1024,125 @@
 
     <!-- Mobile Menu JavaScript -->
     <script>
-        // SIMPLIFIED LOGO MANAGEMENT - FIXED STRUCTURE
+        // ENHANCED LOGO MANAGEMENT WITH PRELOADING INTEGRATION
         function manageLogo() {
             const logo = document.getElementById('header-logo');
             const textFallback = document.getElementById('text-logo-fallback');
             
-            if (!logo || !textFallback) return;
+            if (!logo || !textFallback) {
+                console.error('❌ Logo elements not found');
+                return;
+            }
             
-            console.log('🔄 Managing logo with fixed structure');
+            console.log('🔄 Managing logo with enhanced preloading');
             
-            // Force logo visibility
-            logo.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: inline-block !important; position: relative !important; z-index: 999999 !important;';
+            // Force logo visibility with enhanced properties
+            logo.style.cssText = `
+                opacity: 1 !important; 
+                visibility: visible !important; 
+                display: inline-block !important; 
+                position: relative !important; 
+                z-index: 999999 !important;
+                image-rendering: -webkit-optimize-contrast !important;
+                image-rendering: crisp-edges !important;
+                transition: opacity 0.2s ease !important;
+            `;
             
-            // Simple error handling with clean fallback
-            logo.addEventListener('error', function() {
-                console.log('❌ Logo failed, showing text fallback');
-                this.parentElement.style.display = 'none'; // Hide img link
-                textFallback.style.display = 'inline-block'; // Show text link
-            });
+            let currentFallbackIndex = 0;
+            const fallbacks = ['images/scoopunitlogo.jpg', 'images/scoop-unit-badge-logo.png'];
             
-            logo.addEventListener('load', function() {
+            // Enhanced error handling with cascading fallbacks
+            function handleError() {
+                console.log(`❌ Logo failed (attempt ${currentFallbackIndex + 1})`);
+                
+                if (currentFallbackIndex < fallbacks.length) {
+                    const fallbackSrc = fallbacks[currentFallbackIndex];
+                    console.log(`🔄 Trying fallback: ${fallbackSrc}`);
+                    
+                    // Check if fallback is preloaded
+                    if (window.LOGO_CONFIG && window.LOGO_CONFIG.preloadCache.has(fallbackSrc)) {
+                        console.log('✅ Using preloaded fallback');
+                    }
+                    
+                    logo.src = fallbackSrc;
+                    currentFallbackIndex++;
+                } else {
+                    console.log('❌ All image fallbacks exhausted, showing text');
+                    activateTextFallback();
+                }
+            }
+            
+            function handleSuccess() {
                 console.log('✅ Logo loaded successfully');
-                this.parentElement.style.display = 'inline-block'; // Show img link
-                textFallback.style.display = 'none'; // Hide text link
-            });
+                logo.parentElement.style.display = 'inline-block';
+                textFallback.style.display = 'none';
+                currentFallbackIndex = 0; // Reset for future errors
+                
+                // Store successful load
+                try {
+                    localStorage.setItem('logo_last_success', Date.now().toString());
+                    localStorage.setItem('logo_successful_src', logo.src);
+                } catch (e) {
+                    // Ignore localStorage errors
+                }
+            }
+            
+            function activateTextFallback() {
+                logo.parentElement.style.display = 'none';
+                textFallback.style.display = 'inline-block';
+                textFallback.querySelector('.text-logo-fallback').textContent = 'Scoop Unit 🐾';
+                console.log('📝 Text fallback activated');
+            }
+            
+            // Check for previously successful load
+            try {
+                const lastSuccess = localStorage.getItem('logo_last_success');
+                const successfulSrc = localStorage.getItem('logo_successful_src');
+                
+                if (lastSuccess && successfulSrc && (Date.now() - parseInt(lastSuccess)) < 3600000) { // 1 hour
+                    console.log('⚡ Using recently successful logo source');
+                    if (logo.src !== successfulSrc) {
+                        logo.src = successfulSrc;
+                    }
+                }
+            } catch (e) {
+                // Ignore localStorage errors
+            }
+            
+            // Add event listeners
+            logo.addEventListener('error', handleError, { passive: true });
+            logo.addEventListener('load', handleSuccess, { passive: true });
             
             // Test current state
             if (logo.complete) {
                 if (logo.naturalWidth > 0) {
-                    logo.dispatchEvent(new Event('load'));
+                    handleSuccess();
                 } else {
-                    logo.dispatchEvent(new Event('error'));
+                    handleError();
                 }
             }
+            
+            // Monitor for disappearing (check every 5 seconds for first minute)
+            let monitorCount = 0;
+            const monitorInterval = setInterval(() => {
+                if (logo.offsetWidth === 0 || logo.offsetHeight === 0) {
+                    console.warn('⚠️ Logo dimensions zero, forcing visibility');
+                    logo.style.cssText = `
+                        opacity: 1 !important; 
+                        visibility: visible !important; 
+                        display: inline-block !important; 
+                        position: relative !important; 
+                        z-index: 999999 !important;
+                        width: auto !important;
+                        height: 42px !important;
+                    `;
+                }
+                
+                monitorCount++;
+                if (monitorCount >= 12) { // Stop after 1 minute
+                    clearInterval(monitorInterval);
+                }
+            }, 5000);
         }
         
         // Run the simplified logo manager
@@ -1229,7 +1386,7 @@
     </script>
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v8" defer></script> -->
-    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v8" defer></script> -->
+    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v9" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v9" defer></script> -->
 </body>
 </html>
