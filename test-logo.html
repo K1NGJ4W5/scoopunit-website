@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logo Test</title>
+    <style>
+        .test-nav {
+            background: #f0f0f0;
+            padding: 10px;
+        }
+        .test-logo img {
+            height: 42px;
+            width: auto;
+            opacity: 1;
+            display: block;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <nav class="test-nav">
+        <div class="test-logo">
+            <img src="images/scoop-unit-header-logo.jpg" alt="Test Logo" id="test-logo">
+        </div>
+    </nav>
+    
+    <script>
+        console.log('Page loaded');
+        
+        function checkLogo() {
+            const logo = document.getElementById('test-logo');
+            if (logo) {
+                console.log('Logo element found');
+                console.log('Computed styles:', window.getComputedStyle(logo));
+                console.log('Opacity:', logo.style.opacity);
+                console.log('Display:', logo.style.display);
+                console.log('Visibility:', logo.style.visibility);
+            } else {
+                console.log('Logo element NOT found');
+            }
+        }
+        
+        checkLogo();
+        setTimeout(checkLogo, 1000);
+        setTimeout(checkLogo, 3000);
+        setTimeout(checkLogo, 5000);
+    </script>
+</body>
+</html>
