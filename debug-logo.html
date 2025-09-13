@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Logo Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        img { border: 2px solid red; margin: 10px 0; display: block; }
+        .info { background: #f0f0f0; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Logo Debug Page</h1>
+    
+    <div class="test">
+        <h2>Test 1: Direct image path</h2>
+        <img src="images/scoop-unit-header-logo.jpg" alt="Direct path" style="height: 42px; width: auto;">
+        <div class="info" id="info1"></div>
+    </div>
+    
+    <div class="test">
+        <h2>Test 2: With cache busting</h2>
+        <img src="images/scoop-unit-header-logo.jpg?v=20241201-v4" alt="Cache busted" style="height: 42px; width: auto;">
+        <div class="info" id="info2"></div>
+    </div>
+    
+    <div class="test">
+        <h2>Test 3: Navigation context</h2>
+        <nav style="background: #f5f5f5; padding: 10px;">
+            <div class="apple-nav-logo">
+                <img src="images/scoop-unit-header-logo.jpg" alt="Nav context" id="nav-logo" style="height: 42px; width: auto;">
+            </div>
+        </nav>
+        <div class="info" id="info3"></div>
+    </div>
+    
+    <div class="test">
+        <h2>Test 4: All other logo files</h2>
+        <img src="images/scoopunitlogo.jpg" alt="scoopunitlogo.jpg" style="height: 42px; width: auto;">
+        <img src="images/scoop-unit-badge-logo.png" alt="badge logo png" style="height: 42px; width: auto;">
+        <div class="info" id="info4"></div>
+    </div>
+    
+    <script>
+        function checkImage(img, infoId) {
+            const info = document.getElementById(infoId);
+            
+            img.onload = function() {
+                info.innerHTML += `✅ Image loaded successfully<br>`;
+                info.innerHTML += `Natural dimensions: ${this.naturalWidth}x${this.naturalHeight}<br>`;
+                info.innerHTML += `Displayed dimensions: ${this.width}x${this.height}<br>`;
+                info.innerHTML += `Computed style: ${window.getComputedStyle(this).display}<br>`;
+            };
+            
+            img.onerror = function() {
+                info.innerHTML += `❌ Image failed to load<br>`;
+                info.innerHTML += `Src: ${this.src}<br>`;
+            };
+            
+            // Check if already loaded
+            if (img.complete) {
+                if (img.naturalWidth > 0) {
+                    img.onload();
+                } else {
+                    img.onerror();
+                }
+            }
+        }
+        
+        // Test all images
+        const images = document.querySelectorAll('img');
+        images.forEach((img, index) => {
+            const infoId = `info${Math.floor(index/2) + 1}`;
+            checkImage(img, infoId);
+        });
+        
+        // Special check for nav logo
+        const navLogo = document.getElementById('nav-logo');
+        if (navLogo) {
+            setTimeout(() => {
+                const info3 = document.getElementById('info3');
+                info3.innerHTML += `Nav logo opacity: ${navLogo.style.opacity}<br>`;
+                info3.innerHTML += `Nav logo visibility: ${navLogo.style.visibility}<br>`;
+                info3.innerHTML += `Nav logo display: ${navLogo.style.display}<br>`;
+            }, 1000);
+        }
+        
+        // Check file accessibility
+        fetch('images/scoop-unit-header-logo.jpg')
+            .then(response => {
+                const info1 = document.getElementById('info1');
+                info1.innerHTML += `HTTP Status: ${response.status} ${response.statusText}<br>`;
+                info1.innerHTML += `Content-Type: ${response.headers.get('content-type')}<br>`;
+                info1.innerHTML += `Content-Length: ${response.headers.get('content-length')}<br>`;
+            })
+            .catch(error => {
+                const info1 = document.getElementById('info1');
+                info1.innerHTML += `Fetch error: ${error.message}<br>`;
+            });
+    </script>
+</body>
+</html>
