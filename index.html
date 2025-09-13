@@ -73,11 +73,11 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v13" as="style">
-    <link rel="preload" href="modern-images.css?v=20241201-v13" as="style">
+    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v14" as="style">
+    <link rel="preload" href="modern-images.css?v=20241201-v14" as="style">
     
     <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v13" 
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v14" 
           as="image" 
           fetchpriority="high" 
           crossorigin="anonymous"
@@ -97,15 +97,15 @@
           type="image/png">
     
     <!-- Background image with lowest priority -->
-    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v13" 
+    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v14" 
           as="image" 
           fetchpriority="low"
           media="(min-width: 768px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v13">
-    <link rel="stylesheet" href="modern-images.css?v=20241201-v13">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v14">
+    <link rel="stylesheet" href="modern-images.css?v=20241201-v14">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CRITICAL: Logo preloading and error handling system -->
@@ -115,7 +115,7 @@
             'use strict';
             
             const LOGO_CONFIG = {
-                primary: 'images/scoop-unit-header-logo.jpg?v=20241201-v13',
+                primary: 'images/scoop-unit-header-logo.jpg?v=20241201-v14',
                 fallbacks: [
                     'images/scoopunitlogo.jpg',
                     'images/scoop-unit-badge-logo.png'
@@ -314,7 +314,7 @@
         <div class="apple-nav-container">
             <div class="apple-nav-logo">
                 <a href="index.html" class="logo-link">
-                    <img src="images/scoop-unit-header-logo.jpg?v=20241201-v13" 
+                    <img src="images/scoop-unit-header-logo.jpg?v=20241201-v14" 
                          alt="Scoop Unit - Professional Dog Waste Removal" 
                          loading="eager" 
                          decoding="sync"
@@ -1040,6 +1040,11 @@
             // Ensure logo-protection class is applied and reinforce styles
             logo.classList.add('logo-protection');
             
+            // Track when logo loading starts for fallback timeout logic
+            if (!logo.dataset.loadStartTime) {
+                logo.dataset.loadStartTime = Date.now().toString();
+            }
+            
             // Force logo visibility with enhanced properties via cssText (higher specificity than class)
             logo.style.cssText = `
                 opacity: 1 !important; 
@@ -1096,18 +1101,51 @@
             }
             
             function activateTextFallback() {
-                // ONLY show text fallback if image actually fails to load (more robust check)
-                if (logo && logo.complete && logo.naturalWidth === 0) {
-                    // Image has finished loading but has no dimensions = truly failed
-                    console.log('📝 Text fallback activated - image completely failed to load');
-                    logo.parentElement.style.display = 'none';
-                    textFallback.style.display = 'inline-block';
-                    textFallback.querySelector('.text-logo-fallback').textContent = 'Scoop Unit 🐾';
+                // ENHANCED: More robust fallback activation with multiple safety checks
+                // KILL SWITCH: Uncomment next line to completely disable this function
+                // return console.log('🛑 Text fallback disabled via kill switch');
+                
+                if (!logo || !textFallback) {
+                    console.error('❌ Cannot activate text fallback - elements not found');
+                    return;
+                }
+
+                // Check if image has genuinely failed after completion
+                const imageHasFailed = (
+                    logo.complete && 
+                    (logo.naturalWidth === 0 || logo.naturalHeight === 0) &&
+                    logo.src && 
+                    !logo.src.includes('data:') // Don't treat data URLs as failed
+                );
+
+                // Additional safety: Check if logo has been loading for a reasonable time
+                const logoLoadStartTime = logo.dataset.loadStartTime || 0;
+                const hasBeenLoadingLongEnough = (Date.now() - logoLoadStartTime) > 5000; // 5 seconds
+
+                if (imageHasFailed && hasBeenLoadingLongEnough) {
+                    console.log('📝 Text fallback activated - image completely failed after thorough check');
+                    console.log(`Image details: src="${logo.src}", complete=${logo.complete}, naturalWidth=${logo.naturalWidth}, naturalHeight=${logo.naturalHeight}`);
+                    
+                    // Only hide logo if we're absolutely sure it failed
+                    if (logo.parentElement && logo.parentElement.classList.contains('logo-link')) {
+                        logo.parentElement.style.display = 'none';
+                    }
+                    
+                    if (textFallback && textFallback.querySelector('.text-logo-fallback')) {
+                        textFallback.style.display = 'inline-block';
+                        textFallback.querySelector('.text-logo-fallback').textContent = 'Scoop Unit 🐾';
+                    }
                 } else {
-                    console.log('📝 Text fallback NOT activated - image is working or still loading');
-                    // Ensure logo stays visible
-                    logo.parentElement.style.display = 'inline-block';
-                    textFallback.style.display = 'none';
+                    console.log('📝 Text fallback NOT activated - image is working, loading, or checks failed');
+                    console.log(`Image check details: failed=${imageHasFailed}, loadTime=${hasBeenLoadingLongEnough}, src="${logo.src}"`);
+                    
+                    // SAFETY: Always ensure logo container stays visible unless absolutely certain of failure
+                    if (logo.parentElement) {
+                        logo.parentElement.style.display = 'inline-block';
+                    }
+                    if (textFallback) {
+                        textFallback.style.display = 'none';
+                    }
                 }
             }
             
@@ -1278,7 +1316,7 @@
                     
                     // 3. Ensure proper source
                     if (!logo.src || logo.src.includes('invalid') || logo.src.includes('undefined')) {
-                        logo.src = 'images/scoop-unit-header-logo.jpg?v=20241201-v13';
+                        logo.src = 'images/scoop-unit-header-logo.jpg?v=20241201-v14';
                     }
                     
                     // 4. Force reflow
@@ -1613,7 +1651,7 @@
     </script>
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v13" defer></script> -->
-    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v13" defer></script> -->
+    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v14" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v14" defer></script> -->
 </body>
 </html>
