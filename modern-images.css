@@ -4,7 +4,7 @@
  */
 
 /* Base Image Styles */
-img {
+img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not(#header-logo) {
   max-width: 100%;
   height: auto;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -13,13 +13,16 @@ img {
 /* Header Logo Override - CRITICAL FIX */
 .apple-nav-logo img,
 .apple-nav img,
-nav img {
+nav img,
+#header-logo {
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
   max-width: none !important;
   height: 42px !important;
   width: auto !important;
+  position: relative !important;
+  z-index: 99999 !important;
 }
 
 /* Lazy Loading Styles - DISABLED TO PREVENT LOGO INTERFERENCE */
