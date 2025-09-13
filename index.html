@@ -73,11 +73,11 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=NUCLEAR-CSS-FIX" as="style">
-    <link rel="preload" href="modern-images.css?v=NUCLEAR-CSS-FIX" as="style">
+    <link rel="preload" href="apple-inspired-styles.css?v=ULTIMATE-FIX" as="style">
+    <link rel="preload" href="modern-images.css?v=ULTIMATE-FIX" as="style">
     
     <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=NUCLEAR-CSS-FIX" 
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=ULTIMATE-FIX" 
           as="image" 
           fetchpriority="high" 
           crossorigin="anonymous"
@@ -97,15 +97,15 @@
           type="image/png">
     
     <!-- Background image with lowest priority -->
-    <link rel="preload" href="images/hero-yard-background.jpg?v=NUCLEAR-CSS-FIX" 
+    <link rel="preload" href="images/hero-yard-background.jpg?v=ULTIMATE-FIX" 
           as="image" 
           fetchpriority="low"
           media="(min-width: 768px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=NUCLEAR-CSS-FIX">
-    <link rel="stylesheet" href="modern-images.css?v=NUCLEAR-CSS-FIX">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=ULTIMATE-FIX">
+    <link rel="stylesheet" href="modern-images.css?v=ULTIMATE-FIX">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CRITICAL: CSS-first logo protection to prevent race conditions -->
@@ -140,18 +140,51 @@
         }
     </style>
     
-    <!-- FINAL FIX: Override aspect-ratio-container opacity -->
+    <!-- ULTIMATE LOGO FIX: Maximum specificity override -->
     <style>
-        /* FORCE LOGO VISIBLE - OVERRIDE ASPECT RATIO CONTAINER */
-        #header-logo,
-        .aspect-ratio-container #header-logo,
-        .aspect-ratio-container img#header-logo {
+        /* NUCLEAR LOGO PROTECTION - MAXIMUM SPECIFICITY */
+        body nav.apple-nav div.apple-nav-container div.apple-nav-logo a.logo-link img#header-logo.logo-protection,
+        nav.apple-nav div.apple-nav-container div.apple-nav-logo a.logo-link img#header-logo,
+        div.apple-nav-logo a.logo-link img#header-logo,
+        a.logo-link img#header-logo,
+        img#header-logo,
+        #header-logo {
             display: inline-block !important;
             visibility: visible !important;
             opacity: 1 !important;
             position: relative !important;
             width: auto !important;
             height: 42px !important;
+            max-width: 131px !important;
+            min-width: 100px !important;
+            z-index: 999999 !important;
+            transform: none !important;
+            transition: none !important;
+            animation: none !important;
+            filter: none !important;
+            clip: auto !important;
+            clip-path: none !important;
+            mask: none !important;
+            overflow: visible !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            object-fit: contain !important;
+            image-rendering: auto !important;
+            will-change: auto !important;
+            backface-visibility: visible !important;
+            perspective: none !important;
+        }
+        
+        /* Disable ALL transitions and animations on logo container */
+        .apple-nav-logo,
+        .apple-nav-container,
+        .logo-link {
+            transition: none !important;
+            animation: none !important;
+            transform: none !important;
         }
     </style>
 </head>
@@ -161,7 +194,7 @@
         <div class="apple-nav-container">
             <div class="apple-nav-logo">
                 <a href="index.html" class="logo-link">
-                    <img src="images/scoop-unit-header-logo.jpg?v=NUCLEAR-CSS-FIX" 
+                    <img src="images/scoop-unit-header-logo.jpg?v=ULTIMATE-FIX" 
                          alt="Scoop Unit - Professional Dog Waste Removal" 
                          loading="eager" 
                          decoding="sync"
@@ -1163,7 +1196,7 @@
                     
                     // 3. Ensure proper source
                     if (!logo.src || logo.src.includes('invalid') || logo.src.includes('undefined')) {
-                        logo.src = 'images/scoop-unit-header-logo.jpg?v=NUCLEAR-CSS-FIX';
+                        logo.src = 'images/scoop-unit-header-logo.jpg?v=ULTIMATE-FIX';
                     }
                     
                     // 4. Force reflow
@@ -1501,7 +1534,7 @@
     <!-- All logo management disabled - pure CSS only -->
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=NUCLEAR-CSS-FIX" defer></script> -->
-    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=NUCLEAR-CSS-FIX" defer></script> -->
+    <!-- DISABLED: <script src="performance-optimization.js?v=ULTIMATE-FIX" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=ULTIMATE-FIX" defer></script> -->
 </body>
 </html>

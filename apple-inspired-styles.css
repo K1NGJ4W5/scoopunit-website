@@ -764,8 +764,9 @@ img[alt*="Scoop Unit"] {
     height: 42px !important;
     width: auto !important;
     object-fit: contain;
-    transition: transform var(--transition-fast);
-    will-change: transform;
+    /* REMOVED TRANSITION TO PREVENT LOGO HIDING */
+    /* transition: transform var(--transition-fast); */
+    /* will-change: transform; */
     opacity: 1 !important;
     display: block !important;
     visibility: visible !important;
@@ -776,9 +777,12 @@ img[alt*="Scoop Unit"] {
     max-width: none !important;
 }
 
+/* REMOVED HOVER TRANSFORM TO PREVENT LOGO HIDING */
+/*
 .apple-nav-logo:hover img {
     transform: scale(1.02);
 }
+*/
 
 .apple-nav-menu {
     display: flex;
