@@ -52,7 +52,7 @@
     position: relative;
     height: 70vh;
     min-height: 500px;
-    background-image: url('images/hero-yard-background.jpg?v=20241201-v7');
+    background-image: url('images/hero-yard-background.jpg?v=20241201-v8');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -706,13 +706,16 @@ body {
 .apple-nav-logo {
     display: flex !important;
     align-items: center;
-    text-decoration: none;
-    color: var(--apple-black);
-    font-weight: 600;
-    font-size: 18px;
     overflow: visible !important;
     position: relative;
     z-index: 10000;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: var(--apple-black);
+    display: flex;
+    align-items: center;
 }
 
 /* NUCLEAR APPROACH - FORCE LOGO VISIBILITY */

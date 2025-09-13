@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Issue Analysis</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .issue { background: #f8d7da; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .test { background: #d4edda; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .current-structure { border: 2px solid red; padding: 10px; margin: 10px 0; }
+        .fixed-structure { border: 2px solid green; padding: 10px; margin: 10px 0; }
+        .apple-nav-logo-test { display: flex !important; align-items: center; background: #f0f0f0; padding: 10px; }
+        .apple-nav-logo-test img { height: 42px; width: auto; }
+        .apple-nav-logo-test span { display: none; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Logo Issue Analysis Results</h1>
+    
+    <div class="issue">
+        <h2>❌ ISSUE #1: HTML Structure Problem</h2>
+        <p><strong>Problem:</strong> Both &lt;img&gt; and &lt;span&gt; are inside the same &lt;a&gt; tag</p>
+        <p><strong>Effect:</strong> When image fails and gets display:none, the span is still inside the flexbox layout which can cause positioning issues</p>
+        
+        <h3>Current Structure (PROBLEMATIC):</h3>
+        <div class="current-structure">
+            <code>
+                &lt;a href="index.html" class="apple-nav-logo"&gt;<br>
+                &nbsp;&nbsp;&lt;img src="..." id="header-logo" onerror="..."&gt;<br>
+                &nbsp;&nbsp;&lt;span id="text-logo-fallback" style="display: none;"&gt;Scoop Unit 🐾&lt;/span&gt;<br>
+                &lt;/a&gt;
+            </code>
+        </div>
+    </div>
+    
+    <div class="issue">
+        <h2>❌ ISSUE #2: CSS Flexbox Conflict</h2>
+        <p><strong>Problem:</strong> .apple-nav-logo has `display: flex !important`</p>
+        <p><strong>Effect:</strong> The flex container affects how child elements (img and span) are laid out, potentially causing the span to not display correctly even when shown</p>
+    </div>
+    
+    <div class="issue">
+        <h2>❌ ISSUE #3: JavaScript Scope Problem</h2>
+        <p><strong>Problem:</strong> Multiple scripts trying to handle the same logo with different approaches</p>
+        <p><strong>Effect:</strong> Preloader script, visibility script, and inline onerror might conflict</p>
+    </div>
+    
+    <div class="test">
+        <h2>✅ SOLUTION TEST</h2>
+        <p>Here's how the current structure behaves:</p>
+        
+        <h3>Test 1: Current Structure with working image</h3>
+        <div class="apple-nav-logo-test">
+            <img src="images/scoop-unit-header-logo.jpg" alt="Test 1" id="test1">
+            <span style="display: none;">Scoop Unit 🐾</span>
+        </div>
+        
+        <h3>Test 2: Current Structure with broken image</h3>
+        <div class="apple-nav-logo-test">
+            <img src="images/non-existent-logo.jpg" alt="Test 2" id="test2" 
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <span style="display: none;">Scoop Unit 🐾</span>
+        </div>
+        
+        <div id="test-results"></div>
+    </div>
+    
+    <div class="test">
+        <h2>🔧 RECOMMENDED FIX</h2>
+        <div class="fixed-structure">
+            <h3>Better Structure:</h3>
+            <code>
+                &lt;div class="apple-nav-logo"&gt;<br>
+                &nbsp;&nbsp;&lt;a href="index.html"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="..." id="header-logo"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;span id="text-logo-fallback" class="text-fallback"&gt;Scoop Unit 🐾&lt;/span&gt;<br>
+                &nbsp;&nbsp;&lt;/a&gt;<br>
+                &lt;/div&gt;
+            </code>
+        </div>
+    </div>
+    
+    <script>
+        const resultsDiv = document.getElementById('test-results');
+        
+        // Test the current behavior
+        setTimeout(() => {
+            const test1Img = document.getElementById('test1');
+            const test2Img = document.getElementById('test2');
+            
+            let results = '<h3>Test Results:</h3>';
+            
+            if (test1Img.complete && test1Img.naturalWidth > 0) {
+                results += '<p>✅ Test 1: Image loaded successfully</p>';
+            } else {
+                results += '<p>❌ Test 1: Image failed to load</p>';
+            }
+            
+            if (test2Img.complete && test2Img.naturalWidth === 0) {
+                results += '<p>✅ Test 2: Image correctly detected as failed</p>';
+                results += '<p>📝 Fallback span display: ' + test2Img.nextElementSibling.style.display + '</p>';
+            } else {
+                results += '<p>❌ Test 2: Image failure not detected properly</p>';
+            }
+            
+            resultsDiv.innerHTML = results;
+        }, 1000);
+    </script>
+</body>
+</html>
