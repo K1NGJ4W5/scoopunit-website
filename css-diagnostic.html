@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Logo Diagnostic</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f8f9fa; 
+        }
+        .diagnostic-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 2px solid #007bff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 9999;
+            overflow: visible;
+            min-height: 64px;
+        }
+        .test-logo-container {
+            display: flex;
+            align-items: center;
+            border: 2px dashed #28a745;
+            padding: 5px;
+        }
+        .diagnostic-logo {
+            /* Exact same styles as production */
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inline-block !important;
+            height: 42px !important;
+            width: auto !important;
+            max-width: 131px !important;
+            min-width: 100px !important;
+            position: relative !important;
+            z-index: 99999 !important;
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: crisp-edges !important;
+            transform: none !important;
+            filter: none !important;
+            clip: auto !important;
+            box-sizing: content-box !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: 3px solid #dc3545 !important; /* Red border for visibility test */
+        }
+        .result { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .pass { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+    </style>
+</head>
+<body>
+    <h1>🔍 CSS Logo Diagnostic Tool</h1>
+    
+    <div class="diagnostic-section">
+        <h2>🎯 Logo Display Test</h2>
+        <p>The logo should appear with a red border in the navigation below:</p>
+        
+        <nav class="test-nav">
+            <div class="test-logo-container">
+                <img src="images/scoop-unit-header-logo.jpg" 
+                     alt="Diagnostic Logo" 
+                     class="diagnostic-logo"
+                     id="diagnostic-logo"
+                     loading="eager" 
+                     decoding="sync"
+                     fetchpriority="high"
+                     width="131" 
+                     height="42">
+            </div>
+            <span style="margin-left: 20px; color: #666;">Navigation items</span>
+        </nav>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h2>📊 CSS Property Analysis</h2>
+        <div id="css-analysis">
+            <div class="info">🔄 Analyzing CSS properties...</div>
+        </div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h2>🔎 Computed Style Check</h2>
+        <div id="computed-styles">
+            <div class="info">🔄 Reading computed styles...</div>
+        </div>
+    </div>
+    
+    <div class="diagnostic-section">
+        <h2>🚨 Potential Issues Detection</h2>
+        <div id="issues-detection">
+            <div class="info">🔄 Scanning for common CSS issues...</div>
+        </div>
+    </div>
+    
+    <script>
+        const logo = document.getElementById('diagnostic-logo');
+        const cssAnalysis = document.getElementById('css-analysis');
+        const computedStyles = document.getElementById('computed-styles');
+        const issuesDetection = document.getElementById('issues-detection');
+        
+        function addResult(container, message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = message;
+            container.appendChild(div);
+        }
+        
+        function analyzeCSS() {
+            cssAnalysis.innerHTML = '';
+            
+            // Check basic visibility properties
+            const style = logo.style;
+            const computed = window.getComputedStyle(logo);
+            
+            addResult(cssAnalysis, `<strong>🎨 Inline Styles:</strong><br>
+                display: ${style.display || 'not set'}<br>
+                visibility: ${style.visibility || 'not set'}<br>
+                opacity: ${style.opacity || 'not set'}<br>
+                position: ${style.position || 'not set'}<br>
+                z-index: ${style.zIndex || 'not set'}`, 'info');
+            
+            addResult(cssAnalysis, `<strong>💻 Computed Styles:</strong><br>
+                display: ${computed.display}<br>
+                visibility: ${computed.visibility}<br>
+                opacity: ${computed.opacity}<br>
+                position: ${computed.position}<br>
+                z-index: ${computed.zIndex}<br>
+                width: ${computed.width}<br>
+                height: ${computed.height}`, 'info');
+        }
+        
+        function checkComputedStyles() {
+            computedStyles.innerHTML = '';
+            const computed = window.getComputedStyle(logo);
+            
+            const criticalProps = [
+                'display', 'visibility', 'opacity', 'position', 'top', 'left', 'right', 'bottom',
+                'transform', 'clip', 'clipPath', 'overflow', 'width', 'height', 'maxWidth', 'maxHeight'
+            ];
+            
+            let issues = [];
+            
+            criticalProps.forEach(prop => {
+                const value = computed[prop];
+                let status = 'info';
+                let message = `${prop}: ${value}`;
+                
+                // Check for problematic values
+                if (prop === 'display' && value === 'none') {
+                    status = 'fail';
+                    message += ' ❌ HIDDEN';
+                    issues.push('display: none');
+                } else if (prop === 'visibility' && value === 'hidden') {
+                    status = 'fail';
+                    message += ' ❌ HIDDEN';
+                    issues.push('visibility: hidden');
+                } else if (prop === 'opacity' && parseFloat(value) === 0) {
+                    status = 'fail';
+                    message += ' ❌ TRANSPARENT';
+                    issues.push('opacity: 0');
+                } else if (prop === 'position' && value === 'absolute' && 
+                          (computed.top === '-9999px' || computed.left === '-9999px')) {
+                    status = 'fail';
+                    message += ' ❌ OFF-SCREEN';
+                    issues.push('positioned off-screen');
+                } else if ((prop === 'width' || prop === 'height') && parseFloat(value) === 0) {
+                    status = 'fail';
+                    message += ' ❌ NO SIZE';
+                    issues.push(`${prop}: 0`);
+                } else if (prop === 'transform' && value.includes('scale(0)')) {
+                    status = 'fail';
+                    message += ' ❌ SCALED TO ZERO';
+                    issues.push('transform: scale(0)');
+                }
+                
+                addResult(computedStyles, message, status);
+            });
+            
+            return issues;
+        }
+        
+        function detectIssues() {
+            issuesDetection.innerHTML = '';
+            
+            const issues = checkComputedStyles();
+            
+            // Test if image actually loaded
+            if (logo.complete && logo.naturalWidth > 0) {
+                addResult(issuesDetection, '✅ Image loaded successfully', 'pass');
+            } else {
+                addResult(issuesDetection, '❌ Image failed to load', 'fail');
+                issues.push('image load failure');
+            }
+            
+            // Test if element is in viewport
+            const rect = logo.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+                addResult(issuesDetection, `✅ Element has size: ${rect.width}x${rect.height}px`, 'pass');
+            } else {
+                addResult(issuesDetection, `❌ Element has no size: ${rect.width}x${rect.height}px`, 'fail');
+                issues.push('zero dimensions');
+            }
+            
+            // Test if element is visible in viewport
+            if (rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth) {
+                addResult(issuesDetection, '✅ Element is in viewport', 'pass');
+            } else {
+                addResult(issuesDetection, `⚠️ Element position: top:${rect.top}, left:${rect.left}`, 'warning');
+            }
+            
+            // Check for parent container issues
+            let parent = logo.parentElement;
+            while (parent && parent !== document.body) {
+                const parentComputed = window.getComputedStyle(parent);
+                if (parentComputed.display === 'none') {
+                    addResult(issuesDetection, `❌ Parent element hidden: ${parent.className || parent.tagName}`, 'fail');
+                    issues.push('parent hidden');
+                }
+                if (parentComputed.overflow === 'hidden' && parentComputed.height === '0px') {
+                    addResult(issuesDetection, `❌ Parent overflow hidden with zero height: ${parent.className || parent.tagName}`, 'fail');
+                    issues.push('parent overflow issue');
+                }
+                parent = parent.parentElement;
+            }
+            
+            // Summary
+            if (issues.length === 0) {
+                addResult(issuesDetection, '🎉 No CSS issues detected! Logo should be visible.', 'pass');
+            } else {
+                addResult(issuesDetection, `🚨 Found ${issues.length} issue(s): ${issues.join(', ')}`, 'fail');
+            }
+        }
+        
+        // Run diagnostics
+        logo.onload = function() {
+            analyzeCSS();
+            setTimeout(() => {
+                detectIssues();
+            }, 100);
+        };
+        
+        logo.onerror = function() {
+            addResult(cssAnalysis, '❌ Image failed to load', 'fail');
+            addResult(computedStyles, '❌ Cannot analyze - image load error', 'fail');
+            addResult(issuesDetection, '❌ PRIMARY ISSUE: Image file not accessible', 'fail');
+        };
+        
+        // Check if already loaded
+        if (logo.complete) {
+            if (logo.naturalWidth > 0) {
+                logo.onload();
+            } else {
+                logo.onerror();
+            }
+        }
+    </script>
+</body>
+</html>

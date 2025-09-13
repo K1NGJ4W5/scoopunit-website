@@ -10,44 +10,133 @@ img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not(#header-logo) 
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Header Logo Override - OPTIMIZED FOR DISPLAY */
+/* Header Logo Override - COMPREHENSIVE FIX */
 .apple-nav-logo img,
 .apple-nav img,
 nav img,
 #header-logo {
-  /* Force visibility */
+  /* CRITICAL: Force visibility above all other elements */
   opacity: 1 !important;
   visibility: visible !important;
   display: inline-block !important;
   
-  /* Optimized sizing for 819x263 original */
-  height: 42px !important;
-  width: auto !important;
-  max-width: 131px !important; /* Calculated: 42 * (819/263) ≈ 131px */
-  min-width: 100px !important;
-  
-  /* Positioning and stacking */
+  /* CRITICAL: Maximum z-index to stay above everything */
   position: relative !important;
-  z-index: 99999 !important;
+  z-index: 999999 !important; /* Increased from 99999 */
   
-  /* Image rendering optimization */
-  image-rendering: -webkit-optimize-contrast !important;
-  image-rendering: crisp-edges !important;
+  /* Responsive sizing - mobile first */
+  height: 32px !important; /* Smaller for mobile */
+  width: auto !important;
+  max-width: 105px !important; /* 32 * (819/263) ≈ 105px */
+  min-width: 80px !important;
   
-  /* Prevent any transforms or effects */
+  /* Prevent any hiding mechanisms */
   transform: none !important;
   filter: none !important;
   clip: auto !important;
+  clip-path: none !important;
+  mask: none !important;
   
-  /* Ensure proper box model */
+  /* Force proper box model */
   box-sizing: content-box !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
   
-  /* Force hardware acceleration for smooth rendering */
+  /* Image rendering optimization */
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+  
+  /* Prevent layout issues */
+  float: none !important;
+  clear: none !important;
+  vertical-align: middle !important;
+  
+  /* Force hardware acceleration */
   will-change: auto !important;
   backface-visibility: visible !important;
+}
+
+/* Desktop sizing */
+@media (min-width: 768px) {
+  .apple-nav-logo img,
+  .apple-nav img,
+  nav img,
+  #header-logo {
+    height: 42px !important;
+    max-width: 131px !important;
+    min-width: 100px !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .apple-nav-logo img,
+  .apple-nav img,
+  nav img,
+  #header-logo {
+    height: 46px !important;
+    max-width: 144px !important;
+    min-width: 110px !important;
+  }
+}
+
+/* Mobile specific fixes */
+@media (max-width: 767px) {
+  .apple-nav-logo img,
+  .apple-nav img,
+  nav img,
+  #header-logo {
+    height: 32px !important;
+    max-width: 105px !important;
+    min-width: 80px !important;
+    /* Ensure logo stays visible on mobile */
+    display: block !important;
+    position: relative !important;
+    z-index: 999999 !important;
+  }
+}
+
+/* Text Logo Fallback */
+.text-logo-fallback {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  color: #1d1d1f !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 999999 !important;
+  position: relative !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.text-logo-fallback:hover {
+  background: rgba(255, 255, 255, 1) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Mobile text logo sizing */
+@media (max-width: 767px) {
+  .text-logo-fallback {
+    font-size: 16px !important;
+    padding: 6px 10px !important;
+  }
+}
+
+/* Large screen text logo sizing */
+@media (min-width: 1200px) {
+  .text-logo-fallback {
+    font-size: 22px !important;
+    padding: 10px 14px !important;
+  }
 }
 
 /* Lazy Loading Styles - DISABLED TO PREVENT LOGO INTERFERENCE */

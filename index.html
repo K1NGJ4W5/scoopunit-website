@@ -73,14 +73,14 @@
     <link rel="canonical" href="https://scoopunit.com">
     
     <!-- Preload critical resources for better Core Web Vitals -->
-    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v5" as="style">
-    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v5" as="image">
-    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v5" as="image">
+    <link rel="preload" href="apple-inspired-styles.css?v=20241201-v6" as="style">
+    <link rel="preload" href="images/scoop-unit-header-logo.jpg?v=20241201-v6" as="image">
+    <link rel="preload" href="images/hero-yard-background.jpg?v=20241201-v6" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v5">
-    <link rel="stylesheet" href="modern-images.css?v=20241201-v5">
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=20241201-v6">
+    <link rel="stylesheet" href="modern-images.css?v=20241201-v6">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -88,14 +88,18 @@
     <nav class="apple-nav">
         <div class="apple-nav-container">
             <a href="index.html" class="apple-nav-logo">
-                <img src="images/scoop-unit-header-logo.jpg?v=20241201-v5" 
+                <img src="images/scoop-unit-header-logo.jpg?v=20241201-v6" 
                      alt="Scoop Unit - Professional Dog Waste Removal" 
                      loading="eager" 
                      decoding="sync"
                      fetchpriority="high"
                      width="131" 
                      height="42"
-                     id="header-logo">
+                     id="header-logo"
+                     onerror="this.style.display='none'; document.getElementById('text-logo-fallback').style.display='inline-block';">
+                <span id="text-logo-fallback" class="text-logo-fallback" style="display: none;">
+                    Scoop Unit 🐾
+                </span>
             </a>
             
             
@@ -794,21 +798,57 @@
 
     <!-- Mobile Menu JavaScript -->
     <script>
-        // SIMPLE LOGO FIX - Just set it visible and leave it alone
-        function fixLogo() {
+        // COMPREHENSIVE LOGO FIX WITH ERROR HANDLING
+        function ensureLogoVisibility() {
             const logo = document.getElementById('header-logo');
+            const textFallback = document.getElementById('text-logo-fallback');
+            
             if (logo) {
-                logo.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; height: 42px !important; width: auto !important;';
-                console.log('Logo fixed');
+                // Force logo styles
+                logo.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: inline-block !important; position: relative !important; z-index: 999999 !important;';
+                
+                // Test if image actually loaded
+                if (logo.complete && logo.naturalWidth > 0) {
+                    console.log('✅ Logo image loaded successfully');
+                    if (textFallback) textFallback.style.display = 'none';
+                } else if (logo.complete && logo.naturalWidth === 0) {
+                    console.log('❌ Logo image failed to load, showing text fallback');
+                    logo.style.display = 'none';
+                    if (textFallback) textFallback.style.display = 'inline-block';
+                }
+                
+                // Add error handler if not already present
+                if (!logo.dataset.errorHandled) {
+                    logo.addEventListener('error', function() {
+                        console.log('❌ Logo image error event fired');
+                        this.style.display = 'none';
+                        if (textFallback) textFallback.style.display = 'inline-block';
+                    });
+                    logo.addEventListener('load', function() {
+                        console.log('✅ Logo image load event fired');
+                        if (textFallback) textFallback.style.display = 'none';
+                    });
+                    logo.dataset.errorHandled = 'true';
+                }
             }
         }
         
         // Run immediately
-        fixLogo();
+        ensureLogoVisibility();
         
         // Run when ready
-        document.addEventListener('DOMContentLoaded', fixLogo);
-        window.addEventListener('load', fixLogo);
+        document.addEventListener('DOMContentLoaded', ensureLogoVisibility);
+        window.addEventListener('load', ensureLogoVisibility);
+        
+        // Run every 2 seconds for first 10 seconds to catch any late issues
+        let logoCheckCount = 0;
+        const logoCheckInterval = setInterval(() => {
+            ensureLogoVisibility();
+            logoCheckCount++;
+            if (logoCheckCount >= 5) {
+                clearInterval(logoCheckInterval);
+            }
+        }, 2000);
         
         // Mobile menu toggle
         document.getElementById('nav-toggle').addEventListener('click', function() {
@@ -1044,7 +1084,7 @@
     </script>
     
     <!-- Optimized scripts loading -->
-    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v5" defer></script> -->
-    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v5" defer></script> -->
+    <!-- DISABLED: <script src="performance-optimization.js?v=20241201-v6" defer></script> -->
+    <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=20241201-v6" defer></script> -->
 </body>
 </html>

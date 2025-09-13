@@ -52,7 +52,7 @@
     position: relative;
     height: 70vh;
     min-height: 500px;
-    background-image: url('images/hero-yard-background.jpg?v=20241201-v5');
+    background-image: url('images/hero-yard-background.jpg?v=20241201-v6');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -679,7 +679,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 999998 !important; /* Just below logo */
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -687,6 +687,7 @@ body {
     transition: all var(--transition-smooth);
     overflow: visible !important;
     min-height: 64px;
+    width: 100%;
 }
 
 .apple-nav-container {
