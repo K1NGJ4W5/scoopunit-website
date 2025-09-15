@@ -780,9 +780,6 @@ body {
     overflow: visible !important;
     position: relative;
     z-index: 10000;
-    background: white;
-    padding: 8px;
-    border-radius: 8px;
 }
 
 .logo-link {
