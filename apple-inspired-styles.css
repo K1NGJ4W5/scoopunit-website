@@ -1249,6 +1249,16 @@ img[alt*="Scoop Unit"] {
         gap: var(--spacing-sm) !important;
     }
     
+    .apple-container {
+        padding: 0 16px !important;
+        max-width: 100% !important;
+    }
+    
+    .apple-card {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
     .desktop-cta {
         display: none;
     }
