@@ -770,6 +770,7 @@ body {
     min-height: 64px;
     grid-template-columns: 1fr 2fr 1fr;
     gap: var(--spacing-md);
+    background: white;
 }
 
 .apple-nav-logo {
@@ -778,6 +779,7 @@ body {
     overflow: visible !important;
     position: relative;
     z-index: 10000;
+    background: white;
 }
 
 .logo-link {
@@ -785,6 +787,7 @@ body {
     color: var(--apple-black);
     display: flex;
     align-items: center;
+    background: white;
 }
 
 /* NUCLEAR APPROACH - FORCE LOGO VISIBILITY */
