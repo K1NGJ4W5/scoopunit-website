@@ -18,6 +18,11 @@
     --apple-green: #00ab41;
     --apple-green-dark: #008c35;
     
+    /* Red Colors for Buttons */
+    --apple-red: #dc3545;
+    --apple-red-dark: #c82333;
+    --apple-red-light: #e74c3c;
+    
     /* Typography */
     --apple-font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
     --apple-font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
@@ -197,16 +202,25 @@
         margin-bottom: 1rem;
         letter-spacing: -0.01em;
         text-shadow: 
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000,
-            0 0 6px rgba(0, 0, 0, 0.8);
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px 2px 0 #000,
+            2px 2px 0 #000,
+            0 0 8px rgba(0, 0, 0, 0.9),
+            0 0 16px rgba(0, 0, 0, 0.6);
+        font-weight: 900;
     }
     
     .hero-yard-content p {
         line-height: 1.35;
         margin-bottom: 1.5rem;
+        text-shadow: 
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000,
+            0 0 6px rgba(0, 0, 0, 0.8);
+        font-weight: 500;
     }
 }
 
@@ -644,7 +658,7 @@ body {
 }
 
 .apple-btn-primary {
-    background: linear-gradient(135deg, var(--apple-blue) 0%, #0056b3 100%);
+    background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
     color: var(--apple-white);
     box-shadow: var(--shadow-medium);
 }
@@ -652,7 +666,7 @@ body {
 .apple-btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-heavy);
-    background: linear-gradient(135deg, var(--apple-blue-dark) 0%, #004499 100%);
+    background: linear-gradient(135deg, var(--apple-red-light) 0%, var(--apple-red) 100%);
 }
 
 .apple-btn-secondary {
@@ -1092,11 +1106,12 @@ img[alt*="Scoop Unit"] {
     justify-content: center;
     width: 100%;
     padding: 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, var(--apple-red) 0%, var(--apple-red-dark) 100%);
     border-radius: var(--radius-lg);
     text-decoration: none;
     color: white;
     font-weight: 700;
+    box-shadow: var(--shadow-medium);
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1104,8 +1119,9 @@ img[alt*="Scoop Unit"] {
 }
 
 .mobile-sticky-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, var(--apple-red-light) 0%, var(--apple-red) 100%);
     transform: scale(1.02);
+    box-shadow: var(--shadow-heavy);
 }
 
 .mobile-sticky-text {
