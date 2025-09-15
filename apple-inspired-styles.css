@@ -780,6 +780,9 @@ body {
     overflow: visible !important;
     position: relative;
     z-index: 10000;
+    background: white;
+    padding: 8px;
+    border-radius: 8px;
 }
 
 .logo-link {
@@ -1240,6 +1243,13 @@ img[alt*="Scoop Unit"] {
     
     .apple-nav-cta {
         display: none;
+    }
+    
+    .apple-grid-2,
+    .apple-grid-3,
+    .apple-grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: var(--spacing-sm) !important;
     }
     
     .desktop-cta {
