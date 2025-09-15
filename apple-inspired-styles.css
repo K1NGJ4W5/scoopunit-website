@@ -749,9 +749,7 @@ body {
     left: 0;
     right: 0;
     z-index: 999998 !important; /* Just below logo */
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: all var(--transition-smooth);
     overflow: visible !important;
