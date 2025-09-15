@@ -815,6 +815,8 @@ img[alt*="Scoop Unit"] {
     mask: none !important;
     transition: none !important;
     animation: none !important;
+    background: white !important;
+    padding: 4px !important;
     left: auto !important;
     right: auto !important;
     top: auto !important;
