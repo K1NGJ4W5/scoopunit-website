@@ -1520,4 +1520,4 @@ img[alt*="Scoop Unit"] {
 .apple-mt-xl { margin-top: var(--spacing-xl); }
 
 .apple-hidden { display: none; }
-.apple-visible { display: block; }
+.apple-visible { display: block; }/* Force rebuild */
