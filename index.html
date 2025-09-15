@@ -77,7 +77,7 @@
     <link rel="preload" href="modern-images.css?v=KILL-BUGGY-FUNCTION" as="style">
     
     <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
-    <link rel="preload" href="images/scoop-unit-header-logo.png?v=KILL-BUGGY-FUNCTION" 
+    <link rel="preload" href="images/scoop-unit-header-logo.png?v=NO-TRANSPARENCY-FIX" 
           as="image" 
           fetchpriority="high" 
           crossorigin="anonymous"
@@ -194,7 +194,7 @@
         <div class="apple-nav-container">
             <div class="apple-nav-logo">
                 <a href="index.html" class="logo-link">
-                    <img src="images/scoop-unit-header-logo.png?v=KILL-BUGGY-FUNCTION" 
+                    <img src="images/scoop-unit-header-logo.png?v=NO-TRANSPARENCY-FIX" 
                          alt="Scoop Unit - Professional Dog Waste Removal" 
                          loading="eager" 
                          decoding="sync"
@@ -1193,7 +1193,7 @@
                     
                     // 3. Ensure proper source
                     if (!logo.src || logo.src.includes('invalid') || logo.src.includes('undefined')) {
-                        logo.src = 'images/scoop-unit-header-logo.png?v=KILL-BUGGY-FUNCTION';
+                        logo.src = 'images/scoop-unit-header-logo.png?v=NO-TRANSPARENCY-FIX';
                     }
                     
                     // 4. Force reflow
