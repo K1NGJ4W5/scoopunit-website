@@ -57,35 +57,68 @@
     </script>
     
     <link rel="canonical" href="https://scoopunit.com/faq.html">
+
+    <!-- Preload critical resources for better Core Web Vitals -->
+    <link rel="preload" href="apple-inspired-styles.css?v=KILL-BUGGY-FUNCTION" as="style">
+    <link rel="preload" href="modern-images.css?v=KILL-BUGGY-FUNCTION" as="style">
+
+    <!-- CRITICAL: Preload logo with highest priority and enhanced attributes -->
+    <link rel="preload" href="images/scoop-unit-header-logo.png?v=NO-TRANSPARENCY-FIX"
+          as="image"
+          fetchpriority="high"
+          crossorigin="anonymous"
+          media="(min-width: 1px)"
+          type="image/png">
+
+    <!-- Stylesheets in priority order -->
+    <link rel="stylesheet" href="apple-inspired-styles.css?v=KILL-BUGGY-FUNCTION">
+    <link rel="stylesheet" href="modern-images.css?v=KILL-BUGGY-FUNCTION">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <span class="logo-icon">🐾</span>
-                    <span class="logo-text">Scoop Unit</span>
+    <!-- Apple-Inspired Navigation -->
+    <nav class="apple-nav">
+        <div class="apple-nav-container">
+            <div class="apple-nav-logo">
+                <a href="index.html" class="logo-link">
+                    <img src="images/scoop-unit-header-logo.png?v=NO-TRANSPARENCY-FIX"
+                         alt="Scoop Unit - Professional Dog Waste Removal"
+                         loading="eager"
+                         decoding="sync"
+                         fetchpriority="high"
+                         width="131"
+                         height="42"
+                         id="header-logo"
+                         class="logo-protection">
+                </a>
+                <a href="index.html" class="logo-link" id="text-logo-fallback" style="display: none;">
+                    <span class="text-logo-fallback">Scoop Unit 🐾</span>
                 </a>
             </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="services.html" class="nav-link">Services</a>
-                <a href="service-areas.html" class="nav-link">Service Areas</a>
-                <a href="features.html" class="nav-link">Features</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="faq.html" class="nav-link active">FAQ</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="#estimate" class="nav-cta">Get Estimate</a>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
+
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" id="nav-toggle" aria-label="Toggle mobile menu">
                 <span></span>
                 <span></span>
                 <span></span>
+            </button>
+
+            <!-- Centered Navigation Menu -->
+            <ul class="apple-nav-menu" id="nav-menu">
+                <li class="apple-nav-item"><a href="services.html" class="apple-nav-link">Services</a></li>
+                <li class="apple-nav-item"><a href="service-areas.html" class="apple-nav-link">Areas</a></li>
+                <li class="apple-nav-item"><a href="about.html" class="apple-nav-link">About</a></li>
+                <li class="apple-nav-item"><a href="faq.html" class="apple-nav-link">FAQ</a></li>
+                <li class="apple-nav-item"><a href="#contact" class="apple-nav-link">Contact</a></li>
+                <li class="apple-nav-item"><a href="client-portal.html" class="apple-nav-link">LOGIN</a></li>
+            </ul>
+
+            <!-- Far Right Get Quote Button -->
+            <div class="apple-nav-cta">
+                <a href="#estimate" class="apple-btn apple-btn-primary">Get Quote</a>
             </div>
         </div>
     </nav>
