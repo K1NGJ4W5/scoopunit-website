@@ -27,7 +27,7 @@
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="login.html" class="login-link">Login</a></li>
                 </ul>
-                <button class="cta-button primary" onclick="openEstimateModal()">Get Free Estimate</button>
+                <button class="cta-button primary" onclick="openEstimateModal()">Get FREE Estimate</button>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -44,7 +44,7 @@
                 <h1 class="hero-title">Professional Dog Waste Removal Service in Florida's Panhandle</h1>
                 <p class="hero-subtitle">Keep your yard clean and safe with Scoop Unit's reliable pooper scooper service. Serving Crestview, Destin, Pensacola and surrounding areas.</p>
                 <div class="hero-buttons">
-                    <button class="cta-button primary large" onclick="openEstimateModal()">Get Free Estimate</button>
+                    <button class="cta-button primary large" onclick="openEstimateModal()">Get FREE Estimate</button>
                     <a href="services.html" class="cta-button secondary large">View Our Services</a>
                 </div>
             </div>
@@ -129,7 +129,7 @@
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Get Estimate</h3>
+                    <h3>Get FREE Estimate</h3>
                     <p>Use our estimation tool to get instant pricing based on your yard size and needs.</p>
                 </div>
                 <div class="step">
@@ -177,7 +177,7 @@
         <div class="container">
             <h2>Ready for a Cleaner Yard?</h2>
             <p>Get your instant estimate in under 2 minutes. No obligation, no hassle.</p>
-            <button class="cta-button primary large" onclick="openEstimateModal()">Get Estimate Now</button>
+            <button class="cta-button primary large" onclick="openEstimateModal()">Get FREE Estimate</button>
         </div>
     </section>
 
@@ -217,7 +217,7 @@
                         <li><a href="login.html">Client Login</a></li>
                         <li><a href="login.html?type=employee">Employee Login</a></li>
                         <li><a href="contact.html">Support</a></li>
-                        <li><a href="#" onclick="openEstimateModal()">Get Estimate</a></li>
+                        <li><a href="#" onclick="openEstimateModal()">Get FREE Estimate</a></li>
                     </ul>
                 </div>
             </div>
@@ -227,57 +227,41 @@
         </div>
     </footer>
 
-    <!-- Estimate Modal -->
+    <!-- Conversational Estimate Modal -->
     <div id="estimateModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content conversation-modal">
             <span class="close" onclick="closeEstimateModal()">&times;</span>
-            <h2>Get Your Free Estimate</h2>
-            <form id="estimateForm" class="estimate-form">
-                <div class="form-group">
-                    <label for="zipcode">Service Location (ZIP Code)</label>
-                    <input type="text" id="zipcode" name="zipcode" required placeholder="32536">
+
+            <!-- Conversation Header -->
+            <div class="conversation-header">
+                <div class="bot-avatar">🤖</div>
+                <div class="header-text">
+                    <h2>Get Your Free Estimate</h2>
+                    <p>Let's chat! I'll ask you a few quick questions to calculate your estimate.</p>
                 </div>
-                <div class="form-group">
-                    <label for="dogs">Number of Dogs</label>
-                    <select id="dogs" name="dogs" required>
-                        <option value="">Select...</option>
-                        <option value="1">1 Dog</option>
-                        <option value="2">2 Dogs</option>
-                        <option value="3">3 Dogs</option>
-                        <option value="4+">4+ Dogs</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="yardsize">Yard Size</label>
-                    <select id="yardsize" name="yardsize" required>
-                        <option value="">Select...</option>
-                        <option value="small">Small (under 1/4 acre)</option>
-                        <option value="medium">Medium (1/4 - 1/2 acre)</option>
-                        <option value="large">Large (1/2 - 1 acre)</option>
-                        <option value="xlarge">Extra Large (over 1 acre)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="frequency">Service Frequency</label>
-                    <select id="frequency" name="frequency" required>
-                        <option value="">Select...</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="biweekly">Bi-Weekly</option>
-                        <option value="onetime">One-Time Cleanup</option>
-                    </select>
-                </div>
-                <div class="estimate-result" id="estimateResult" style="display: none;">
-                    <h3>Your Estimated Cost:</h3>
-                    <div class="price-display">
-                        <span class="price" id="estimatedPrice">$0</span>
-                        <span class="frequency-text" id="frequencyText"></span>
+            </div>
+
+            <!-- Conversation Container -->
+            <div class="conversation-container" id="conversationContainer">
+                <!-- Messages will be dynamically added here -->
+            </div>
+
+            <!-- Input Container -->
+            <div class="conversation-input" id="conversationInput" style="display: none;">
+                <div class="input-group">
+                    <div class="choices-container" id="choicesContainer">
+                        <!-- Dynamic choices will appear here -->
                     </div>
                 </div>
-                <div class="form-buttons">
-                    <button type="button" onclick="calculateEstimate()" class="cta-button primary">Calculate Estimate</button>
-                    <button type="button" onclick="proceedToSignup()" class="cta-button secondary" id="signupButton" style="display: none;">Proceed to Sign Up</button>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="conversation-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-            </form>
+                <span class="progress-text" id="progressText">Step 1 of 4</span>
+            </div>
         </div>
     </div>
 
