@@ -450,27 +450,70 @@ picture img {
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+  
   .hero-image-container {
     height: 40vh;
     min-height: 250px;
     border-radius: 8px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   .image-gallery {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .gallery-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   .gallery-item img {
     height: 200px;
+    width: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
   }
   
   .gallery-info {
     padding: 1rem;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   .slider-slide img {
     height: 250px;
+    width: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  .css-image-slider {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .slider-container {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .slider-slide {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
   }
   
   .slider-arrow {
@@ -485,6 +528,43 @@ picture img {
   
   .slider-arrow.next {
     right: 10px;
+  }
+}
+
+/* Additional small screen fixes */
+@media (max-width: 480px) {
+  .hero-image-container {
+    height: 35vh;
+    min-height: 200px;
+  }
+  
+  .slider-slide img {
+    height: 200px;
+  }
+  
+  .gallery-item img {
+    height: 180px;
+  }
+  
+  .slider-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero-image-container {
+    height: 30vh;
+    min-height: 180px;
+  }
+  
+  .slider-slide img {
+    height: 180px;
+  }
+  
+  .gallery-item img {
+    height: 160px;
   }
 }
 

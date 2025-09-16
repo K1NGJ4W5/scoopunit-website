@@ -1,0 +1,526 @@
+/**
+ * Mobile Image Display and Optimization CSS
+ * Comprehensive solution for mobile image scaling, performance, and layout issues
+ * Version: 1.0
+ * Target: Scoop Unit Website Mobile Experience
+ */
+
+/* ===============================================
+   UNIVERSAL IMAGE BASELINE - MOBILE FIRST
+   =============================================== */
+
+/* Reset and base mobile-first styling for all images */
+img {
+    /* Responsive scaling foundation */
+    max-width: 100% !important;
+    height: auto !important;
+    
+    /* Prevent layout overflow on mobile */
+    width: auto;
+    object-fit: contain;
+    
+    /* Performance optimizations */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    
+    /* Prevent layout shift */
+    vertical-align: middle;
+    
+    /* Hardware acceleration for smooth rendering */
+    transform: translateZ(0);
+    will-change: auto;
+    
+    /* Mobile-friendly box model */
+    box-sizing: border-box;
+    
+    /* Prevent text selection interference */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* ===============================================
+   MOBILE CONTAINER OVERFLOW FIXES
+   =============================================== */
+
+/* Ensure all image containers don't overflow on mobile */
+.apple-guarantee-badges,
+.apple-service-showcase,
+.apple-military-image,
+.gallery-item,
+.hero-image-container,
+.image-container,
+.service-image-container {
+    /* Container overflow prevention */
+    overflow: hidden !important;
+    width: 100%;
+    max-width: 100%;
+    
+    /* Mobile-friendly sizing */
+    box-sizing: border-box;
+    position: relative;
+    
+    /* Smooth container behavior */
+    transition: none; /* Disable transitions that can cause layout issues */
+}
+
+/* Specific container fixes for problematic elements */
+.apple-guarantee-badges {
+    text-align: center;
+    padding: 0 16px; /* Mobile-safe padding */
+    margin: 0 auto;
+}
+
+.apple-guarantee-badges img {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+    border-radius: 12px;
+    /* Constrain to readable size on mobile */
+    max-height: 400px;
+}
+
+/* ===============================================
+   RESPONSIVE IMAGE GRID SYSTEM
+   =============================================== */
+
+/* Mobile-optimized grid for service showcase images */
+.apple-service-showcase {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.apple-service-showcase img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 300px; /* Prevent excessive height on mobile */
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* ===============================================
+   MOBILE ASPECT RATIO CONTROLS
+   =============================================== */
+
+/* Maintain proper aspect ratios on mobile devices */
+.mobile-aspect-ratio-16-9 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.mobile-aspect-ratio-16-9 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+.mobile-aspect-ratio-4-3 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 75%; /* 4:3 aspect ratio */
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.mobile-aspect-ratio-4-3 img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ===============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   =============================================== */
+
+/* Lazy loading with mobile-specific optimizations */
+img[loading="lazy"] {
+    /* Intersection observer optimization */
+    content-visibility: auto;
+    contain-intrinsic-size: 300px 200px;
+}
+
+/* Mobile-specific preloading for critical images */
+.mobile-critical-image {
+    loading: eager !important;
+    decoding: sync;
+    fetchpriority: high;
+}
+
+/* Mobile bandwidth optimization */
+@media (max-width: 768px) {
+    /* Reduce image quality on slower connections */
+    @media (prefers-reduced-data: reduce) {
+        img:not(.mobile-critical-image) {
+            filter: blur(0.5px); /* Slight blur for data saving */
+            opacity: 0.95;
+        }
+    }
+}
+
+/* ===============================================
+   MOBILE BREAKPOINT OPTIMIZATIONS
+   =============================================== */
+
+/* Small Mobile Devices (320px - 480px) */
+@media (max-width: 480px) {
+    /* Ultra-constrained mobile image sizing */
+    .apple-guarantee-badges img,
+    .apple-service-showcase img,
+    .apple-military-image img {
+        max-height: 250px !important;
+        width: 100% !important;
+        object-fit: contain;
+    }
+    
+    /* Gallery optimizations for small screens */
+    .gallery-item {
+        margin-bottom: 16px;
+        border-radius: 8px;
+    }
+    
+    .gallery-item img {
+        height: 180px !important;
+        width: 100% !important;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    /* Service showcase mobile layout */
+    .apple-service-showcase {
+        margin: 16px 0;
+        border-radius: 12px;
+    }
+    
+    /* Military discount section mobile */
+    .apple-military-section {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        text-align: center;
+    }
+    
+    .apple-military-image {
+        order: -1; /* Move image to top on mobile */
+    }
+}
+
+/* Medium Mobile Devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .apple-guarantee-badges img,
+    .apple-service-showcase img {
+        max-height: 320px !important;
+    }
+    
+    .gallery-item img {
+        height: 220px !important;
+    }
+}
+
+/* ===============================================
+   HERO SECTION MOBILE OPTIMIZATIONS
+   =============================================== */
+
+@media (max-width: 768px) {
+    /* Hero background image mobile optimization */
+    .hero-yard {
+        background-attachment: scroll !important; /* Improve performance */
+        background-size: cover;
+        background-position: center center;
+        min-height: 400px;
+        height: 60vh;
+    }
+    
+    /* Hero content image adjustments */
+    .hero-image-container {
+        height: 250px !important;
+        border-radius: 8px;
+        margin: 16px 0;
+    }
+    
+    .hero-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+/* ===============================================
+   LOGO AND NAVIGATION MOBILE FIXES
+   =============================================== */
+
+/* Mobile logo optimization */
+@media (max-width: 768px) {
+    .apple-nav-logo img,
+    .logo-link img,
+    #header-logo,
+    img[src*="scoop-unit-header-logo"] {
+        height: 36px !important;
+        width: auto !important;
+        max-width: 120px !important;
+        min-width: 90px !important;
+        object-fit: contain;
+        
+        /* Ensure visibility on mobile */
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        position: relative !important;
+        z-index: 999999 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .apple-nav-logo img,
+    .logo-link img,
+    #header-logo,
+    img[src*="scoop-unit-header-logo"] {
+        height: 32px !important;
+        max-width: 100px !important;
+        min-width: 80px !important;
+    }
+}
+
+/* ===============================================
+   MOBILE GALLERY OPTIMIZATIONS
+   =============================================== */
+
+@media (max-width: 768px) {
+    /* Gallery grid mobile layout */
+    .image-gallery,
+    .apple-grid-2,
+    .apple-grid-3,
+    .apple-grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+        padding: 16px;
+    }
+    
+    /* Gallery item mobile optimization */
+    .gallery-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 0 16px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    
+    .gallery-image,
+    .gallery-item img {
+        width: 100% !important;
+        height: 200px !important;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 12px 12px 0 0;
+    }
+    
+    .gallery-info {
+        padding: 16px;
+    }
+}
+
+/* ===============================================
+   MOBILE TOUCH AND INTERACTION FIXES
+   =============================================== */
+
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+    .gallery-item,
+    .apple-service-showcase,
+    img[onclick] {
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        
+        /* Larger touch targets */
+        min-height: 44px;
+        min-width: 44px;
+        
+        /* Touch feedback */
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    
+    .gallery-item:active,
+    .apple-service-showcase:active {
+        transform: scale(0.98);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* ===============================================
+   MOBILE IMAGE LOADING STATES
+   =============================================== */
+
+/* Mobile-optimized loading placeholders */
+.mobile-image-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: mobileShimmer 1.5s infinite;
+    border-radius: 8px;
+    min-height: 200px;
+    width: 100%;
+}
+
+@keyframes mobileShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Mobile error state */
+.mobile-image-error {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-image-error::before {
+    content: "📷";
+    font-size: 24px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* ===============================================
+   ACCESSIBILITY AND REDUCED MOTION
+   =============================================== */
+
+/* Respect user preferences for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    img,
+    .gallery-item,
+    .apple-service-showcase,
+    .mobile-image-loading {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .mobile-image-loading {
+        background: #f0f0f0;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .gallery-item,
+    .apple-service-showcase {
+        border: 2px solid currentColor;
+    }
+    
+    img {
+        filter: contrast(1.2);
+    }
+}
+
+/* ===============================================
+   CRITICAL CSS OVERRIDES FOR MOBILE
+   =============================================== */
+
+/* Emergency mobile fixes - highest specificity */
+@media (max-width: 768px) {
+    /* Force responsive behavior on stubborn images */
+    body img:not(.apple-nav-logo img):not(.logo-link img) {
+        max-width: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+    
+    /* Container constraint enforcement */
+    .apple-container,
+    .container,
+    .row,
+    .col,
+    section,
+    article {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Prevent horizontal scroll from images */
+    body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+}
+
+/* ===============================================
+   PRINT MEDIA MOBILE OPTIMIZATION
+   =============================================== */
+
+@media print {
+    /* Optimize images for mobile printing */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+    
+    .gallery-item {
+        break-inside: avoid;
+        margin-bottom: 1cm;
+    }
+}
+
+/* ===============================================
+   DEVELOPMENT AND DEBUG HELPERS
+   =============================================== */
+
+/* Debug mode - uncomment to identify problematic images */
+/*
+.debug-mobile-images img {
+    border: 2px solid red !important;
+    box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.3) !important;
+}
+
+.debug-mobile-images img:hover::after {
+    content: attr(src);
+    position: absolute;
+    background: black;
+    color: white;
+    padding: 4px;
+    font-size: 12px;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    max-width: 200px;
+    word-break: break-all;
+}
+*/
+
+/* Performance monitoring CSS (development only) */
+/*
+img[loading="lazy"]:not(.loaded) {
+    outline: 3px solid orange;
+}
+
+img.loaded {
+    outline: 3px solid green;
+}
+*/

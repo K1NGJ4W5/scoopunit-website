@@ -1,0 +1,28 @@
+{
+    "name": "Scoop Unit - Professional Dog Waste Removal",
+    "short_name": "Scoop Unit",
+    "description": "Professional dog waste removal services across Florida Panhandle. Weekly, bi-weekly, and one-time cleanup options.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0071e3",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "images/scoop-unit-badge-logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "images/scoop-unit-badge-logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["business", "lifestyle", "utilities"],
+    "lang": "en-US",
+    "scope": "/",
+    "prefer_related_applications": false
+}

@@ -3,6 +3,138 @@
  * Minimalist, conversion-focused design with clean aesthetics
  */
 
+/* Mobile Viewport and Browser Compatibility Fixes */
+html {
+    /* Prevent iOS zoom on input focus */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    
+    /* Better font rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    
+    /* Prevent horizontal scrolling */
+    overflow-x: hidden;
+    width: 100%;
+}
+
+body {
+    /* Prevent iOS bounce scrolling */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Prevent horizontal scrolling */
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    
+    /* Touch action optimization */
+    touch-action: manipulation;
+    
+    /* Disable tap highlights */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Allow text selection for content areas */
+p, h1, h2, h3, h4, h5, h6, span, div.content, .apple-card-description, .apple-section-subtitle {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Mobile Input and Form Fixes */
+input, textarea, select, button {
+    /* Prevent iOS zoom on input focus */
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    /* Better touch targets */
+    min-height: 44px;
+    
+    /* Prevent iOS styling */
+    -webkit-border-radius: 0;
+    border-radius: var(--radius-sm);
+    
+    /* Touch optimization */
+    touch-action: manipulation;
+}
+
+/* Button touch optimization */
+button, .apple-btn, .mobile-sticky-btn, .mobile-menu-toggle {
+    /* Better touch targets */
+    min-height: 44px;
+    min-width: 44px;
+    
+    /* Touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    
+    /* Prevent double-tap zoom */
+    touch-action: manipulation;
+    
+    /* Prevent text selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Link touch optimization */
+a {
+    /* Better touch targets for links */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    
+    /* Touch feedback */
+    -webkit-tap-highlight-color: rgba(0, 113, 227, 0.2);
+    cursor: pointer;
+    
+    /* Prevent double-tap zoom */
+    touch-action: manipulation;
+}
+
+/* Enhanced Mobile Overflow Prevention */
+@media (max-width: 768px) {
+    /* Critical: Ensure no element can cause horizontal scrolling */
+    *, *::before, *::after {
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Force all layout containers to respect viewport */
+    .apple-container, .container, section, article, main, header, footer, nav, div {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Specific grid and flex container fixes */
+    .apple-grid, .apple-grid-2, .apple-grid-3, .apple-grid-4 {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Prevent any wide content */
+    img, video, iframe, embed, object {
+        max-width: 100% !important;
+        height: auto !important;
+        box-sizing: border-box !important;
+    }
+}
+
 /* CSS Variables - Apple Color Palette */
 :root {
     /* Primary Colors */
@@ -152,27 +284,76 @@
     }
 }
 
+/* Enhanced Mobile and Tablet Breakpoints */
 @media (max-width: 768px) {
+    /* Global mobile fixes */
+    * {
+        max-width: 100vw !important;
+    }
+    
     .apple-nav-container {
         height: 60px;
+        /* Ensure nav doesn't overflow */
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
     }
     
     .hero-yard {
         height: 60vh;
         min-height: 400px;
+        /* Fix iOS background attachment issue */
         background-attachment: scroll;
         margin-top: 60px;
+        /* Prevent horizontal overflow */
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden;
     }
     
     .hero-yard-content {
         padding: 50px 20px 0 20px;
         max-width: 95vw;
+        width: 100%;
+        /* Prevent text overflow */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
     
     .hero-yard-content h1 {
         line-height: 1.1;
         margin-bottom: 1.2rem;
         letter-spacing: -0.015em;
+        /* Prevent heading overflow */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+    }
+    
+    /* Ensure all content containers don't overflow */
+    .apple-container, .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    
+    /* Fix image responsiveness */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        width: auto !important;
+    }
+    
+    /* Fix table responsiveness */
+    table {
+        max-width: 100% !important;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
     }
     
     .hero-yard-content p {
@@ -182,19 +363,35 @@
 }
 
 @media (max-width: 480px) {
+    /* Prevent all horizontal overflow */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        position: relative !important;
+    }
+    
     .apple-nav-container {
         height: 56px;
+        padding: 0 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .hero-yard {
         height: 55vh;
         min-height: 380px;
         margin-top: 56px;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
     }
     
     .hero-yard-content {
-        padding: 40px 16px 0 16px;
-        max-width: 100vw;
+        padding: 40px 12px 0 12px !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
     }
     
     .hero-yard-content h1 {
@@ -253,17 +450,57 @@
 }
 
 @media (max-width: 320px) {
+    /* Ultra-small screen fixes */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+    
     .apple-nav-container {
         height: 52px;
+        padding: 0 8px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .hero-yard {
         min-height: 360px;
         margin-top: 52px;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        overflow: hidden !important;
     }
     
     .hero-yard-content {
-        padding: 30px 10px 0 10px;
+        padding: 30px 8px 0 8px !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Ultra-small container fixes */
+    .apple-container {
+        padding: 0 8px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ultra-small grid fixes */
+    .apple-grid-2,
+    .apple-grid-3,
+    .apple-grid-4 {
+        gap: 12px !important;
+        margin: 16px 0 !important;
+    }
+    
+    /* Ultra-small card fixes */
+    .apple-card {
+        padding: 16px !important;
+        margin: 0 !important;
+        border-radius: 8px !important;
     }
     
     .hero-yard-content h1 {
@@ -326,6 +563,55 @@
 
 .hero-yard.avif {
     background-image: url('images/hero-yard-background.avif');
+}
+
+/* Additional mobile overflow prevention */
+@media (max-width: 768px) {
+    /* Ensure no element can cause horizontal scroll */
+    *, *::before, *::after {
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Fix any potential wide elements */
+    .apple-section, .apple-hero, .apple-nav {
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure CTA buttons don't overflow */
+    .apple-btn, .apple-btn-large, .mobile-hero-cta {
+        max-width: 100% !important;
+        width: auto !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    /* Fix testimonial cards */
+    .apple-testimonial {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 0 var(--spacing-md) 0 !important;
+    }
+    
+    /* Fix military section */
+    .apple-military-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
+    }
+    
+    /* Fix slider and images */
+    .css-image-slider, .slider-container, .slider-slide {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
 }
 
 /* Login Portal Styles */
@@ -1147,7 +1433,7 @@ img[alt*="Scoop Unit"] {
     transform: translateY(0);
 }
 
-/* Apple Mobile Optimization */
+/* Apple Mobile Optimization - ENHANCED */
 /* Mobile Sticky CTA */
 .mobile-sticky-cta {
     position: fixed;
@@ -1161,6 +1447,8 @@ img[alt*="Scoop Unit"] {
     transition: transform 0.3s ease;
     display: none;
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+    /* Ensure safe area padding for mobile devices */
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
 }
 
 .mobile-sticky-cta.visible {
@@ -1237,6 +1525,12 @@ img[alt*="Scoop Unit"] {
 }
 
 @media (max-width: 768px) {
+    /* Prevent horizontal scrolling */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+    
     .mobile-menu-toggle {
         display: flex;
     }
@@ -1245,21 +1539,34 @@ img[alt*="Scoop Unit"] {
         display: none;
     }
     
+    /* Enhanced grid fixes for mobile */
     .apple-grid-2,
     .apple-grid-3,
     .apple-grid-4 {
         grid-template-columns: 1fr !important;
         gap: var(--spacing-sm) !important;
+        margin: var(--spacing-md) 0 !important;
+        width: 100% !important;
     }
     
+    /* Container improvements */
     .apple-container {
         padding: 0 16px !important;
         max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
     }
     
+    /* Card improvements */
     .apple-card {
         width: 100% !important;
         box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: var(--spacing-md) !important;
+        /* Prevent card overflow */
+        overflow: hidden !important;
+        word-wrap: break-word !important;
     }
     
     .desktop-cta {
@@ -1374,15 +1681,54 @@ img[alt*="Scoop Unit"] {
     
     /* Mobile-optimized form styling */
     .apple-form {
-        margin: var(--spacing-sm);
-        padding: var(--spacing-md);
+        margin: var(--spacing-sm) 0 !important;
+        padding: var(--spacing-md) !important;
         border-radius: var(--radius-md);
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .apple-form-input,
     .apple-form-select {
-        font-size: 16px; /* Prevents zoom on iOS */
-        padding: 18px;
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        padding: 18px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        border: 2px solid rgba(0, 0, 0, 0.1) !important;
+        margin: 0 !important;
+    }
+    
+    /* Form container fixes */
+    .apple-form-group {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: var(--spacing-sm) !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Estimate form specific fixes */
+    #estimateForm {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: var(--spacing-md) !important;
+        margin: 0 !important;
+    }
+    
+    #estimateForm .apple-form-group {
+        width: 100% !important;
+        margin-bottom: 16px !important;
+    }
+    
+    #estimateForm input,
+    #estimateForm select {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        font-size: 16px !important;
+        padding: 16px !important;
     }
     
     #estimateForm button[type="submit"] {
@@ -1398,11 +1744,17 @@ img[alt*="Scoop Unit"] {
     /* Mobile body padding to account for sticky CTA */
     body {
         padding-bottom: 80px;
+        /* Prevent horizontal scroll */
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
     }
     
     /* Enhanced Mobile Readability */
     .apple-section {
-        padding: var(--spacing-lg) var(--spacing-sm);
+        padding: var(--spacing-lg) 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .apple-section-title {
@@ -1438,11 +1790,34 @@ img[alt*="Scoop Unit"] {
         font-size: clamp(1.2rem, 4.5vw, 1.5rem) !important;
         line-height: 1.3 !important;
         margin-bottom: var(--spacing-sm) !important;
+        word-wrap: break-word !important;
     }
     
     .apple-card p {
         font-size: clamp(0.9rem, 3.2vw, 1.05rem) !important;
         line-height: 1.5 !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Additional mobile overflow fixes */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Prevent images from causing overflow */
+    img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not(#header-logo) {
+        max-width: 100% !important;
+        height: auto !important;
+        width: auto !important;
+        display: block !important;
+    }
+    
+    /* Fix any remaining grid or flex issues */
+    .apple-grid, .apple-testimonial, .apple-trust {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -1525,4 +1900,292 @@ img[alt*="Scoop Unit"] {
 .apple-mt-xl { margin-top: var(--spacing-xl); }
 
 .apple-hidden { display: none; }
-.apple-visible { display: block; }/* Force rebuild */
+.apple-visible { display: block; }
+
+/* Mobile-first responsive utility classes */
+@media (max-width: 480px) {
+    .mobile-hidden { display: none !important; }
+    .mobile-visible { display: block !important; }
+    .mobile-text-center { text-align: center !important; }
+    .mobile-full-width { width: 100% !important; max-width: 100% !important; }
+    
+    /* Enhanced small screen optimizations */
+    .apple-btn {
+        padding: 12px 20px !important;
+        font-size: 16px !important; /* Prevent iOS zoom */
+        min-height: 48px !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+    
+    /* Better form inputs for small screens */
+    input, textarea, select {
+        font-size: 16px !important; /* Prevent iOS zoom */
+        padding: 12px 16px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 8px !important;
+    }
+    
+    /* Enhanced text sizing */
+    .hero-yard-content h1 {
+        font-size: clamp(1.5rem, 8vw, 2.5rem) !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .hero-yard-content p {
+        font-size: clamp(0.9rem, 4vw, 1.1rem) !important;
+        line-height: 1.4 !important;
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+/* Enhanced Mobile Navigation and Touch Interactions */
+@media (max-width: 768px) {
+    /* Mobile navigation improvements */
+    .apple-nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        flex-direction: column;
+        padding: 20px;
+        z-index: 9999;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .apple-nav-menu.active {
+        transform: translateX(0);
+    }
+    
+    .apple-nav-item {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .apple-nav-link {
+        display: block;
+        padding: 15px 20px;
+        font-size: 18px;
+        text-align: center;
+        color: var(--apple-black);
+        border-radius: 12px;
+        background: rgba(245, 245, 247, 0.6);
+        transition: all 0.2s ease;
+        min-height: 54px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .apple-nav-link:hover,
+    .apple-nav-link:focus {
+        background: var(--apple-blue);
+        color: white;
+        transform: scale(1.02);
+    }
+    
+    /* Mobile sticky CTA improvements */
+    .mobile-sticky-cta {
+        position: fixed;
+        bottom: env(safe-area-inset-bottom, 0);
+        left: 0;
+        right: 0;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        z-index: 9998;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        /* Support for iPhone X and newer */
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0));
+    }
+    
+    .mobile-sticky-cta.visible {
+        transform: translateY(0);
+    }
+    
+    .mobile-sticky-btn {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        padding: 16px 24px;
+        background: var(--apple-blue);
+        color: white;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        min-height: 54px;
+        box-shadow: 0 4px 16px rgba(0, 113, 227, 0.3);
+        transition: all 0.2s ease;
+    }
+    
+    .mobile-sticky-btn:hover,
+    .mobile-sticky-btn:focus {
+        background: var(--apple-blue-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
+    }
+}
+
+/* iOS Safe Area Support */
+@supports (padding: env(safe-area-inset-top)) {
+    .apple-nav {
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    .mobile-sticky-cta {
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    }
+    
+    .hero-yard {
+        padding-top: env(safe-area-inset-top);
+    }
+}
+
+/* Dark Mode Support for Mobile */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    .apple-nav-menu {
+        background: rgba(28, 28, 30, 0.95);
+    }
+    
+    .apple-nav-link {
+        background: rgba(58, 58, 60, 0.6);
+        color: white;
+    }
+    
+    .mobile-sticky-cta {
+        background: rgba(28, 28, 30, 0.95);
+        border-top-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Enhanced Viewport Height Fixes for Mobile */
+.hero-yard {
+    /* Use JavaScript-calculated viewport height for iOS */
+    height: calc(var(--vh, 1vh) * 70);
+    min-height: 500px;
+}
+
+@media (max-width: 768px) {
+    .hero-yard {
+        height: calc(var(--vh, 1vh) * 60);
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-yard {
+        height: calc(var(--vh, 1vh) * 55);
+        min-height: 380px;
+    }
+}
+
+/* Mobile-First Responsive Images */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Better image loading on mobile */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimizeQuality;
+}
+
+/* Enhanced Form Accessibility and Mobile UX */
+input, textarea, select {
+    /* Prevent zooming on iOS */
+    font-size: max(16px, 1rem);
+    
+    /* Better touch targets */
+    min-height: 44px;
+    
+    /* Enhanced styling for mobile */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    /* Better readability */
+    line-height: 1.5;
+    
+    /* Prevent horizontal scrolling */
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mobile-specific button enhancements */
+.apple-btn, button {
+    /* Better touch targets */
+    min-height: 44px;
+    min-width: 44px;
+    
+    /* Prevent iOS styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    /* Touch feedback */
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.apple-btn:active, button:active {
+    transform: scale(0.98);
+}
+
+/* Mobile loading optimization */
+@media (max-width: 768px) {
+    /* Optimize background images for mobile */
+    .hero-yard {
+        background-attachment: scroll; /* iOS fix */
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    /* Lazy loading improvements */
+    img[loading="lazy"] {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    img[loading="lazy"].loaded {
+        opacity: 1;
+    }
+}
+
+/* Android-specific fixes */
+@media (max-width: 768px) and (min-resolution: 2dppx) {
+    /* Better text rendering on high-DPI Android */
+    body {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Landscape orientation fixes for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-yard {
+        height: calc(var(--vh, 1vh) * 80);
+        min-height: 300px;
+    }
+    
+    .hero-yard-content {
+        padding: 30px 20px 0 20px;
+    }
+    
+    .apple-nav-container {
+        height: 50px;
+    }
+}
+
+/* Force rebuild */

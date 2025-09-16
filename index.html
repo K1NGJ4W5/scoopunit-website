@@ -2,7 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Mobile App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/scoop-unit-badge-logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/scoop-unit-badge-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/scoop-unit-badge-logo.png">
+    <link rel="manifest" href="manifest.json">
+    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -106,6 +119,11 @@
     
     <link rel="stylesheet" href="apple-inspired-styles.css?v=KILL-BUGGY-FUNCTION">
     <link rel="stylesheet" href="modern-images.css?v=KILL-BUGGY-FUNCTION">
+    <link rel="stylesheet" href="mobile-button-fixes.css?v=MOBILE-TOUCH-OPTIMIZATION">
+    <!-- Mobile Image Optimization and Performance -->
+    <link rel="stylesheet" href="mobile-image-optimization.css?v=1.0">
+    <!-- Mobile Typography and Readability Fixes -->
+    <link rel="stylesheet" href="mobile-typography-fixes.css?v=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CRITICAL: CSS-first logo protection to prevent race conditions -->
@@ -251,7 +269,7 @@
                 <!-- Primary CTA -->
                 <div class="apple-hero-cta">
                     <a href="#estimate" class="apple-btn apple-btn-primary apple-btn-large mobile-hero-cta">Get Your FREE Quote Now</a>
-                    <p class="apple-caption apple-mt-sm mobile-caption">No commitment • Instant pricing</p>
+                    <p class="apple-caption apple-mt-sm mobile-caption">Get started today</p>
                 </div>
                 
                 <!-- Trust Indicators -->
@@ -267,6 +285,10 @@
                     <div class="apple-trust-item">
                         <span class="apple-trust-icon">🐕</span>
                         Veterinarian Recommended
+                    </div>
+                    <div class="apple-trust-item">
+                        <span class="apple-trust-icon">✓</span>
+                        No Commitment
                     </div>
                 </div>
             </div>
@@ -317,7 +339,22 @@
                     <img src="images/scoop-unit-badge-logo.png" alt="Scoop Unit Badge" class="guarantee-logo">
                     <h3>Our Professional Guarantees</h3>
                 </div>
-                <img src="images/guarantee-badges.png" alt="Scoop Unit Professional service guarantees - Safe for pets and kids, odor elimination guarantee, 100% customer satisfaction guarantee" loading="lazy">
+                <picture class="mobile-aspect-ratio-16-9">
+                    <!-- Mobile optimized version -->
+                    <source media="(max-width: 480px)" 
+                            srcset="images/guarantee-badges.png?width=480&quality=85" 
+                            type="image/png">
+                    <!-- Tablet optimized version -->
+                    <source media="(max-width: 768px)" 
+                            srcset="images/guarantee-badges.png?width=768&quality=90" 
+                            type="image/png">
+                    <!-- Desktop version -->
+                    <img src="images/guarantee-badges.png" 
+                         alt="Scoop Unit Professional service guarantees - Safe for pets and kids, odor elimination guarantee, 100% customer satisfaction guarantee" 
+                         loading="lazy"
+                         class="mobile-critical-image"
+                         decoding="async">
+                </picture>
             </div>
         </div>
     </section>
@@ -521,7 +558,21 @@
         <div class="apple-container">
             <div class="apple-military-section">
                 <div class="apple-military-image">
-                    <img src="images/military-discount.png" alt="Scoop Unit Military and First Responder discount - service member with K9 partner" loading="lazy">
+                    <picture class="mobile-aspect-ratio-4-3">
+                        <!-- Mobile optimized version -->
+                        <source media="(max-width: 480px)" 
+                                srcset="images/military-discount.png?width=480&quality=80" 
+                                type="image/png">
+                        <!-- Tablet optimized version -->
+                        <source media="(max-width: 768px)" 
+                                srcset="images/military-discount.png?width=768&quality=85" 
+                                type="image/png">
+                        <!-- Desktop version -->
+                        <img src="images/military-discount.png" 
+                             alt="Scoop Unit Military and First Responder discount - service member with K9 partner" 
+                             loading="lazy"
+                             decoding="async">
+                    </picture>
                 </div>
                 <div class="apple-military-content">
                     <div class="military-header">
@@ -571,6 +622,10 @@
                 <div class="apple-trust-item">
                     <span class="apple-trust-icon">🐕</span>
                     Veterinarian Recommended
+                </div>
+                <div class="apple-trust-item">
+                    <span class="apple-trust-icon">✓</span>
+                    No Commitment
                 </div>
             </div>
             
@@ -1294,6 +1349,89 @@
             }
         };
         
+        // Enhanced Mobile Viewport Management
+        function initMobileViewport() {
+            // Fix iOS viewport height issues
+            function setVHProperty() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            // Set initial value
+            setVHProperty();
+            
+            // Re-calculate on resize (handles iOS keyboard appearance)
+            window.addEventListener('resize', setVHProperty);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(setVHProperty, 100);
+            });
+            
+            // Prevent iOS zoom on input focus
+            const viewport = document.querySelector('meta[name="viewport"]');
+            const inputs = document.querySelectorAll('input, textarea, select');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    if (window.innerWidth < 768) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+                    }
+                });
+                
+                input.addEventListener('blur', () => {
+                    if (window.innerWidth < 768) {
+                        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, user-scalable=yes, viewport-fit=cover');
+                    }
+                });
+            });
+            
+            // Handle iOS safe area insets
+            if (CSS.supports('padding: env(safe-area-inset-top)')) {
+                document.body.classList.add('has-safe-area');
+            }
+            
+            // Prevent horizontal scrolling
+            function preventHorizontalScroll() {
+                const body = document.body;
+                const html = document.documentElement;
+                
+                if (body.scrollWidth > window.innerWidth) {
+                    console.warn('Horizontal overflow detected');
+                    body.style.overflowX = 'hidden';
+                    html.style.overflowX = 'hidden';
+                }
+            }
+            
+            // Check on load and resize
+            preventHorizontalScroll();
+            window.addEventListener('resize', preventHorizontalScroll);
+            
+            // Enhanced touch handling for iOS
+            let touchStartY = 0;
+            
+            document.addEventListener('touchstart', function(e) {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', function(e) {
+                const touchY = e.touches[0].clientY;
+                const touchDelta = touchY - touchStartY;
+                
+                // Prevent overscroll bounce on iOS
+                if (window.pageYOffset === 0 && touchDelta > 0) {
+                    e.preventDefault();
+                }
+                
+                if (window.pageYOffset >= document.body.scrollHeight - window.innerHeight && touchDelta < 0) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            console.log('✅ Mobile viewport management initialized');
+        }
+        
+        // Initialize mobile viewport on DOM ready
+        initMobileViewport();
+        
         // Mobile menu toggle
         document.getElementById('nav-toggle').addEventListener('click', function() {
             const navMenu = document.getElementById('nav-menu');
@@ -1533,5 +1671,7 @@
     <!-- Optimized scripts loading -->
     <!-- DISABLED: <script src="performance-optimization.js?v=KILL-BUGGY-FUNCTION" defer></script> -->
     <!-- TEMPORARILY DISABLED: <script src="apple-interactions.js?v=KILL-BUGGY-FUNCTION" defer></script> -->
+    <script src="mobile-image-performance.js?v=1.0" defer></script>
+    <script src="mobile-touch-enhancements.js?v=MOBILE-TOUCH-OPTIMIZATION" defer></script>
 </body>
 </html>

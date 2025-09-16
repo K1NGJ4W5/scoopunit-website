@@ -550,8 +550,14 @@ p {
     font-weight: 600;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness - ENHANCED */
 @media (max-width: 768px) {
+    /* Prevent horizontal scrolling */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+    
     .nav-menu {
         display: none;
         position: absolute;
@@ -563,6 +569,8 @@ p {
         padding: 1rem;
         box-shadow: var(--shadow-lg);
         border-top: 1px solid var(--border-color);
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .nav-menu.active {
@@ -575,38 +583,91 @@ p {
 
     .hero h1 {
         font-size: 2.5rem;
+        word-wrap: break-word !important;
     }
 
     .hero-subtitle {
         font-size: 1.125rem;
+        word-wrap: break-word !important;
     }
 
     .hero-cta, .cta-buttons {
         flex-direction: column;
         align-items: center;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
+    /* Enhanced grid fixes */
     .services-grid,
     .features-grid,
     .benefits-grid,
     .neighborhoods-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 1rem !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .testimonials-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 1rem !important;
     }
 
+    /* Enhanced container fixes */
     .container {
-        padding: 0 1rem;
+        padding: 0 1rem !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
     }
 
     .nav-container {
-        padding: 1rem;
+        padding: 1rem !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Additional mobile fixes */
+    .service-card, .feature-card, .benefit-card, .reason-card, .neighborhood-card, .testimonial-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 0 1rem 0 !important;
+        overflow: hidden !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Ensure no element causes overflow */
+    * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Fix potential wide images */
+    img:not(.apple-nav-logo img):not(.apple-nav img):not(nav img):not(#header-logo) {
+        max-width: 100% !important;
+        height: auto !important;
+        width: auto !important;
+    }
+    
+    /* Section spacing fixes */
+    .section {
+        padding: 2rem 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
     }
 }
 
@@ -689,6 +750,52 @@ p {
 .shadow-md { box-shadow: var(--shadow-md); }
 .shadow-lg { box-shadow: var(--shadow-lg); }
 .shadow-xl { box-shadow: var(--shadow-xl); }
+
+/* Additional mobile breakpoints for better responsiveness */
+@media (max-width: 480px) {
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+    
+    .container {
+        padding: 0 0.75rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .cta-button {
+        width: 100% !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+    }
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 0 0.5rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 1.75rem !important;
+    }
+    
+    .service-card, .feature-card, .benefit-card {
+        padding: 1rem !important;
+    }
+}
 
 /* Print Styles */
 @media print {

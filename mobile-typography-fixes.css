@@ -1,0 +1,425 @@
+/**
+ * Mobile Typography and Readability Fixes for Scoop Unit Website
+ * Addresses font size, contrast, and readability issues on mobile devices
+ * Ensures accessibility standards with minimum 16px font sizes
+ */
+
+/* ===========================
+   MOBILE TYPOGRAPHY FIXES
+   ========================== */
+
+/* Base Mobile Typography - Ensure minimum 16px for accessibility */
+@media (max-width: 768px) {
+    
+    /* Fix root font size for mobile */
+    html {
+        font-size: 16px; /* Ensure base 16px for accessibility */
+    }
+    
+    body {
+        font-size: 16px !important; /* Ensure body text meets minimum size */
+        line-height: 1.6 !important; /* Improve readability */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Fix paragraph text sizes that are too small */
+    p, .apple-text, .service-card p, .benefit p, .area-card p {
+        font-size: clamp(16px, 4vw, 18px) !important; /* Minimum 16px */
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Fix navigation text */
+    .nav-menu a, .apple-nav-link {
+        font-size: 16px !important; /* Minimum accessibility size */
+        line-height: 1.4 !important;
+    }
+    
+    /* Fix button text sizes */
+    .cta-button, .apple-btn {
+        font-size: 16px !important; /* Minimum for touch targets */
+        line-height: 1.3 !important;
+        padding: 14px 24px !important; /* Increase touch target */
+    }
+    
+    /* Fix form input text sizes */
+    .form-group input, .form-group select, .apple-form-input, .apple-form-select {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        line-height: 1.4 !important;
+    }
+    
+    /* Fix small text elements */
+    .logo .tagline, .apple-caption, .footer-section a, .contact-info p {
+        font-size: 14px !important; /* Slightly smaller but still readable */
+        line-height: 1.5 !important;
+    }
+}
+
+/* ===========================
+   HERO SECTION TEXT FIXES
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Fix hero title readability */
+    .hero-yard-content h1, .hero-title, .apple-headline {
+        font-size: clamp(28px, 7vw, 48px) !important; /* Larger minimum */
+        line-height: 1.2 !important;
+        font-weight: 800 !important;
+        /* Improve text shadow for better contrast */
+        text-shadow: 
+            -3px -3px 0 #000,
+            3px -3px 0 #000,
+            -3px 3px 0 #000,
+            3px 3px 0 #000,
+            0 0 12px rgba(0, 0, 0, 0.9),
+            0 0 24px rgba(0, 0, 0, 0.7) !important;
+    }
+    
+    /* Fix hero subtitle readability */
+    .hero-yard-content p, .hero-subtitle, .apple-subheadline {
+        font-size: clamp(16px, 4.5vw, 20px) !important; /* Minimum 16px */
+        line-height: 1.5 !important;
+        font-weight: 600 !important;
+        /* Improve text shadow for better contrast */
+        text-shadow: 
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px 2px 0 #000,
+            2px 2px 0 #000,
+            0 0 8px rgba(0, 0, 0, 0.9),
+            0 0 16px rgba(0, 0, 0, 0.7) !important;
+    }
+}
+
+/* ===========================
+   SECTION HEADING FIXES
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Fix section titles */
+    .services-overview h2, .apple-section-title, h2 {
+        font-size: clamp(24px, 6vw, 36px) !important; /* Larger minimum */
+        line-height: 1.3 !important;
+        font-weight: 700 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Fix service card titles */
+    .service-card h3, .apple-card-title, h3 {
+        font-size: clamp(20px, 5vw, 24px) !important; /* Larger minimum */
+        line-height: 1.4 !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* Fix subsection titles */
+    h4, h5, h6 {
+        font-size: clamp(18px, 4vw, 20px) !important; /* Minimum 18px */
+        line-height: 1.4 !important;
+        font-weight: 600 !important;
+    }
+}
+
+/* ===========================
+   TRUST INDICATORS & BADGES
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Fix trust indicator text */
+    .apple-trust-item, .stat-item, .location-badge, .highlight-badge {
+        font-size: 14px !important; /* Slightly smaller but readable */
+        line-height: 1.4 !important;
+        padding: 12px 16px !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Fix trust icon sizes */
+    .apple-trust-icon, .service-icon, .benefit-icon {
+        font-size: 20px !important; /* Larger for mobile */
+    }
+}
+
+/* ===========================
+   FORM IMPROVEMENTS
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Fix form labels */
+    .form-group label, .apple-form-label {
+        font-size: 16px !important; /* Accessibility minimum */
+        line-height: 1.4 !important;
+        font-weight: 600 !important;
+        margin-bottom: 8px !important;
+    }
+    
+    /* Fix form error/success messages */
+    .form-message, .error-message, .success-message {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Fix estimate result text */
+    .price-display .price {
+        font-size: clamp(28px, 8vw, 36px) !important; /* Larger for visibility */
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+    }
+    
+    .frequency-text {
+        font-size: 14px !important; /* Readable but secondary */
+        line-height: 1.4 !important;
+    }
+}
+
+/* ===========================
+   CARD CONTENT IMPROVEMENTS
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Fix service card content */
+    .service-card, .apple-card, .benefit-card {
+        padding: 20px !important;
+    }
+    
+    .service-card h3, .apple-card-title {
+        font-size: clamp(20px, 5vw, 24px) !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .service-card p, .apple-card-description {
+        font-size: 16px !important; /* Accessibility minimum */
+        line-height: 1.6 !important;
+        margin-bottom: 16px !important;
+    }
+    
+    /* Fix service links */
+    .service-link {
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+        font-weight: 600 !important;
+    }
+}
+
+/* ===========================
+   FOOTER IMPROVEMENTS
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Fix footer text sizes */
+    .footer-section h3, .footer-section h4 {
+        font-size: clamp(18px, 4.5vw, 22px) !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .footer-section a, .footer-section p {
+        font-size: 16px !important; /* Accessibility minimum */
+        line-height: 1.5 !important;
+    }
+    
+    .footer-bottom {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* ===========================
+   CONTRAST & SHADOW FIXES
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Remove problematic text shadows that hurt readability */
+    .service-card h3, .benefit h3, .step h3 {
+        text-shadow: none !important;
+    }
+    
+    /* Improve contrast for overlay text */
+    .hero-overlay, .apple-showcase-overlay {
+        background: rgba(0, 0, 0, 0.6) !important; /* Darker for better contrast */
+    }
+    
+    /* Fix text over images */
+    .area-card h3, .testimonial-card .quote {
+        color: #1e293b !important; /* Darker text for better contrast */
+        text-shadow: none !important;
+    }
+    
+    /* Ensure button text is always readable */
+    .cta-button, .apple-btn {
+        color: white !important;
+        text-shadow: none !important;
+        font-weight: 600 !important;
+    }
+}
+
+/* ===========================
+   ULTRA SMALL SCREEN FIXES
+   ========================== */
+
+@media (max-width: 480px) {
+    
+    /* Ultra small screen typography */
+    body {
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+    }
+    
+    p, .apple-text {
+        font-size: 16px !important; /* Never below accessibility minimum */
+        line-height: 1.6 !important;
+    }
+    
+    /* Hero text for very small screens */
+    .hero-yard-content h1 {
+        font-size: clamp(24px, 8vw, 40px) !important;
+        line-height: 1.3 !important;
+        margin-bottom: 16px !important;
+    }
+    
+    .hero-yard-content p {
+        font-size: clamp(16px, 5vw, 18px) !important;
+        line-height: 1.5 !important;
+        margin-bottom: 20px !important;
+    }
+    
+    /* Section titles for very small screens */
+    h2 {
+        font-size: clamp(22px, 7vw, 32px) !important;
+        line-height: 1.3 !important;
+    }
+    
+    h3 {
+        font-size: clamp(18px, 6vw, 22px) !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Buttons for very small screens */
+    .cta-button, .apple-btn {
+        font-size: 16px !important;
+        padding: 14px 20px !important;
+        min-height: 44px !important; /* Touch target accessibility */
+    }
+    
+    /* Form inputs for very small screens */
+    .form-group input, .form-group select {
+        font-size: 16px !important;
+        padding: 14px !important;
+        min-height: 44px !important; /* Touch target accessibility */
+    }
+}
+
+/* ===========================
+   ACCESSIBILITY IMPROVEMENTS
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Ensure focus states are visible */
+    .cta-button:focus, .apple-btn:focus, 
+    .form-group input:focus, .form-group select:focus {
+        outline: 3px solid #0071e3 !important;
+        outline-offset: 2px !important;
+    }
+    
+    /* Improve link readability */
+    a, .service-link, .apple-link {
+        text-decoration: underline !important;
+        text-decoration-thickness: 2px !important;
+        text-underline-offset: 3px !important;
+    }
+    
+    /* Remove text decorations on buttons */
+    .cta-button, .apple-btn, button {
+        text-decoration: none !important;
+    }
+    
+    /* Ensure adequate spacing between clickable elements */
+    .nav-menu li, .apple-nav-item {
+        margin-bottom: 8px !important;
+    }
+    
+    /* Improve tap target sizes */
+    .mobile-menu-toggle {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 8px !important;
+    }
+}
+
+/* ===========================
+   PERFORMANCE OPTIMIZATIONS
+   ========================== */
+
+@media (max-width: 768px) {
+    
+    /* Reduce text-shadow complexity for better performance */
+    .hero-yard-content h1 {
+        will-change: auto !important; /* Remove will-change to improve performance */
+    }
+    
+    /* Simplify animations on mobile */
+    * {
+        animation-duration: 0.2s !important; /* Faster animations */
+    }
+    
+    /* Optimize font rendering */
+    body, .apple-container {
+        text-rendering: optimizeSpeed !important; /* Faster rendering on mobile */
+        -webkit-font-feature-settings: "kern" 1 !important;
+        font-feature-settings: "kern" 1 !important;
+    }
+}
+
+/* ===========================
+   DARK MODE SUPPORT
+   ========================== */
+
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+    
+    /* Ensure text remains readable in dark mode */
+    .service-card, .benefit-card, .apple-card {
+        background: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    .service-card h3, .benefit h3, .apple-card-title {
+        color: #1e293b !important;
+    }
+    
+    .service-card p, .benefit p, .apple-card-description {
+        color: #374151 !important;
+    }
+}
+
+/* ===========================
+   PRINT STYLES
+   ========================== */
+
+@media print {
+    
+    /* Ensure readable font sizes in print */
+    body {
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+        color: black !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    .hero-yard-content h1, .hero-yard-content p {
+        color: black !important;
+        text-shadow: none !important;
+    }
+}
